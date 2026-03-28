@@ -1,4 +1,4 @@
-# RAG Testing — Finance RAG & Agent Pipeline
+# RAGAS-FINANCE — A RAG Agentic System for Financial Q&A
 
 Node-centric RAG stack for **financial disclosures** (e.g. SEC EDGAR HTML + structured company facts): **hybrid retrieval** (dense vectors + sparse / BM25), **SQL-backed observations**, optional **reranking**, **Langfuse** tracing, and a small **Next.js** UI.
 
