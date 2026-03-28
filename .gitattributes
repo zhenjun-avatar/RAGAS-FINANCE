@@ -1,0 +1,14 @@
+# GitHub Linguist: keep language bar reflecting app code, not sample filings / logs / exports.
+# See https://github.com/github-linguist/linguist/blob/master/docs/overrides.md
+
+# SEC sample HTML and sidecars (large .htm / JSON)
+src/agent/tools/data/** linguist-vendored
+
+# Runtime logs, pipeline traces, exported HTML reports
+src/agent/logs/** linguist-vendored
+
+# Saved ask reports (often JSON/HTML previews)
+src/agent/report/** linguist-vendored
+
+# Normalise text EOL on checkout (optional; safe default for cross-platform)
+* text=auto
