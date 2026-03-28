@@ -1,4 +1,5 @@
 # RAGAS-FINANCE — A RAG Agentic System for Financial Q&A
+> 一个面向财务问答的RAG代理系统 - RAGAS-FINANCE
 
 Node-centric RAG stack for **financial disclosures** (e.g. SEC EDGAR HTML + structured company facts): **hybrid retrieval** (dense vectors + sparse / BM25), **SQL-backed observations**, optional **reranking**, **Langfuse** tracing, and a small **Next.js** UI.
 
