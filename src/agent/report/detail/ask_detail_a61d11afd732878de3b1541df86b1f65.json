@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "trace_id": "a61d11afd732878de3b1541df86b1f65",
+    "created_at": "2026-03-27T12:17:57+00:00",
+    "schema_version": "report.detail.v1"
+  },
+  "request": {
+    "question": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts.",
+    "document_ids": [
+      9002,
+      9201,
+      9202,
+      9203,
+      9204,
+      9205,
+      9206,
+      9207,
+      9208,
+      9209,
+      9210
+    ],
+    "report_locale": "auto",
+    "detail_level": "detailed",
+    "top_k": 8
+  },
+  "rag": {
+    "final_ranked_ids": [],
+    "evidence_count": 3,
+    "evidence": [
+      {
+        "node_id": "dce06dda-2db1-4adb-a7fd-9191788439b6",
+        "document_id": 9207,
+        "level": null,
+        "title": "Evidence 1",
+        "source_section": null,
+        "finance_statement": null,
+        "finance_period": null,
+        "rerank_score": 0.8056,
+        "text_excerpt": "Liquidity and Capital Resources\n\nAs of September 30, 2021, we had $4,386 in our operating bank account, and working capital deficit of $1,312,053. Further, we have incurred and expects to continue to incur significant costs in pursuit of our acquisition plans.\n\nIf the Company is"
+      },
+      {
+        "node_id": "281dbede-f16a-451a-bc64-aef57757fb21",
+        "document_id": 9201,
+        "level": null,
+        "title": "Evidence 2",
+        "source_section": null,
+        "finance_statement": null,
+        "finance_period": null,
+        "rerank_score": 0.7888,
+        "text_excerpt": "The Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update"
+      },
+      {
+        "node_id": "3118de17-7cae-4101-93fd-8f6626d737b0",
+        "document_id": 9201,
+        "level": null,
+        "title": "Evidence 3",
+        "source_section": null,
+        "finance_statement": null,
+        "finance_period": null,
+        "rerank_score": 0.7414,
+        "text_excerpt": "We do not have sufficient liquidity to meet our anticipated obligations over the next year from the issuance of these financial statements. In connection with our assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Di"
+      }
+    ]
+  },
+  "sql": {
+    "sql_row_count": 0,
+    "sql_rows_kept": 0,
+    "filings_observed": [
+      "0001193125-22-219917",
+      "0001193125-21-321615",
+      "0001193125-21-100318"
+    ],
+    "facts_count": 0,
+    "facts": []
+  },
+  "prompt": {
+    "sql_context_chars": 0,
+    "rag_context_chars": 0,
+    "combined_context_chars": 0,
+    "token_usage": {}
+  }
+}

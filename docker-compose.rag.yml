@@ -1,0 +1,68 @@
+# RAG API local dependencies only: PostgreSQL + Qdrant
+# Usage (from repo root):
+#   docker compose -f docker-compose.rag.yml up -d
+# Then in src/agent/.env match the host ports below (defaults avoid common clashes on Windows/macOS).
+#
+# Postgres defaults to host 5433 (not 5432): a local PostgreSQL install often binds 0.0.0.0:5432,
+# so 127.0.0.1:5432 would hit the wrong server and asyncpg fails with connection reset (WinError 10054).
+# Override: POSTGRES_HOST_PORT=5432 docker compose -f docker-compose.rag.yml up -d
+#
+# Qdrant defaults to host 6433 to avoid clashes with other Qdrant/dev stacks on 6333/6334.
+# Override: QDRANT_HTTP_PORT=6333 docker compose -f docker-compose.rag.yml up -d
+#
+# OpenSearch (sparse / BM25) defaults to host 9200. Set SPARSE_BACKEND=opensearch in src/agent/.env.
+# Override: OPENSEARCH_HOST_PORT=19200 docker compose -f docker-compose.rag.yml up -d
+#
+# Example .env (see src/agent/env.example):
+#   DB_HOST=127.0.0.1 DB_PORT=5433 DB_USER=postgres DB_PASSWORD=postgres DB_NAME=rag
+#   DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5433/rag
+#   QDRANT_HOST=127.0.0.1 QDRANT_PORT=6433
+#   OPENSEARCH_HOST=127.0.0.1 OPENSEARCH_PORT=9200 SPARSE_BACKEND=opensearch
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: rag-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rag
+    ports:
+      - "${POSTGRES_HOST_PORT:-5433}:5432"
+    volumes:
+      - rag_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d rag"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:v1.11.0
+    container_name: rag-qdrant
+    ports:
+      - "${QDRANT_HTTP_PORT:-6433}:6333"
+    volumes:
+      - rag_qdrant_data:/qdrant/storage
+
+  opensearch:
+    image: opensearchproject/opensearch:2.17.0
+    container_name: rag-opensearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - DISABLE_SECURITY_PLUGIN=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "${OPENSEARCH_HOST_PORT:-9200}:9200"
+    volumes:
+      - rag_opensearch_data:/usr/share/opensearch/data
+
+volumes:
+  rag_pg_data:
+  rag_qdrant_data:
+  rag_opensearch_data:

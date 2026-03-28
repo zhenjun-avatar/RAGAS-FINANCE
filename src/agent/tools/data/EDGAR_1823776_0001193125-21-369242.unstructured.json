@@ -1,0 +1,3471 @@
+{
+  "pipeline_version": "edgar_unstructured_v1",
+  "source_htm": "C:\\Users\\liuzh\\Documents\\241201\\Backend\\rag-testing\\src\\agent\\tools\\data\\EDGAR_1823776_0001193125-21-369242.htm",
+  "element_count": 325,
+  "elements": [
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "UNITED STATES",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "SECURITIES AND EXCHANGE COMMISSION",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Washington, D.C. 20549",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "FORM",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(Amendment No. 1)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "☒ QUARTERLY REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934",
+      "text_structured": "TABLE | ☒ | QUARTERLY REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934",
+      "metadata": {
+        "text_as_html": "<table><tr><td>☒</td><td>QUARTERLY REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "For the quarterly period ended",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "OR",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "☐ TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934",
+      "text_structured": "TABLE | ☐ | TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934",
+      "metadata": {
+        "text_as_html": "<table><tr><td>☐</td><td>TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "For the transition period from",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "to",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "(Exact name of registrant as specified in its charter)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Cayman Islands 001-39639 98-1556204 (State or other jurisdiction of incorporation or organization) (Commission File Number) (IRS Employer Identification No.)",
+      "text_structured": "TABLE | Cayman Islands |  | 001-39639 |  | 98-1556204\nTABLE | (State or other jurisdiction of incorporation or organization) |  | (Commission File Number) |  | (IRS Employer Identification No.)",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/><td/><td/></tr><tr><td>Cayman Islands</td><td/><td>001-39639</td><td/><td>98-1556204</td></tr><tr><td>(State or other jurisdiction of incorporation or organization)</td><td/><td>(Commission File Number)</td><td/><td>(IRS Employer Identification No.)</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "1450 Brickell Avenue , 31st Floor Miami , FL 33131 (Address Of Principal Executive Offices) (Zip Code)",
+      "text_structured": "TABLE | 1450 Brickell Avenue , 31st Floor Miami , FL |  | 33131\nTABLE | (Address Of Principal Executive Offices) |  | (Zip Code)",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/></tr><tr><td>1450 Brickell Avenue , 31st Floor Miami , FL</td><td/><td>33131</td></tr><tr><td>(Address Of Principal Executive Offices)</td><td/><td>(Zip Code)</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "()",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Registrant’s telephone number, including area code",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Not Applicable",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "(Former name or former address, if changed since last report)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Securities registered pursuant to Section 12(b) of the Act:",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Title of each class Trading Symbol(s) Name of each exchange on which registered Units, each consisting of one Class A ordinary share, $0.0001 par value, and one-third of one redeemable warrant HIGA.U New York Stock Exchange Class A ordinary shares included as part of the units HIGA New York Stock Exchange Redeemable warrants included as part of the units HIGA WS New York Stock Exchange",
+      "text_structured": "TABLE | Title of each class |  | Trading Symbol(s) |  | Name of each exchange on which registered\nTABLE | Units, each consisting of one Class A ordinary share, $0.0001 par value, and one-third of one redeemable warrant |  | HIGA.U |  | New York Stock Exchange\nTABLE | Class A ordinary shares included as part of the units |  | HIGA |  | New York Stock Exchange\nTABLE | Redeemable warrants included as part of the units |  | HIGA WS |  | New York Stock Exchange",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/><td/><td/></tr><tr><td>Title of each class</td><td/><td>Trading Symbol(s)</td><td/><td>Name of each exchange on which registered</td></tr><tr><td>Units, each consisting of one Class A ordinary share, $0.0001 par value, and one-third of one redeemable warrant</td><td/><td>HIGA.U</td><td/><td>New York Stock Exchange</td></tr><tr><td>Class A ordinary shares included as part of the units</td><td/><td>HIGA</td><td/><td>New York Stock Exchange</td></tr><tr><td>Redeemable warrants included as part of the units</td><td/><td>HIGA WS</td><td/><td>New York Stock Exchange</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during the preceding 12 months (or for such shorter period that the registrant was required to file such reports), and (2) has been subject to such filing requirements for the past 90 days.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "☒ No ☐",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Indicate by check mark whether the registrant has submitted electronically every Interactive Data File required to be submitted pursuant to Rule 405 of Regulation",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "S-T",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "(§ 232.405 of this chapter) during the preceding 12 months (or for such shorter period that the registrant was required to submit such files).",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "☒ No ☐",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Indicate by check mark whether the registrant is a large accelerated filer, an accelerated filer, a",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "non-accelerated",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "filer, smaller reporting company, or an emerging growth company. See the definitions of “large accelerated filer,” “accelerated filer,” “smaller reporting company,” and “emerging growth company” in Rule",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "12b-2",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "of the Exchange Act.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Large accelerated filer ☐ Accelerated filer ☐  Non-accelerated filer ☒ Smaller reporting company ☒  Emerging growth company ☒",
+      "text_structured": "TABLE | Large accelerated filer |  | ☐ |  | Accelerated filer |  | ☐\nTABLE | Non-accelerated filer |  | ☒ |  | Smaller reporting company |  | ☒\nTABLE |  |  |  |  | Emerging growth company |  | ☒",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Large accelerated filer</td><td/><td>☐</td><td/><td>Accelerated filer</td><td/><td>☐</td></tr><tr><td/><td/><td/><td/></tr><tr><td>Non-accelerated filer</td><td/><td>☒</td><td/><td>Smaller reporting company</td><td/><td>☒</td></tr><tr><td/><td/><td/><td/></tr><tr><td/><td/><td/><td/><td>Emerging growth company</td><td/><td>☒</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying with any new or revised financial accounting standards provided pursuant to Section 13(a) of the Exchange",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Act.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Indicate by check mark whether the registrant is a shell company (as defined in Rule",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "12b-2",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "of the Exchange Act). Yes No ☐",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "As of December 29, 2021",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Class A ordinary shares, par value $0.0001 per share, and Class B ordinary shares, par value $0.0001 per share, were issued and outstanding, respectively.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "EXPLANATORY NOTE",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Restatement Background",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The Company has followed Accounting Standards Codification Topic 480, “Distinguishing Liabilities from Equity,” (“ASC 480”) in accounting for its redeemable Class A ordinary shares, par value $0.0001 per share (the “Public Shares”). This included recording the Public Shares in permanent equity on its balance sheet. However, the Company maintained shareholders’ equity of at least $5,000,001 as the Company will not redeem Public Shares that would cause the Company’s net tangible assets to be less than $5,000,001 following such redemptions.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "In September 2021, the Company’s management",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "re-evaluated",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "and ultimately concluded that the classification of $5,000,001 in permanent equity was not appropriate and that the Public Shares should be reclassified as temporary equity. In connection with the preparation of the financial statements as of and for the three and nine months ended September 30, 2021 that were included in the Q3",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Form 10-Q,",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "the Company concluded that it would change its accounting and reflect the full amount of all redeemable Public Shares in temporary equity. This was a change from the Company’s previous accounting practice whereby it maintained shareholders’ equity of at least $5,000,001 as the Company will not redeem Public Shares that would cause the Company’s net tangible assets to be less than $5,000,001 following such redemptions. In connection with the change in presentation for the Public Shares subject to possible redemption, the Company also revised its earnings per share to allocate net income (loss) evenly to all Public Shares and Class B ordinary shares.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "On December 14, 2021, the Company’s management and the audit committee of the Company’s board of directors (the “Audit Committee”) concluded that the Company’s previously issued (i) audited balance sheet as of October 23, 2020, (the",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "“Post-IPO",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Balance Sheet”) as previously restated in the First Amended Filing, (ii) audited financial statements included in the First Amended Filing, (iii) unaudited interim financial statements as of and for the three months ended March 31, 2021 included in the Company’s Quarterly Report on Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q,",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "filed with the SEC on May 24, 2021, (iv) unaudited interim financial statements as of and for the three and six months ended June 30, 2021 included in the Company’s Quarterly Report on Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q,",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "filed with the SEC on August 16, 2021, and (v) unaudited interim financial statements as of and for the three and nine months ended September 30, 2021 included in the Q3 Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "(collectively, the “Affected Periods”), in each case, should be restated to classify all of the Public Shares as temporary equity and should no longer be relied upon. As a result, the Company is restating its financial statements for the Affected Periods in a Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-K/A",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "for the",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Post-IPO",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Balance Sheet and the Company’s audited financial statements included in the 2020 Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-K/A",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "and in a",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Form 10-Q/A",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "for the unaudited condensed financial statements for the periods ended March 31, 2021, and June 30, 2021.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The restatement does not have an impact on its cash position and cash held in the trust account (the “Trust Account”) established in connection with the initial public offering.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The financial information that has been previously filed or otherwise reported is superseded by the information in this Amendment, and the financial statements and related financial information contained in such previously filed report should no longer be relied upon.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The restatement is more fully described in Note 2 of the notes to the financial statements included herein.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Internal Control and Disclosure Controls Considerations",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Following the conclusion that the classification of $5,000,0001 in permanent equity was not appropriate and that the Public Shares should be reclassified as temporary equity, the Company’s management has concluded that, due to the events that led to this Amendment, a material weakness existed related to our accounting for complex financial instruments and the Company’s disclosure controls and procedures were not effective.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The material weakness is more fully described in Item 4: Controls and Procedures, contained herein.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Items Amended In This Amendment",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "For the convenience of the reader, this Amendment sets forth the Q3 Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q,",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "as amended to reflect the restatement in connection with the reclassification of the Public Shares as temporary equity. No attempt has been made in this Amendment to update other disclosures presented in the Q3 Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q,",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "except as required to reflect the effects of the restatement. The following items have been amended as a result of the restatement:",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "• Part I - Item 1. Financial Statements.",
+      "text_structured": "TABLE |  | • |  | Part I - Item 1. Financial Statements.",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td>•</td><td/><td>Part I - Item 1. Financial Statements.</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "• Part I - Item 4. Controls and Procedures.",
+      "text_structured": "TABLE |  | • |  | Part I - Item 4. Controls and Procedures.",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td>•</td><td/><td>Part I - Item 4. Controls and Procedures.</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "• Part II - Item 6. Exhibits.",
+      "text_structured": "TABLE |  | • |  | Part II - Item 6. Exhibits.",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td>•</td><td/><td>Part II - Item 6. Exhibits.</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "This Amendment replaces the Q3 Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The Company’s Chief Executive Officer and Chief Financial Officer are providing currently dated certifications in connection with this",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Form 10-Q/A.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "See Exhibits 31.1, 31.2, 32.1 and 32.2.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "For the nine months ended September 30, 2021, and period ended December 31, 2020",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Page PART I. FINANCIAL INFORMATION  Item 1. Financial Statements 1 Condensed Balance Sheets as of September 30, 2021 (Unaudited) and December 31, 2020 1 Unaudited Condensed Statements of Operations for the period for the Three and Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 2 Unaudited Condensed Statements of Changes in Shareholders’ Equity for the Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 3 Unaudited Condensed Statement of Cash Flows for the Three and Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 4 Notes to Unaudited Condensed Financial Statements 5 Item 2. Management’s Discussion and Analysis of Financial Condition and Results of Operations 17 Item 3. Quantitative and Qualitative Disclosures About Market Risk 21 Item 4. Controls and Procedures 21 PART II. OTHER INFORMATION Item 1. Legal Proceedings 21 Item 1A. Risk Factors 22 Item 2. Unregistered Sales of Equity Securities and Use of Proceeds from Registered Securities 22 Item 3. Defaults Upon Senior Securities 22 Item 4. Mine Safety Disclosures 22 Item 5. Other Information 22 Item 6. Exhibits 22  SIGNATURES 23",
+      "text_structured": "TABLE |  |  |  |  | Page | \nTABLE | PART I. FINANCIAL INFORMATION |  |  |  | \nTABLE | Item 1. |  | Financial Statements |  |  | 1 | \nTABLE |  |  | Condensed Balance Sheets as of September 30, 2021 (Unaudited) and December 31, 2020 |  |  | 1 | \nTABLE |  |  | Unaudited Condensed Statements of Operations for the period for the Three and Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 |  |  | 2 | \nTABLE |  |  | Unaudited Condensed Statements of Changes in Shareholders’ Equity for the Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 |  |  | 3 | \nTABLE |  |  | Unaudited Condensed Statement of Cash Flows for the Three and Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 |  |  | 4 | \nTABLE |  |  | Notes to Unaudited Condensed Financial Statements |  |  | 5 | \nTABLE | Item 2. |  | Management’s Discussion and Analysis of Financial Condition and Results of Operations |  |  | 17 | \nTABLE | Item 3. |  | Quantitative and Qualitative Disclosures About Market Risk |  |  | 21 | \nTABLE | Item 4. |  | Controls and Procedures |  |  | 21 | \nTABLE | PART II. OTHER INFORMATION |  |  |  | \nTABLE | Item 1. |  | Legal Proceedings |  |  | 21 | \nTABLE | Item 1A. |  | Risk Factors |  |  | 22 | \nTABLE | Item 2. |  | Unregistered Sales of Equity Securities and Use of Proceeds from Registered Securities |  |  | 22 | \nTABLE | Item 3. |  | Defaults Upon Senior Securities |  |  | 22 | \nTABLE | Item 4. |  | Mine Safety Disclosures |  |  | 22 | \nTABLE | Item 5. |  | Other Information |  |  | 22 | \nTABLE | Item 6. |  | Exhibits |  |  | 22 | \nTABLE | SIGNATURES |  |  | 23 | ",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td/><td/><td>Page</td><td/></tr><tr><td>PART I. FINANCIAL INFORMATION</td><td/><td/><td/><td/></tr><tr><td/><td/><td/></tr><tr><td>Item 1.</td><td/><td>Financial Statements</td><td/><td/><td>1</td><td/></tr><tr><td/><td/><td>Condensed Balance Sheets as of September 30, 2021 (Unaudited) and December 31, 2020</td><td/><td/><td>1</td><td/></tr><tr><td/><td/><td>Unaudited Condensed Statements of Operations for the period for the Three and Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020</td><td/><td/><td>2</td><td/></tr><tr><td/><td/><td>Unaudited Condensed Statements of Changes in Shareholders’ Equity for the Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020</td><td/><td/><td>3</td><td/></tr><tr><td/><td/><td>Unaudited Condensed Statement of Cash Flows for the Three and Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020</td><td/><td/><td>4</td><td/></tr><tr><td/><td/><td>Notes to Unaudited Condensed Financial Statements</td><td/><td/><td>5</td><td/></tr><tr><td>Item 2.</td><td/><td>Management’s Discussion and Analysis of Financial Condition and Results of Operations</td><td/><td/><td>17</td><td/></tr><tr><td>Item 3.</td><td/><td>Quantitative and Qualitative Disclosures About Market Risk</td><td/><td/><td>21</td><td/></tr><tr><td>Item 4.</td><td/><td>Controls and Procedures</td><td/><td/><td>21</td><td/></tr><tr><td>PART II. OTHER INFORMATION</td><td/><td/><td/><td/></tr><tr><td>Item 1.</td><td/><td>Legal Proceedings</td><td/><td/><td>21</td><td/></tr><tr><td>Item 1A.</td><td/><td>Risk Factors</td><td/><td/><td>22</td><td/></tr><tr><td>Item 2.</td><td/><td>Unregistered Sales of Equity Securities and Use of Proceeds from Registered Securities</td><td/><td/><td>22</td><td/></tr><tr><td>Item 3.</td><td/><td>Defaults Upon Senior Securities</td><td/><td/><td>22</td><td/></tr><tr><td>Item 4.</td><td/><td>Mine Safety Disclosures</td><td/><td/><td>22</td><td/></tr><tr><td>Item 5.</td><td/><td>Other Information</td><td/><td/><td>22</td><td/></tr><tr><td>Item 6.</td><td/><td>Exhibits</td><td/><td/><td>22</td><td/></tr><tr><td/><td/></tr><tr><td>SIGNATURES</td><td/><td/><td>23</td><td/></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "PART I. FINANCIAL INFORMATION",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 1. Financial Statements",
+      "text_structured": "TABLE | Item 1. | Financial Statements",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 1.</td><td>Financial Statements</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "CONDENSED BALANCE SHEETS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "September 30, 2021 December 31, 2020 (Unaudited) ASSETS Current Assets: Cash $ 4,386 $ 30,103 Prepaid expenses 609,967 1,096,949  Total current assets 614,353 1,127,052 Investments held in Trust Account 363,978,513 363,951,287  Total assets $ 364,592,866 $ 365,078,339  LIABILITIES AND SHAREHOLDERS’ DEFICIT Current liabilities: Accounts payable $ 1,615,714 $ 58,206 Accrued expenses 289,009 98,579 Due to related party 21,683 —  Total current liabilities 1,926,406 156,785 Deferred underwriting commissions 12,738,075 12,738,075 Derivative warrant liabilities 12,573,087 23,995,840  Total liabilities 27,237,568 36,890,700  Commitments and Contingencies (Note 6) Class A ordinary shares subject to possible redemption, 36,394,500 shares at redemption value of $ 10 per share 363,945,000 363,945,000 Shareholders’ Deficit Preference shares, $ 0.0001 par value; 1,000,000 shares authorized; none issued and outstanding — — Class A ordinary shares, $ 0.0001 par value; 950,000,000 shares authorized; none issued or outstanding (excluding 36,394,500 shares subject to possible redemption) — — Class B ordinary shares, $ 0.0001 par value; 95,000,000 shares authorized; 9,098,625 shares issued and outstanding 910 910 Additional paid-in capital — — Accumulated deficit ( 26,590,612 ) ( 35,758,271 )  Total shareholders’ deficit ( 26,589,702 ) ( 35,757,361 )  Total Liabilities and Shareholders’ Deficit $ 364,592,866 $ 365,078,339",
+      "text_structured": "TABLE |  |  | September 30, 2021 |  |  | December 31, 2020 | \nTABLE |  |  | (Unaudited) |  |  |  | \nTABLE | ASSETS |  |  |  |  |  |  |  | \nTABLE | Current Assets: |  |  |  |  |  |  |  | \nTABLE | Cash |  | $ | 4,386 |  |  | $ | 30,103 | \nTABLE | Prepaid expenses |  |  | 609,967 |  |  |  | 1,096,949 | \nTABLE | Total current assets |  |  | 614,353 |  |  |  | 1,127,052 | \nTABLE | Investments held in Trust Account |  |  | 363,978,513 |  |  |  | 363,951,287 | \nTABLE | Total assets |  | $ | 364,592,866 |  |  | $ | 365,078,339 | \nTABLE | LIABILITIES AND SHAREHOLDERS’ DEFICIT |  |  |  |  |  |  |  | \nTABLE | Current liabilities: |  |  |  |  |  |  |  | \nTABLE | Accounts payable |  | $ | 1,615,714 |  |  | $ | 58,206 | \nTABLE | Accrued expenses |  |  | 289,009 |  |  |  | 98,579 | \nTABLE | Due to related party |  |  | 21,683 |  |  |  | — | \nTABLE | Total current liabilities |  |  | 1,926,406 |  |  |  | 156,785 | \nTABLE | Deferred underwriting commissions |  |  | 12,738,075 |  |  |  | 12,738,075 | \nTABLE | Derivative warrant liabilities |  |  | 12,573,087 |  |  |  | 23,995,840 | \nTABLE | Total liabilities |  |  | 27,237,568 |  |  |  | 36,890,700 | \nTABLE | Commitments and Contingencies (Note 6) |  |  |  |  |  |  |  | \nTABLE | Class A ordinary shares subject to possible redemption, 36,394,500 shares at redemption value of $ 10 per share |  |  | 363,945,000 |  |  |  | 363,945,000 | \nTABLE | Shareholders’ Deficit |  |  |  |  |  |  |  | \nTABLE | Preference shares, $ 0.0001 par value; 1,000,000 shares authorized; none issued and outstanding |  |  | — |  |  |  | — | \nTABLE | Class A ordinary shares, $ 0.0001 par value; 950,000,000 shares authorized; none issued or outstanding (excluding 36,394,500 shares subject to possible redemption) |  |  | — |  |  |  | — | \nTABLE | Class B ordinary shares, $ 0.0001 par value; 95,000,000 shares authorized; 9,098,625 shares issued and outstanding |  |  | 910 |  |  |  | 910 | \nTABLE | Additional paid-in capital |  |  | — |  |  |  | — | \nTABLE | Accumulated deficit |  |  | ( 26,590,612 | ) |  |  | ( 35,758,271 | )\nTABLE | Total shareholders’ deficit |  |  | ( 26,589,702 | ) |  |  | ( 35,757,361 | )\nTABLE | Total Liabilities and Shareholders’ Deficit |  | $ | 364,592,866 |  |  | $ | 365,078,339 | ",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td>September 30, 2021</td><td/><td/><td>December 31, 2020</td><td/></tr><tr><td/><td/><td>(Unaudited)</td><td/><td/><td/><td/></tr><tr><td>ASSETS</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Current Assets:</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Cash</td><td/><td>$</td><td>4,386</td><td/><td/><td>$</td><td>30,103</td><td/></tr><tr><td>Prepaid expenses</td><td/><td/><td>609,967</td><td/><td/><td/><td>1,096,949</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Total current assets</td><td/><td/><td>614,353</td><td/><td/><td/><td>1,127,052</td><td/></tr><tr><td>Investments held in Trust Account</td><td/><td/><td>363,978,513</td><td/><td/><td/><td>363,951,287</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Total assets</td><td/><td>$</td><td>364,592,866</td><td/><td/><td>$</td><td>365,078,339</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>LIABILITIES AND SHAREHOLDERS’ DEFICIT</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Current liabilities:</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Accounts payable</td><td/><td>$</td><td>1,615,714</td><td/><td/><td>$</td><td>58,206</td><td/></tr><tr><td>Accrued expenses</td><td/><td/><td>289,009</td><td/><td/><td/><td>98,579</td><td/></tr><tr><td>Due to related party</td><td/><td/><td>21,683</td><td/><td/><td/><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Total current liabilities</td><td/><td/><td>1,926,406</td><td/><td/><td/><td>156,785</td><td/></tr><tr><td>Deferred underwriting commissions</td><td/><td/><td>12,738,075</td><td/><td/><td/><td>12,738,075</td><td/></tr><tr><td>Derivative warrant liabilities</td><td/><td/><td>12,573,087</td><td/><td/><td/><td>23,995,840</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Total liabilities</td><td/><td/><td>27,237,568</td><td/><td/><td/><td>36,890,700</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Commitments and Contingencies (Note 6)</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Class A ordinary shares subject to possible redemption, 36,394,500 shares at redemption value of $ 10 per share</td><td/><td/><td>363,945,000</td><td/><td/><td/><td>363,945,000</td><td/></tr><tr><td>Shareholders’ Deficit</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Preference shares, $ 0.0001 par value; 1,000,000 shares authorized; none issued and outstanding</td><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/></tr><tr><td>Class A ordinary shares, $ 0.0001 par value; 950,000,000 shares authorized; none issued or outstanding (excluding 36,394,500 shares subject to possible redemption)</td><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/></tr><tr><td>Class B ordinary shares, $ 0.0001 par value; 95,000,000 shares authorized; 9,098,625 shares issued and outstanding</td><td/><td/><td>910</td><td/><td/><td/><td>910</td><td/></tr><tr><td>Additional paid-in capital</td><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/></tr><tr><td>Accumulated deficit</td><td/><td/><td>( 26,590,612</td><td>)</td><td/><td/><td>( 35,758,271</td><td>)</td></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Total shareholders’ deficit</td><td/><td/><td>( 26,589,702</td><td>)</td><td/><td/><td>( 35,757,361</td><td>)</td></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Total Liabilities and Shareholders’ Deficit</td><td/><td>$</td><td>364,592,866</td><td/><td/><td>$</td><td>365,078,339</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The accompanying notes are an integral part of these unaudited condensed financial statements.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "CONDENSED STATEMENTS OF OPERATIONS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(Unaudited)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Three Months Ended September 30, 2021 Nine Months Ended September 30, 2021 For The Period From September 2, 2020 (inception) through September 30, 2020 General and administrative expenses $ 356,234 $ 2,192,319 $ 20,033 Administrative expenses - related party 30,000 90,000 —  Loss from operations ( 386,234 ) ( 2,282,319 ) ( 20,033 ) Interest income from investments held in Trust Account 9,176 27,225 — Change in fair value of derivative warrant liabilities 8,308,783 11,422,753 —  Net Income (Loss) $ 7,931,725 $ 9,167,659 $ ( 20,033 )  Weighted average shares outstanding of Class A ordinary shares 36,394,500 36,394,500 —  Basic and diluted net income (loss) per share, Class A ordinary shares $ 0.17 $ 0.20 $ 0.00  Weighted average shares outstanding of Class B ordinary shares 9,098,625 9,098,625 9,098,625  Basic and diluted net income per share, Class B ordinary shares $ 0.17 $ 0.20 $ 0.00",
+      "text_structured": "TABLE |  |  | Three Months Ended September 30, 2021 |  |  | Nine Months Ended September 30, 2021 |  |  | For The Period From September 2, 2020 (inception) through September 30, 2020 | \nTABLE | General and administrative expenses |  | $ | 356,234 |  |  | $ | 2,192,319 |  |  | $ | 20,033 | \nTABLE | Administrative expenses - related party |  |  | 30,000 |  |  |  | 90,000 |  |  |  | — | \nTABLE | Loss from operations |  |  | ( 386,234 | ) |  |  | ( 2,282,319 | ) |  |  | ( 20,033 | )\nTABLE | Interest income from investments held in Trust Account |  |  | 9,176 |  |  |  | 27,225 |  |  |  | — | \nTABLE | Change in fair value of derivative warrant liabilities |  |  | 8,308,783 |  |  |  | 11,422,753 |  |  |  | — | \nTABLE | Net Income (Loss) |  | $ | 7,931,725 |  |  | $ | 9,167,659 |  |  | $ | ( 20,033 | )\nTABLE | Weighted average shares outstanding of Class A ordinary shares |  |  | 36,394,500 |  |  |  | 36,394,500 |  |  |  | — | \nTABLE | Basic and diluted net income (loss) per share, Class A ordinary shares |  | $ | 0.17 |  |  | $ | 0.20 |  |  | $ | 0.00 | \nTABLE | Weighted average shares outstanding of Class B ordinary shares |  |  | 9,098,625 |  |  |  | 9,098,625 |  |  |  | 9,098,625 | \nTABLE | Basic and diluted net income per share, Class B ordinary shares |  | $ | 0.17 |  |  | $ | 0.20 |  |  | $ | 0.00 | ",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td>Three Months Ended September 30, 2021</td><td/><td/><td>Nine Months Ended September 30, 2021</td><td/><td/><td>For The Period From September 2, 2020 (inception) through September 30, 2020</td><td/></tr><tr><td>General and administrative expenses</td><td/><td>$</td><td>356,234</td><td/><td/><td>$</td><td>2,192,319</td><td/><td/><td>$</td><td>20,033</td><td/></tr><tr><td>Administrative expenses - related party</td><td/><td/><td>30,000</td><td/><td/><td/><td>90,000</td><td/><td/><td/><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Loss from operations</td><td/><td/><td>( 386,234</td><td>)</td><td/><td/><td>( 2,282,319</td><td>)</td><td/><td/><td>( 20,033</td><td>)</td></tr><tr><td>Interest income from investments held in Trust Account</td><td/><td/><td>9,176</td><td/><td/><td/><td>27,225</td><td/><td/><td/><td>—</td><td/></tr><tr><td>Change in fair value of derivative warrant liabilities</td><td/><td/><td>8,308,783</td><td/><td/><td/><td>11,422,753</td><td/><td/><td/><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Net Income (Loss)</td><td/><td>$</td><td>7,931,725</td><td/><td/><td>$</td><td>9,167,659</td><td/><td/><td>$</td><td>( 20,033</td><td>)</td></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Weighted average shares outstanding of Class A ordinary shares</td><td/><td/><td>36,394,500</td><td/><td/><td/><td>36,394,500</td><td/><td/><td/><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Basic and diluted net income (loss) per share, Class A ordinary shares</td><td/><td>$</td><td>0.17</td><td/><td/><td>$</td><td>0.20</td><td/><td/><td>$</td><td>0.00</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Weighted average shares outstanding of Class B ordinary shares</td><td/><td/><td>9,098,625</td><td/><td/><td/><td>9,098,625</td><td/><td/><td/><td>9,098,625</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Basic and diluted net income per share, Class B ordinary shares</td><td/><td>$</td><td>0.17</td><td/><td/><td>$</td><td>0.20</td><td/><td/><td>$</td><td>0.00</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The accompanying notes are an integral part of these unaudited condensed financial statements.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "CONDENSED STATEMENTS OF CHANGES IN SHAREHOLDERS’ EQUITY",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "FOR THE THREE AND NINE MONTHS ENDED SEPTEMBER 30, 2021",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Ordinary Shares Class B Shares Amount Additional Paid- In Capital Accumulated Deficit Total Shareholders’ Deficit  Balance - January 1, 2021 9,098,625 $ 910 $ — $ ( 35,758,271 ) $ ( 35,757,361 ) Net income — — — 3,455,249 3,455,249  Balance - March 31, 2021 (unaudited) 9,098,625 $ 910 $ — $ ( 32,303,022 ) $ ( 32,302,112 ) Net loss — — — ( 2,219,315 ) ( 2,219,315 )  Balance - June 30, 2021 (unaudited) 9,098,625 $ 910 $ — $ ( 34,522,337 ) $ ( 34,521,427 ) Net income — — — 7,931,725 7,931,725  Balance - September 30, 2021 (unaudited) 9,098,625 $ 910 $ — $ ( 26,590,612 ) $ ( 26,589,702 )",
+      "text_structured": "TABLE |  |  | Ordinary Shares |  |  |  |  |  |  |  |  |  | \nTABLE |  |  | Class B |  |  |  |  |  |  |  |  |  | \nTABLE |  |  | Shares |  |  | Amount |  |  | Additional Paid- In Capital |  |  | Accumulated Deficit |  |  | Total Shareholders’ Deficit | \nTABLE | Balance - January 1, 2021 |  |  | 9,098,625 |  |  | $ | 910 |  |  | $ | — |  |  | $ | ( 35,758,271 | ) |  | $ | ( 35,757,361 | )\nTABLE | Net income |  |  | — |  |  |  | — |  |  |  | — |  |  |  | 3,455,249 |  |  |  | 3,455,249 | \nTABLE | Balance - March 31, 2021 (unaudited) |  |  | 9,098,625 |  |  | $ | 910 |  |  | $ | — |  |  | $ | ( 32,303,022 | ) |  | $ | ( 32,302,112 | )\nTABLE | Net loss |  |  | — |  |  |  | — |  |  |  | — |  |  |  | ( 2,219,315 | ) |  |  | ( 2,219,315 | )\nTABLE | Balance - June 30, 2021 (unaudited) |  |  | 9,098,625 |  |  | $ | 910 |  |  | $ | — |  |  | $ | ( 34,522,337 | ) |  | $ | ( 34,521,427 | )\nTABLE | Net income |  |  | — |  |  |  | — |  |  |  | — |  |  |  | 7,931,725 |  |  |  | 7,931,725 | \nTABLE | Balance - September 30, 2021 (unaudited) |  |  | 9,098,625 |  |  | $ | 910 |  |  | $ | — |  |  | $ | ( 26,590,612 | ) |  | $ | ( 26,589,702 | )",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td>Ordinary Shares</td><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td>Class B</td><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td>Shares</td><td/><td/><td>Amount</td><td/><td/><td>Additional Paid- In Capital</td><td/><td/><td>Accumulated Deficit</td><td/><td/><td>Total Shareholders’ Deficit</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Balance - January 1, 2021</td><td/><td/><td>9,098,625</td><td/><td/><td>$</td><td>910</td><td/><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>( 35,758,271</td><td>)</td><td/><td>$</td><td>( 35,757,361</td><td>)</td></tr><tr><td>Net income</td><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/><td/><td/><td>3,455,249</td><td/><td/><td/><td>3,455,249</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Balance - March 31, 2021 (unaudited)</td><td/><td/><td>9,098,625</td><td/><td/><td>$</td><td>910</td><td/><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>( 32,303,022</td><td>)</td><td/><td>$</td><td>( 32,302,112</td><td>)</td></tr><tr><td>Net loss</td><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/><td/><td/><td>( 2,219,315</td><td>)</td><td/><td/><td>( 2,219,315</td><td>)</td></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Balance - June 30, 2021 (unaudited)</td><td/><td/><td>9,098,625</td><td/><td/><td>$</td><td>910</td><td/><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>( 34,522,337</td><td>)</td><td/><td>$</td><td>( 34,521,427</td><td>)</td></tr><tr><td>Net income</td><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/><td/><td/><td>7,931,725</td><td/><td/><td/><td>7,931,725</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Balance - September 30, 2021 (unaudited)</td><td/><td/><td>9,098,625</td><td/><td/><td>$</td><td>910</td><td/><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>( 26,590,612</td><td>)</td><td/><td>$</td><td>( 26,589,702</td><td>)</td></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "CONDENSED STATEMENTS OF CHANGES IN SHAREHOLDERS’ EQUITY",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "FOR THE PERIOD FROM SEPTEMBER 3, 2020 (INCEPTION) THROUGH",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "SEPTEMBER 30, 2020",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Ordinary Shares Class B Shares Amount Additional Paid- In Capital Accumulated Deficit Total Shareholders’ Deficit Balance as of September 3, 2020 (inception) — $ — $ — $ — $ — Issuance of ordinary shares to Sponsor 9,098,625 910 — — 910 Net loss — — — ( 20,033 ) ( 20,033 )  Balance as of September 30, 2020 (unaudited) 9,098,625 $ 910 $ — $ ( 20,033 ) $ ( 19,123 )",
+      "text_structured": "TABLE |  |  | Ordinary Shares |  |  |  |  |  |  |  |  |  |  |  |  | \nTABLE |  |  | Class B |  |  |  |  |  |  |  |  |  |  |  |  | \nTABLE |  |  | Shares |  |  | Amount |  |  | Additional Paid- In Capital |  |  | Accumulated Deficit |  |  | Total Shareholders’ Deficit | \nTABLE | Balance as of September 3, 2020 (inception) |  |  | — |  |  | $ | — |  |  | $ | — |  |  | $ | — |  |  | $ | — | \nTABLE | Issuance of ordinary shares to Sponsor |  |  | 9,098,625 |  |  |  | 910 |  |  |  | — |  |  |  | — |  |  |  | 910 | \nTABLE | Net loss |  |  | — |  |  |  | — |  |  |  | — |  |  |  | ( 20,033 | ) |  |  | ( 20,033 | )\nTABLE | Balance as of September 30, 2020 (unaudited) |  |  | 9,098,625 |  |  | $ | 910 |  |  | $ | — |  |  | $ | ( 20,033 | ) |  | $ | ( 19,123 | )",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td>Ordinary Shares</td><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td>Class B</td><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td>Shares</td><td/><td/><td>Amount</td><td/><td/><td>Additional Paid- In Capital</td><td/><td/><td>Accumulated Deficit</td><td/><td/><td>Total Shareholders’ Deficit</td><td/></tr><tr><td>Balance as of September 3, 2020 (inception)</td><td/><td/><td>—</td><td/><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>—</td><td/></tr><tr><td>Issuance of ordinary shares to Sponsor</td><td/><td/><td>9,098,625</td><td/><td/><td/><td>910</td><td/><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/><td/><td/><td>910</td><td/></tr><tr><td>Net loss</td><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/><td/><td/><td>—</td><td/><td/><td/><td>( 20,033</td><td>)</td><td/><td/><td>( 20,033</td><td>)</td></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Balance as of September 30, 2020 (unaudited)</td><td/><td/><td>9,098,625</td><td/><td/><td>$</td><td>910</td><td/><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>( 20,033</td><td>)</td><td/><td>$</td><td>( 19,123</td><td>)</td></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The accompanying notes are an integral part of these unaudited condensed financial statements.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "CONDENSED STATEMENTS OF CASH FLOWS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Nine Months Ended September 30, 2021 For The Period From September 2, 2020 (inception) through September 30, 2020 Cash Flows from Operating Activities: Net income (loss) $ 9,167,659 $ ( 20,033 ) Adjustments to reconcile net income (loss) to net cash used in operating activities: Change in fair value of derivative warrant liabilities ( 11,422,753 ) — Interest income from investments held in Trust Account ( 27,225 ) — General and administrative expenses paid by Sponsor in exchange for issuance of Class B ordinary shares — 20,033 Changes in operating assets and liabilities: Prepaid expenses 486,981 — Accounts payable 1,557,508 — Accrued expenses 190,430 —  Net cash used in operating activities ( 47,400 ) —  Cash Flows from Financing Activities: Advances from related party 21,683 —  Net cash provided by financing activities 21,683 —  Net decrease in cash ( 25,717 ) — Cash - beginning of period 30,103 —  Cash - end of period $ 4,386 $ —  Supplemental disclosure of noncash investing and financing activities: Deferred offering costs included in accounts payable $ — $ 30,255  Deferred offering costs included in accrued expenses $ — $ 259,000  Deferred offering costs paid through promissory note — related party $ — $ 206,500  Deferred offering costs paid through the issuance of ordinary shares to Sponsor $ — $ 25,000",
+      "text_structured": "TABLE |  |  | Nine Months Ended September 30, 2021 |  |  | For The Period From September 2, 2020 (inception) through September 30, 2020 | \nTABLE | Cash Flows from Operating Activities: |  |  |  |  |  |  |  | \nTABLE | Net income (loss) |  | $ | 9,167,659 |  |  | $ | ( 20,033 | )\nTABLE | Adjustments to reconcile net income (loss) to net cash used in operating activities: |  |  |  |  |  |  |  | \nTABLE | Change in fair value of derivative warrant liabilities |  |  | ( 11,422,753 | ) |  |  | — | \nTABLE | Interest income from investments held in Trust Account |  |  | ( 27,225 | ) |  |  | — | \nTABLE | General and administrative expenses paid by Sponsor in exchange for issuance of Class B ordinary shares |  |  | — |  |  |  | 20,033 | \nTABLE | Changes in operating assets and liabilities: |  |  |  |  |  |  |  | \nTABLE | Prepaid expenses |  |  | 486,981 |  |  |  | — | \nTABLE | Accounts payable |  |  | 1,557,508 |  |  |  | — | \nTABLE | Accrued expenses |  |  | 190,430 |  |  |  | — | \nTABLE | Net cash used in operating activities |  |  | ( 47,400 | ) |  |  | — | \nTABLE | Cash Flows from Financing Activities: |  |  |  |  |  |  |  | \nTABLE | Advances from related party |  |  | 21,683 |  |  |  | — | \nTABLE | Net cash provided by financing activities |  |  | 21,683 |  |  |  | — | \nTABLE | Net decrease in cash |  |  | ( 25,717 | ) |  |  | — | \nTABLE | Cash - beginning of period |  |  | 30,103 |  |  |  | — | \nTABLE | Cash - end of period |  | $ | 4,386 |  |  | $ | — | \nTABLE | Supplemental disclosure of noncash investing and financing activities: |  |  |  |  |  |  |  | \nTABLE | Deferred offering costs included in accounts payable |  | $ | — |  |  | $ | 30,255 | \nTABLE | Deferred offering costs included in accrued expenses |  | $ | — |  |  | $ | 259,000 | \nTABLE | Deferred offering costs paid through promissory note — related party |  | $ | — |  |  | $ | 206,500 | \nTABLE | Deferred offering costs paid through the issuance of ordinary shares to Sponsor |  | $ | — |  |  | $ | 25,000 | ",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td/><td/><td>Nine Months Ended September 30, 2021</td><td/><td/><td>For The Period From September 2, 2020 (inception) through September 30, 2020</td><td/></tr><tr><td>Cash Flows from Operating Activities:</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Net income (loss)</td><td/><td>$</td><td>9,167,659</td><td/><td/><td>$</td><td>( 20,033</td><td>)</td></tr><tr><td>Adjustments to reconcile net income (loss) to net cash used in operating activities:</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Change in fair value of derivative warrant liabilities</td><td/><td/><td>( 11,422,753</td><td>)</td><td/><td/><td>—</td><td/></tr><tr><td>Interest income from investments held in Trust Account</td><td/><td/><td>( 27,225</td><td>)</td><td/><td/><td>—</td><td/></tr><tr><td>General and administrative expenses paid by Sponsor in exchange for issuance of Class B ordinary shares</td><td/><td/><td>—</td><td/><td/><td/><td>20,033</td><td/></tr><tr><td>Changes in operating assets and liabilities:</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Prepaid expenses</td><td/><td/><td>486,981</td><td/><td/><td/><td>—</td><td/></tr><tr><td>Accounts payable</td><td/><td/><td>1,557,508</td><td/><td/><td/><td>—</td><td/></tr><tr><td>Accrued expenses</td><td/><td/><td>190,430</td><td/><td/><td/><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Net cash used in operating activities</td><td/><td/><td>( 47,400</td><td>)</td><td/><td/><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Cash Flows from Financing Activities:</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Advances from related party</td><td/><td/><td>21,683</td><td/><td/><td/><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Net cash provided by financing activities</td><td/><td/><td>21,683</td><td/><td/><td/><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Net decrease in cash</td><td/><td/><td>( 25,717</td><td>)</td><td/><td/><td>—</td><td/></tr><tr><td>Cash - beginning of period</td><td/><td/><td>30,103</td><td/><td/><td/><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Cash - end of period</td><td/><td>$</td><td>4,386</td><td/><td/><td>$</td><td>—</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Supplemental disclosure of noncash investing and financing activities:</td><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Deferred offering costs included in accounts payable</td><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>30,255</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Deferred offering costs included in accrued expenses</td><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>259,000</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Deferred offering costs paid through promissory note — related party</td><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>206,500</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Deferred offering costs paid through the issuance of ordinary shares to Sponsor</td><td/><td>$</td><td>—</td><td/><td/><td>$</td><td>25,000</td><td/></tr><tr><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The accompanying notes are an integral part of these unaudited condensed financial statements.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "H.I.G. ACQUISITION CORP.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "NOTES TO CONDENSED FINANCIAL STATEMENTS",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(UNAUDITED)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "16",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 2. Management’s Discussion and Analysis of Financial Condition and Results of Operations.",
+      "text_structured": "TABLE | Item 2. | Management’s Discussion and Analysis of Financial Condition and Results of Operations.",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 2.</td><td>Management’s Discussion and Analysis of Financial Condition and Results of Operations.</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "References to the “Company,” “H.I.G. Acquisition Corp.,” “H.I.G. Acquisition,” “our,” “us” or “we” refer to H.I.G. Acquisition Corp. The following discussion and analysis of the Company’s financial condition and results of operations should be read in conjunction with the unaudited interim condensed financial statements and the notes thereto contained elsewhere in this report. Certain information contained in the discussion and analysis set forth below includes forward-looking statements that involve risks and uncertainties.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The Management’s Discussion and Analysis of Financial Condition and Results of Operations in this Amendment No. 1 has been amended and restated to give effect to the restatement of our financial statements as of March 31, 2021 and June 30, 2021. Management identified errors made in its historical financial statements where, at the closing of our Initial Public Offering, we improperly classified our Public Shares subject to possible redemption. We previously determined the Public Shares subject to possible redemption to be equal to the redemption value of $10.00 per Class A ordinary share while also taking into consideration a redemption cannot result in net tangible assets being less than $5,000,001. Management determined that the Public Shares can be redeemed or become redeemable subject to the occurrence of future events considered outside of the Company’s control. Therefore, management concluded that the redemption value should include all Class A ordinary shares subject to possible redemption, resulting in the Public Shares subject to possible redemption being equal to their redemption value. As a result, management has noted a reclassification error related to temporary equity and permanent equity. This resulted in a restatement to the initial carrying value of the Class A ordinary shares subject to possible redemption with the offset recorded to additional",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "paid-in",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "capital (to the extent available), accumulated deficit and Class A ordinary shares.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Cautionary Note Regarding Forward-Looking Statements",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "This Quarterly Report on Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "includes forward-looking statements within the meaning of Section 27A of the Securities Act of 1933, as amended, and Section 21E of the Exchange Act. We have based these forward-looking statements on our current expectations and projections about future events. These forward-looking statements are subject to known and unknown risks, uncertainties and assumptions about us that may cause our actual results, levels of activity, performance or achievements to be materially different from any future results, levels of activity, performance or achievements expressed or implied by such forward-looking statements. In some cases, you can identify forward-looking statements by terminology such as “may,” “should,” “could,” “would,” “expect,” “plan,” “anticipate,” “believe,” “estimate,” “continue,” or the negative of such terms or other similar expressions. Factors that might cause or contribute to such a discrepancy include, but are not limited to, those described in our other SEC filings.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Overview",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "We are a blank check company incorporated as a Cayman Islands exempted company on September 2, 2020. We were formed for the purpose of effecting a merger, share exchange, asset acquisition, share purchase, reorganization or similar business combination with one or more businesses (the “Business Combination”). We are an emerging growth company and, as such, we are subject to all of the risks associated with emerging growth companies.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Our sponsor is H.I.G. Acquisition Advisors, LLC, a Cayman Islands limited liability company (the “Sponsor”). The registration statement for the Initial Public Offering was declared effective on October 20, 2020. We consummated the Initial Public Offering of 32,500,000 units (the “Units”) on October 23, 2020. Each Unit consisted of one Class A ordinary share and",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "one-third",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "of one redeemable warrant (“Public Warrant”). Each whole Public Warrant entitles the holder to purchase one Class A ordinary share at an exercise price of $11.50 per share, subject to adjustment. The Units were sold at a price of $10.00 per Unit, generating gross proceeds to us of $325.0 million. We granted the underwriters in the Initial Public Offering (the “Underwriters”) a",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "45-day",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "option to purchase up to 4,875,000 additional Units to cover over-allotments, if any. On November 25, 2020, the Underwriters partially exercised the over-allotment option and on December 1, 2020, purchased an additional 3,894,500 Units (the “Over-Allotment Units”), generating gross proceeds of approximately $38.9 million, and incurred additional offering costs of approximately $2.1 million in underwriting fees (inclusive of approximately $1.4 million in deferred underwriting fees) (the “Over-Allotment”).",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Simultaneously with the closing of the Initial Public Offering on October 23, 2020, we completed the first closing of the private placement (the “Private Placement”) and sold an aggregate 5,666,667 warrants (each, a “Private Placement Warrant, and together, the “Private Placement Warrants”) at a price of $1.50 per Private Placement Warrant to the Sponsor, generating proceeds of $8.5 million. Simultaneously with the closing of the Over-Allotment on December 1, 2020, we consummated the second closing of the Private Placement, resulting in the purchase of an aggregate of an additional 519,267 Private Placement Warrants by the sponsor, generating gross proceeds of approximately $0.8 million.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Upon the closing of the Initial Public Offering, the Over-Allotment and the Private Placements, approximately $363.9 million ($10.00 per Unit) of the net proceeds of the sale of the Units in the Initial Public Offering, the Over-Allotment and the Private Placements were placed in a trust account (“Trust Account”) with Continental Stock Transfer & Trust Company acting as trustee and invested in money market funds investing solely in U.S. Treasuries and meeting certain conditions under Rule",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "2a-7",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "under the Investment Company Act, as determined by us, until the earlier of: (i) the completion of a Business Combination and (ii) the distribution of the Trust Account as described below.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "17",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Our management has broad discretion with respect to the specific application of the net proceeds of the Initial Public Offering, the Over-Allotment and the sale of Private Placement Warrants, although substantially all of the net proceeds are intended to be applied generally toward consummating a Business Combination. There is no assurance that we will be able to complete a Business Combination successfully. We must complete one or more initial Business Combinations having an aggregate fair market value of at least 80% of the net assets held in the Trust Account (excluding the deferred underwriting commissions and taxes payable on income earned on the Trust Account) at the time of the signing of a definitive agreement in connection with the initial Business Combination. However, we will only complete a Business Combination if the post-transaction company owns or acquires 50% or more of the outstanding voting securities of the target or otherwise acquires a controlling interest in the target sufficient for it not to be required to register as an investment company under the Investment Company Act 1940, as amended, (the “Investment Company Act”).",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "If we are unable to complete a Business Combination within the Combination Period, we will (i) cease all operations except for the purpose of winding up; (ii) as promptly as reasonably possible but not more than ten business days thereafter, redeem the Public Shares, at a",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "per-share",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "price, payable in cash, equal to the aggregate amount then on deposit in the Trust Account, including interest earned on the funds held in the Trust Account and not previously released to us to pay our income taxes, if any (less up to $100,000 of interest to pay dissolution expenses) divided by the number of the then-outstanding Public Shares, which redemption will completely extinguish Public Shareholders’ rights as shareholders (including the right to receive further liquidation distributions, if any); and (iii) as promptly as reasonably possible following such redemption, subject to the approval of the remaining shareholders and the board of directors, liquidate and dissolve, subject in the case of clauses (ii) and (iii), to our obligations under Cayman Islands law to provide for claims of creditors and the requirements of other applicable law.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Liquidity and Capital Resources",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "As of September 30, 2021, we had $4,386 in our operating bank account, and working capital deficit of $1,312,053. Further, we have incurred and expects to continue to incur significant costs in pursuit of our acquisition plans.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "If the Company is unable to raise additional capital, it may be required to take additional measures to conserve liquidity, which could include, but not necessarily be limited to, suspending the pursuit of a Business Combination. The Company cannot provide any assurance that new financing will be available to it on commercially acceptable terms, if at all.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "As a result of the above, in connection with the Company’s assessment of going concern considerations in accordance with Accounting Standards Update (“ASU”)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "2014-15,",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "“Disclosures of Uncertainties about an Entity’s Ability to Continue as a Going Concern,” management has determined that the liquidity condition and date for mandatory liquidation and dissolution raise substantial doubt about the Company’s ability to continue as a going concern. These condensed financial s statements do not include any adjustments relating to the recovery of the recorded assets or the classification of the liabilities that might be necessary should the Company be unable to continue as a going concern.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Through September 30, 2021, our liquidity needs have been satisfied through a payment of $25,000 from the Sponsor to pay for certain offering costs in exchange for issuance of the Founder Shares (as defined in Note 5), the loan under the Note of approximately $237,000 (see Note 5), and the net proceeds from the consummation of the Private Placement not held in the Trust Account. We fully repaid the Note on October 23, 2020, and the facility is no longer available to the Company. In addition, in order to finance transaction costs in connection with an initial Business Combination, our officers, directors and initial shareholders may, but are not obligated to, provide us Working Capital Loans (see Note 5). As of September 30, 2021 and December 31, 2020, there were no amounts outstanding under any Working Capital Loans.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "18",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Results of Operations",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Our entire activity since inception up to September 30, 2021 was in preparation for our formation and since our Initial Public Offering, our activity has been limited to the search for a prospective initial Business Combination. We will not be generating any operating revenues until the closing and completion of our initial Business Combination.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "For the three months ended September 30, 2021, we had a net income of approximately $7.9 million, which consisted of approximately $356,000 in general and administrative expenses, $30,000 in administrative expenses – related party, approximately $8.3 million change in the fair value of derivative warrant liabilities, and approximately $9,000 in net gain from investments held in Trust Account.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "For the nine months ended September 30, 2021, we had a net income of approximately $9.2 million, which consisted of approximately $2.2 million in general and administrative expenses, $90,000 in administrative expenses – related party, offset by approximately $11.4 million in change in fair value of derivative warrant liabilities, and approximately $27,000 in net gain from investments held in Trust Account.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Contractual Obligations",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Registration and Shareholder Rights",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The holders of Founder Shares, Private Placement Warrants and warrants that may be issued upon conversion of Working Capital Loans (and any Class A ordinary shares issuable upon the exercise of the Private Placement Warrants and warrants that may be issued upon conversion of Working Capital Loans) are entitled to registration rights pursuant to a registration and shareholder rights agreement. These holders will be entitled to certain demand and “piggyback” registration rights. However, the registration and shareholder rights agreement provide that we will not permit any registration statement filed under the Securities Act to become effective until the termination of the applicable",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "lock-up",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "period for the securities to be registered. We will bear the expenses incurred in connection with the filing of any such registration statements.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Underwriting Agreement",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "We granted the underwriters a",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "45-day",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "option from the final prospectus relating to the Initial Public Offering to purchase up to 4,875,000 additional Units to cover over-allotments, if any, at the Initial Public Offering price less the underwriting discounts and commissions. On November 25, 2020, the underwriters partially exercised the over-allotment option and on December 1, 2020, purchased an additional 3,894,500 Over-Allotment Units, generating gross proceeds of approximately $38.9 million, and incurring additional offering costs of approximately $2.1 million in underwriting fees (inclusive of approximately $1.4 million in deferred underwriting fees).",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The underwriters were entitled to an underwriting discount of $0.20 per unit, or $7.3 million in the aggregate, paid upon the closing of the Initial Public Offering and Over-Allotment. In addition, $0.35 per unit, or approximately $12.7 million in the aggregate will be payable to the underwriters for deferred underwriting commissions. The deferred fee will become payable to the underwriters from the amounts held in the Trust Account solely in the event that we complete a Business Combination, subject to the terms of the underwriting agreement.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Critical Accounting Policies",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Class A Ordinary Shares Subject to Possible Redemption",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Class A ordinary shares subject to mandatory redemption (if any) are classified as liability instruments and are measured at fair value. Conditionally redeemable Class A ordinary shares (including Class A ordinary shares that feature redemption rights that are either within the control of the holder or subject to redemption upon the occurrence of uncertain events not solely within our control) are classified as temporary equity. At all other times, Class A ordinary shares are classified as shareholders’ equity. Our Class A ordinary shares feature certain redemption rights that are considered to be outside of our control and subject to occurrence of uncertain future events, Accordingly, at September 30, 2021 and December 31, 2020, 36,394,500 and Class A ordinary shares subject to possible redemption at the redemption amount were presented at redemption value as temporary equity, outside of the shareholders’ equity section of our condensed balance sheets. The Company recognizes changes in redemption value immediately as they occur and adjusts the carrying value of redemption ordinary shares to equal the redemption value at the end of each reporting period.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "19",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Net Income (Loss) per Ordinary Shares",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "We comply with accounting and disclosure requirements of FASB ASC Topic 260, “Earnings Per Share.” Net income (loss) per common share is computed by dividing net income (loss) by the weighted average number of shares of ordinary shares outstanding during the period. We have not considered the effect of the warrants sold in the Initial Public Offering and Private Placement to purchase an aggregate of 18,317,434 of our ordinary shares in the calculation of diluted loss per share, since the exercise of the warrants are contingent upon the occurrence of future events and the inclusion of such warrants would be anti-dilutive.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The Company has two classes of shares, which are referred to as Class A ordinary shares and Class B ordinary shares. Income and losses are shared pro rata between the two classes of shares. Net income per share, basic and diluted for Class A ordinary shares is calculated by dividing the pro rata allocation of net income (loss) to Class A shares of $6,345,380 and $7,334,127 for the three and nine months ended September 30, 2021, respectively, by the weighted average number of Class A ordinary shares outstanding for the period. Net income per share basic and diluted for Class B ordinary shares is calculated by dividing the pro rata allocation of net income (loss) to Class B shares of $1,586,345 and $1,833,532 for the three and nine months ended September 30, 2021, respectively, by the weighted average number of Class B ordinary shares outstanding for the period.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Recently Issued Accounting Standards",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "In August 2020, the Financial Accounting Standards Board (“FASB”) issued Accounting Standards Update",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(“ASU”) 2020-06,",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Debt — Debt with Conversion and Other Options (Subtopic",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "470-20)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "and Derivatives and Hedging — Contracts in Entity’s Own Equity (Subtopic",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "815-40)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(“ASU 2020-06”)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "to simplify accounting for certain financial",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "instruments. ASU 2020-06 eliminates",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "the current models that require separation of beneficial conversion and cash conversion features from convertible instruments and simplifies the derivative scope exception guidance pertaining to equity classification of contracts in an entity’s own equity. The new standard also introduces additional disclosures for convertible debt and freestanding instruments that are indexed to and settled in an entity’s own",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "equity. ASU 2020-06 amends",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "the diluted earnings per share guidance, including the requirement to use the",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "if-converted",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "method for all convertible",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "instruments. ASU 2020-06 is",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "effective January 1, 2022 and should be applied on a full or modified retrospective basis, with early adoption permitted beginning on January 1, 2021. We are currently assessing the impact, if any,",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "that ASU 2020-06 would",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "have on its financial position, results of operations or cash flows.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Our management does not believe that any other recently issued, but not yet effective, accounting standards, if currently adopted, would have a material effect on our financial statements.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Off-Balance",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Sheet Arrangements",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "As of September 30, 2021, we did not have any",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "off-balance",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "sheet arrangements as defined in Item 303(a)(4)(ii) of Regulation",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "S-K.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "JOBS Act",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "The Jumpstart Our Business Startups Act of 2012 (the “JOBS Act”) contains provisions that, among other things, relax certain reporting requirements for qualifying public companies. We qualify as an “emerging growth company” and under the JOBS Act are allowed to comply with new or revised accounting pronouncements based on the effective date for private (not publicly traded) companies. We are electing to delay the adoption of new or revised accounting standards, and as a result, we may not comply with new or revised accounting standards on the relevant dates on which adoption of such standards is required for",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "non-emerging",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "growth companies. As a result, the financial statements may not be comparable to companies that comply with new or revised accounting pronouncements as of public company effective dates.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Additionally, we are in the process of evaluating the benefits of relying on the other reduced reporting requirements provided by the JOBS Act. Subject to certain conditions set forth in the JOBS Act, if, as an “emerging growth company,” we choose to rely on such exemptions we may not be required to, among other things, (i) provide an auditor’s attestation report on our system of internal controls over financial reporting pursuant to Section 404, (ii) provide all of the compensation disclosure that may be required of",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "non-emerging",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "growth public companies under the Dodd-Frank Wall Street Reform and Consumer Protection Act, (iii) comply with any requirement that may be adopted by the PCAOB regarding mandatory audit firm rotation or a supplement to the auditor’s report providing additional information about the audit and the financial statements (auditor discussion and analysis) and (iv) disclose certain executive compensation related items such as the correlation between executive compensation and performance and comparisons of the CEO’s compensation to median employee compensation. These exemptions will apply for a period of five years following the completion of our Initial Public Offering or until we are no longer an “emerging growth company,” whichever is earlier.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "20",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 3. Quantitative and Qualitative Disclosures About Market Risk",
+      "text_structured": "TABLE | Item 3. | Quantitative and Qualitative Disclosures About Market Risk",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 3.</td><td>Quantitative and Qualitative Disclosures About Market Risk</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "We are a smaller reporting company as defined by Rule",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "12b-2",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "of the Exchange Act and are not required to provide the information otherwise required under this item. As of September 30, 2021, we were not subject to any market or interest rate risk. The net proceeds of the Initial Public Offering, including amounts in the Trust Account, will be invested in investments in mutual funds invested in government securities with a maturity of 185 days or less or in that meet certain conditions under Rule",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "2a-7",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "under the Investment Company Act of 1940, as amended, that invest only in direct U.S. government treasury obligations. Due to the short-term nature of these investments, we believe there will be no associated material exposure to interest rate risk.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "We have not engaged in any hedging activities since our inception and we do not expect to engage in any hedging activities with respect to the market risk to which we are exposed.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 4. Controls and Procedures",
+      "text_structured": "TABLE | Item 4. | Controls and Procedures",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 4.</td><td>Controls and Procedures</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Evaluation of Disclosure Controls and Procedures",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Disclosure controls and procedures are designed to ensure that information required to be disclosed by us in our Exchange Act reports is recorded, processed, summarized, and reported within the time periods specified in the SEC’s rules and forms, and that such information is accumulated and communicated to our management, including our principal executive officer and principal financial officer or persons performing similar functions, as appropriate to allow timely decisions regarding required disclosure.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Under the supervision of and with the participation of our management, including our principal executive officer and principal financial and accounting officer, we conducted an evaluation of the effectiveness of our disclosure controls and procedures as of the end of the fiscal quarter ended September 30, 2021, as such term is defined in Rules",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "13a-15(e)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "and",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "15d-15(e)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "under the Exchange Act. Based upon their evaluation, our management, including our principal executive officer and principal financial and accounting officer, concluded that our disclosure controls and procedures (as defined in Rules",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "13a-15",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "(e) and",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "15d-15",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "(e) under the Exchange Act) were not effective as of September 30, 2021, due to our inability to apply the nuances of the complex accounting standards relating to financial instruments that apply to our financial statements and preparation of financial statements in accordance with GAAP, which resulted in the material weakness in our internal control over financial reporting described below in “Changes in Internal Control Over Financial Reporting” and elsewhere in this Quarterly Report. In light of this material weakness, we performed additional analysis as deemed necessary to ensure that our financial statements were prepared in accordance with U.S. generally accepted accounting principles. Accordingly, management believes that the financial statements included in this Quarterly Report present fairly in all material respects our financial position, results of operations and cashflows for the period presented.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "We do not expect that our disclosure controls and procedures will prevent all errors and all instances of fraud. Disclosure controls and procedures, no matter how well conceived and operated, can provide only reasonable, not absolute, assurance that the objectives of the disclosure controls and procedures are met. Further, the design of disclosure controls and procedures must reflect the fact that there are resource constraints, and the benefits must be considered relative to their costs. Because of the inherent limitations in all disclosure controls and procedures, no evaluation of disclosure controls and procedures can provide absolute assurance that we have detected all our control deficiencies and instances of fraud, if any. The design of disclosure controls and procedures also is based partly on certain assumptions about the likelihood of future events, and there can be no assurance that any design will succeed in achieving its stated goals under all potential future conditions.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Changes in Internal Control Over Financial Reporting",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "In light of this material weakness, the Company’s management has expended, and will continue to expend, a substantial amount of effort and resources for the remediation and improvement of our internal control over financial reporting. Specifically, we have expanded and improved our review process for complex securities and related accounting standards, including enhancing access to accounting literature and improving identification of third-party professionals with whom to consult regarding complex accounting applications. Other than as described herein, there were no changes in our internal control over financial reporting (as such term is defined in Rules",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "13a-15(f)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "and",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "15d-15(f)",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "of the Exchange Act) during the most recent fiscal quarter that have materially affected, or are reasonably likely to materially affect, our internal control over financial reporting.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "PART II - OTHER INFORMATION",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 1. Legal Proceedings",
+      "text_structured": "TABLE | Item 1. | Legal Proceedings",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 1.</td><td>Legal Proceedings</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "None.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "21",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 1A. Risk Factors",
+      "text_structured": "TABLE | Item 1A. | Risk Factors",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 1A.</td><td>Risk Factors</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "As of the date of this Quarterly Report on Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-Q,",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "there have been no material changes to the risk factors disclosed in our Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-K",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "filed with the SEC on March 30, 2021, Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-K/A",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "filed with the SEC on May 24, 2021 and Amendment No. 2 to Form",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "10-K/A",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "filed with the SEC on December 29, 2021. We may disclose changes to such factors or disclose additional factors from time to time in our future filings with the SEC.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 2. Unregistered Sales of Equity Securities and Use of Proceeds.",
+      "text_structured": "TABLE | Item 2. | Unregistered Sales of Equity Securities and Use of Proceeds.",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 2.</td><td>Unregistered Sales of Equity Securities and Use of Proceeds.</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "None.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 3. Defaults upon Senior Securities",
+      "text_structured": "TABLE | Item 3. | Defaults upon Senior Securities",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 3.</td><td>Defaults upon Senior Securities</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "None.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 4. Mine Safety Disclosures.",
+      "text_structured": "TABLE | Item 4. | Mine Safety Disclosures.",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 4.</td><td>Mine Safety Disclosures.</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Not applicable.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 5. Other Information.",
+      "text_structured": "TABLE | Item 5. | Other Information.",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 5.</td><td>Other Information.</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "None.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Item 6. Exhibits.",
+      "text_structured": "TABLE | Item 6. | Exhibits.",
+      "metadata": {
+        "text_as_html": "<table><tr><td>Item 6.</td><td>Exhibits.</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Exhibit Number Description  31.1 Certification of Chief Executive Officer (Principal Executive Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.  31.2 Certification of Chief Financial Officer (Principal Financial and Accounting Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.  32.1* Certification of Chief Executive Officer (Principal Executive Officer) Pursuant to 18 U.S.C. Section 1350, as Adopted Pursuant to Section 906 of the Sarbanes-Oxley Act of 2002.  32.2* Certification of Chief Financial Officer (Principal Financial and Accounting Officer) Pursuant to 18 U.S.C. Section 1350, as Adopted Pursuant to Section 906 of the Sarbanes-Oxley Act of 2002.  101.INS XBRL Instance Document  101.SCH XBRL Taxonomy Extension Schema Document  101.CAL XBRL Taxonomy Extension Calculation Linkbase Document  101.DEF XBRL Taxonomy Extension Definition Linkbase Document  101.LAB XBRL Taxonomy Extension Label Linkbase Document  101.PRE XBRL Taxonomy Extension Presentation Linkbase Document  104 Cover Page Interactive Data File (formatted as Inline XBRL and contained in Exhibit 101)",
+      "text_structured": "TABLE | Exhibit Number |  | Description\nTABLE | 31.1 |  | Certification of Chief Executive Officer (Principal Executive Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.\nTABLE | 31.2 |  | Certification of Chief Financial Officer (Principal Financial and Accounting Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.\nTABLE | 32.1* |  | Certification of Chief Executive Officer (Principal Executive Officer) Pursuant to 18 U.S.C. Section 1350, as Adopted Pursuant to Section 906 of the Sarbanes-Oxley Act of 2002.\nTABLE | 32.2* |  | Certification of Chief Financial Officer (Principal Financial and Accounting Officer) Pursuant to 18 U.S.C. Section 1350, as Adopted Pursuant to Section 906 of the Sarbanes-Oxley Act of 2002.\nTABLE | 101.INS |  | XBRL Instance Document\nTABLE | 101.SCH |  | XBRL Taxonomy Extension Schema Document\nTABLE | 101.CAL |  | XBRL Taxonomy Extension Calculation Linkbase Document\nTABLE | 101.DEF |  | XBRL Taxonomy Extension Definition Linkbase Document\nTABLE | 101.LAB |  | XBRL Taxonomy Extension Label Linkbase Document\nTABLE | 101.PRE |  | XBRL Taxonomy Extension Presentation Linkbase Document\nTABLE | 104 |  | Cover Page Interactive Data File (formatted as Inline XBRL and contained in Exhibit 101)",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/></tr><tr><td>Exhibit Number</td><td/><td>Description</td></tr><tr><td/><td/></tr><tr><td>31.1</td><td/><td>Certification of Chief Executive Officer (Principal Executive Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.</td></tr><tr><td/><td/></tr><tr><td>31.2</td><td/><td>Certification of Chief Financial Officer (Principal Financial and Accounting Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.</td></tr><tr><td/><td/></tr><tr><td>32.1*</td><td/><td>Certification of Chief Executive Officer (Principal Executive Officer) Pursuant to 18 U.S.C. Section 1350, as Adopted Pursuant to Section 906 of the Sarbanes-Oxley Act of 2002.</td></tr><tr><td/><td/></tr><tr><td>32.2*</td><td/><td>Certification of Chief Financial Officer (Principal Financial and Accounting Officer) Pursuant to 18 U.S.C. Section 1350, as Adopted Pursuant to Section 906 of the Sarbanes-Oxley Act of 2002.</td></tr><tr><td/><td/></tr><tr><td>101.INS</td><td/><td>XBRL Instance Document</td></tr><tr><td/><td/></tr><tr><td>101.SCH</td><td/><td>XBRL Taxonomy Extension Schema Document</td></tr><tr><td/><td/></tr><tr><td>101.CAL</td><td/><td>XBRL Taxonomy Extension Calculation Linkbase Document</td></tr><tr><td/><td/></tr><tr><td>101.DEF</td><td/><td>XBRL Taxonomy Extension Definition Linkbase Document</td></tr><tr><td/><td/></tr><tr><td>101.LAB</td><td/><td>XBRL Taxonomy Extension Label Linkbase Document</td></tr><tr><td/><td/></tr><tr><td>101.PRE</td><td/><td>XBRL Taxonomy Extension Presentation Linkbase Document</td></tr><tr><td/><td/></tr><tr><td>104</td><td/><td>Cover Page Interactive Data File (formatted as Inline XBRL and contained in Exhibit 101)</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "* These certifications are furnished to the SEC pursuant to Section 906 of the Sarbanes-Oxley Act of 2002 and are deemed not filed for purposes of Section 18 of the Securities Exchange Act of 1934, as amended, nor shall they be deemed incorporated by reference in any filing under the Securities Act of 1933, except as shall be expressly set forth by specific reference in such filing.",
+      "text_structured": "TABLE | * | These certifications are furnished to the SEC pursuant to Section 906 of the Sarbanes-Oxley Act of 2002 and are deemed not filed for purposes of Section 18 of the Securities Exchange Act of 1934, as amended, nor shall they be deemed incorporated by reference in any filing under the Securities Act of 1933, except as shall be expressly set forth by specific reference in such filing.",
+      "metadata": {
+        "text_as_html": "<table><tr><td>*</td><td>These certifications are furnished to the SEC pursuant to Section 906 of the Sarbanes-Oxley Act of 2002 and are deemed not filed for purposes of Section 18 of the Securities Exchange Act of 1934, as amended, nor shall they be deemed incorporated by reference in any filing under the Securities Act of 1933, except as shall be expressly set forth by specific reference in such filing.</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "22",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "Table of Contents",
+      "metadata": {
+        "link_texts": [
+          "Table of Contents"
+        ],
+        "link_urls": [
+          "#toc"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "SIGNATURE",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "NarrativeText",
+      "text": "Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized.",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "Table",
+      "text": "Dated: December 29, 2021 H.I.G. ACQUISITION CORP.  By: /s/ Timur Akazhanov Name: Timur Akazhanov Title: Chief Financial Officer",
+      "text_structured": "TABLE | Dated: December 29, 2021 |  |  |  | H.I.G. ACQUISITION CORP.\nTABLE |  |  |  |  | By: |  | /s/ Timur Akazhanov\nTABLE |  |  |  |  | Name: Timur Akazhanov\nTABLE |  |  |  |  | Title: |  | Chief Financial Officer",
+      "metadata": {
+        "text_as_html": "<table><tr><td/><td/><td/><td/><td/><td/><td/></tr><tr><td>Dated: December 29, 2021</td><td/><td/><td/><td>H.I.G. ACQUISITION CORP.</td></tr><tr><td/><td/><td/><td/></tr><tr><td/><td/><td/><td/><td>By:</td><td/><td>/s/ Timur Akazhanov</td></tr><tr><td/><td/><td/><td/><td>Name: Timur Akazhanov</td></tr><tr><td/><td/><td/><td/><td>Title:</td><td/><td>Chief Financial Officer</td></tr></table>",
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    },
+    {
+      "category": "UncategorizedText",
+      "text": "23",
+      "metadata": {
+        "languages": [
+          "eng"
+        ],
+        "filetype": "text/html"
+      }
+    }
+  ]
+}

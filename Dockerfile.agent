@@ -1,0 +1,31 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# 安装系统依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV PATH="/root/.local/bin:$PATH"
+
+# 拷贝Poetry配置文件
+COPY pyproject.toml poetry.lock* /app/
+
+# 配置Poetry不创建虚拟环境
+RUN poetry config virtualenvs.create false
+
+# 安装依赖，不安装开发依赖
+RUN poetry install --no-dev --no-interaction --no-ansi
+
+# 拷贝应用代码
+COPY src /app/src
+
+# 暴露端口
+EXPOSE 8000
+
+# 运行命令
+CMD ["python", "src/start_fastapi.py"] 

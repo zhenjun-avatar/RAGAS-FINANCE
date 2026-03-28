@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "trace_id": "a61d11afd732878de3b1541df86b1f65",
+    "created_at": "2026-03-27T12:17:57+00:00",
+    "source": "frontend",
+    "schema_version": "report.v1"
+  },
+  "request": {
+    "question": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts.",
+    "document_ids": [
+      9002,
+      9201,
+      9202,
+      9203,
+      9204,
+      9205,
+      9206,
+      9207,
+      9208,
+      9209,
+      9210
+    ],
+    "report_locale": "auto",
+    "detail_level": "detailed",
+    "top_k": 8
+  },
+  "response": {
+    "question": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts.",
+    "answer": "Based solely on the provided context, Management’s Discussion and Analysis states that the company has insufficient liquidity on its own, which raises substantial doubt about its ability to continue as a going concern, but management believes it has sufficient access to loans from its sponsor to meet its needs for at least one year from the financial statement issuance date.\n\n**Key Points from the Narrative and XBRL Context:**\n\n1.  **Insufficient Intrinsic Liquidity:** The narrative explicitly states, \"We do not have sufficient liquidity to meet our anticipated obligations over the next year from the issuance of these financial statements\" [Source 3, Source 7]. This is corroborated by XBRL data showing limited cash of $3,937 and a working capital deficit (implied by a Stockholders' Equity of -$17,340,617 and Current Liabilities of $3,062,146 as of June 30, 2022) [Structured facts 1, 2, 5].\n\n2.  **Substantial Doubt About Going Concern:** Management, in accordance with accounting standards (ASU 2014-15), has determined that \"the liquidity condition and mandatory liquidation... raises substantial doubt about our ability to continue as a going concern\" [Source 6]. This doubt is specifically tied to the deadline to complete a Business Combination.\n\n3.  **Reliance on Sponsor Loans for Solvency:** Despite the substantial doubt, management's belief in its ability to meet obligations is based entirely on access to \"Working Capital Loans from our sponsor that are sufficient to fund our working capital needs for at least one year from the issuance of these financial statements\" [Source 2, Source 3]. The funds are intended to cover costs through the earlier of consummating a Business Combination or one year from the filing.\n\n4.  **Use of Resources:** The capital resources are earmarked for identifying and evaluating Business Combination candidates, due diligence, travel, and transaction costs, not for generating operating revenue [Source 2, Source 3].\n\n5.  **Historical Context & XBRL Discrepancy:** Past liquidity was satisfied through sponsor payments and loans, now repaid [Source 4, Source 7]. The provided XBRL facts show a net income figure [Structured fact 3, 4, 15], but the narrative context does not discuss this as a source of liquidity, emphasizing instead the lack of operating revenue and reliance on external financing.\n\n**Uncertainty Note:** The retrieved narrative passages reference dates in 2021 (e.g., September 30, 2021) and 2020, while the XBRL facts are for the period ending June 30, 2022. The answer synthesizes these to reflect the consistent themes in Management's Discussion, but the exact timing of the \"one year\" going concern assessment window cannot be precisely aligned from the provided excerpts.",
+    "confidence": 0.8899999999999999,
+    "sources_used": 3,
+    "citation_count": 6,
+    "limitations": null,
+    "trace_id": "a61d11afd732878de3b1541df86b1f65",
+    "latency_ms": 41137.56,
+    "pipeline_trace": null,
+    "vertical_scenario": {
+      "scenario_id": "sec_disclosure_qa",
+      "name": "Listed company disclosure Q&A",
+      "name_en": "Listed company disclosure Q&A",
+      "audience": [
+        "投研",
+        "IR",
+        "财务分析",
+        "法务支持"
+      ],
+      "value_proposition": "结论可引用、数字可对账、跨 filing 可追溯。",
+      "typical_questions": [
+        "公司本期流动性风险怎么表述？",
+        "管理层如何解释收入变化？",
+        "多个 filing 对同一风险披露是否一致？"
+      ],
+      "evidence_expectations": [
+        "段落引用",
+        "结构化事实",
+        "跨 filing 分布"
+      ],
+      "report_locale": "en",
+      "question_mode": "mixed_narrative_first"
+    },
+    "external_evaluation": {
+      "metric_catalog_version": "finance-external-v1",
+      "observable_metrics": [
+        {
+          "metric_id": "evidence_bundle_completeness",
+          "label": "Evidence bundle completeness",
+          "value": 1,
+          "unit": "score_0_1"
+        },
+        {
+          "metric_id": "cross_filing_balance",
+          "label": "Cross-filing balance",
+          "value": 1,
+          "unit": "score_0_1"
+        },
+        {
+          "metric_id": "trace_availability_rate",
+          "label": "Trace availability",
+          "value": 1,
+          "unit": "ratio"
+        },
+        {
+          "metric_id": "latency_ms",
+          "label": "Request latency",
+          "value": 41137.56,
+          "unit": "ms"
+        },
+        {
+          "metric_id": "tokens_per_query",
+          "label": "Tokens (this request)",
+          "value": 4217,
+          "unit": "tokens"
+        }
+      ],
+      "offline_metrics_pending": [
+        "fact_consistency_rate",
+        "citation_coverage_rate",
+        "abstain_safety_rate",
+        "p95_latency_ms",
+        "avg_tokens_per_query"
+      ],
+      "filings_observed": [
+        "0001193125-22-219917",
+        "0001193125-21-321615",
+        "0001193125-21-100318"
+      ]
+    },
+    "evidence_ui": {
+      "layout": "single_screen_three_panels",
+      "conclusion": {
+        "question_preview": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going c...",
+        "answer_preview": "Based solely on the provided context, Management’s Discussion and Analysis states that the company has insufficient liquidity on its own, which raises substantial doubt about its ability to continue as a going concern, but management believes it has sufficient access to loans from its sponsor to meet its needs for a...",
+        "answer_chars": 2752,
+        "confidence": 0.89,
+        "scenario_name": "Listed company disclosure Q&A",
+        "trace_id": "a61d11afd732878de3b1541df86b1f65"
+      },
+      "evidence": {
+        "summary": {
+          "narrative_card_count": 3,
+          "structured_fact_count": 4,
+          "filing_count": 3
+        },
+        "narrative_cards": [
+          {
+            "card_id": "quote-1",
+            "kind": "narrative_quote",
+            "title": "Evidence 1",
+            "body": "Liquidity and Capital Resources\n\nAs of September 30, 2021, we had $4,386 in our operating bank account, and working capital deficit of $1,312,053. Further, we have incurred and expects to continue to incur significant costs in pursuit of our acquisition plans.\n\nIf the Company is",
+            "document_id": 9207,
+            "node_id": "dce06dda-2db1-4adb-a7fd-9191788439b6",
+            "relevance_score": 0.8056,
+            "relevance_level": "high"
+          },
+          {
+            "card_id": "quote-2",
+            "kind": "narrative_quote",
+            "title": "Evidence 2",
+            "body": "The Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update",
+            "document_id": 9201,
+            "node_id": "281dbede-f16a-451a-bc64-aef57757fb21",
+            "relevance_score": 0.7888,
+            "relevance_level": "high"
+          },
+          {
+            "card_id": "quote-3",
+            "kind": "narrative_quote",
+            "title": "Evidence 3",
+            "body": "We do not have sufficient liquidity to meet our anticipated obligations over the next year from the issuance of these financial statements. In connection with our assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Di",
+            "document_id": 9201,
+            "node_id": "3118de17-7cae-4101-93fd-8f6626d737b0",
+            "relevance_score": 0.7414,
+            "relevance_level": "high"
+          }
+        ],
+        "structured_fact_cards": [
+          {
+            "card_id": "fact-1",
+            "kind": "structured_fact",
+            "title": "Cash, Cash Equivalents, Restricted Cash and Restricted Cash Equivalents",
+            "body": "3,937.00",
+            "subtitle": "10-Q | 2022-06-30 | 0001193125-22-219917",
+            "metric_key": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+            "taxonomy": "us-gaap"
+          },
+          {
+            "card_id": "fact-2",
+            "kind": "structured_fact",
+            "title": "Stockholders' Equity Attributable to Parent",
+            "body": "-17,340,617.00",
+            "subtitle": "10-Q | 2022-06-30 | 0001193125-22-219917",
+            "metric_key": "StockholdersEquity",
+            "taxonomy": "us-gaap"
+          },
+          {
+            "card_id": "fact-3",
+            "kind": "structured_fact",
+            "title": "Net Income (Loss) Attributable to Parent",
+            "body": "4,474,554.00",
+            "subtitle": "10-Q | 2022-06-30 | 0001193125-22-219917",
+            "metric_key": "NetIncomeLoss",
+            "taxonomy": "us-gaap"
+          },
+          {
+            "card_id": "fact-4",
+            "kind": "structured_fact",
+            "title": "Net Income (Loss) Attributable to Parent",
+            "body": "10,543,093.00",
+            "subtitle": "10-Q | 2022-06-30 | 0001193125-22-219917",
+            "metric_key": "NetIncomeLoss",
+            "taxonomy": "us-gaap"
+          }
+        ],
+        "filings": [
+          "0001193125-22-219917",
+          "0001193125-21-321615",
+          "0001193125-21-100318"
+        ]
+      },
+      "risk_panel": {
+        "limitations": null,
+        "flags": []
+      },
+      "panels": [
+        "Conclusion: lead with a direct answer and scope.",
+        "Evidence: show paragraph quotes, structured facts, and filings side by side.",
+        "Risks: clearly flag gaps, low evidence, or cross-filing disagreements."
+      ],
+      "copy_principles": [
+        "Conclusion first, evidence second—hide retrieval mechanics from users.",
+        "Every key claim should cite evidence or mark a gap explicitly.",
+        "Prefer caution over implying certainty when evidence is thin."
+      ]
+    },
+    "report_locale": "en"
+  },
+  "diagnostics": {
+    "latency_ms": 41137.56,
+    "confidence": 0.8899999999999999,
+    "sql_context_chars": null,
+    "rag_context_chars": null,
+    "combined_context_chars": null
+  }
+}

@@ -1,0 +1,3126 @@
+﻿{
+  "question": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts.",
+  "answer": "Based solely on the provided context, Management’s Discussion and Analysis states that the company has insufficient liquidity on its own, which raises substantial doubt about its ability to continue as a going concern, but management believes it can meet its needs through working capital loans from its sponsor.\n\n**Key Points from the Narrative and XBRL Facts:**\n\n1.  **Insufficient Liquidity:** The narrative explicitly states, \"The Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements\" [Source 2, Source 5]. This is corroborated by the XBRL fact showing very limited **Cash and Cash Equivalents of $3,937** as of June 30, 2022 [Structured Fact 1, 6].\n\n2.  **Substantial Doubt About Going Concern:** Management, in accordance with accounting standards (ASU 2014-15), has determined that \"the liquidity condition and date for mandatory liquidation and dissolution raise substantial doubt about the Company’s ability to continue as a going concern\" [Source 4, Source 6].\n\n3.  **Reliance on Sponsor Loans:** Management's belief that it can address this doubt is based entirely on access to \"Working Capital Loans from the Sponsor that are sufficient to fund the working capital needs of the Company for at least one year\" [Source 2, Source 3, Source 7]. This support is expected to last through the earlier of consummating a Business Combination or one year from the filing.\n\n4.  **Capital Resources & Use of Funds:** The company's capital resources have historically come from its sponsor and private placement proceeds [Source 4, Source 7]. Funds are and will be used for identifying and evaluating business combination candidates, due diligence, travel, and transaction costs [Source 2, Source 3].\n\n5.  **Financial Condition Context:** The XBRL data shows a significant **Stockholders' Equity deficit of -$17,340,617** and an **Accumulated Deficit of -$17,341,527** as of June 30, 2022 [Structured Facts 2, 14], while reporting a net income for the period [Structured Facts 3, 4, 15]. This highlights the company's status as a development-stage entity with no operating revenue, consistent with the narrative stating activities are limited to seeking a Business Combination [Source 6].\n\n**Uncertainty:** The context includes passages from different periods (e.g., referencing September 2021 and December 2020). The most recent specific numerical context for liquidity is the XBRL cash figure from June 2022. The going concern assessment relies on the availability of sponsor loans, which are not obligated [Source 4, Source 5]. The mandatory liquidation date is noted as October 23, 2022, in one source [Source 6], which directly drives the substantial doubt.",
+  "confidence": 0.8899999999999999,
+  "sources_used": 3,
+  "citation_count": 6,
+  "limitations": null,
+  "trace_id": "17cb382a04b2407e9256ef77d1c78937",
+  "latency_ms": 42418.02,
+  "report_locale": "en",
+  "pipeline_trace": {
+    "retrieval_counts": {
+      "summary_dense": 20,
+      "summary_sparse": 30,
+      "leaf_dense": 20,
+      "leaf_sparse": 30,
+      "pre_rerank_pool": 24,
+      "final_ranked": 12,
+      "context_nodes_expanded": 12
+    },
+    "finance_route": {
+      "need_sql": true,
+      "need_rag": true,
+      "source": "llm",
+      "detail": "llm_intent",
+      "sql_row_count": 60,
+      "skipped_retrieval": false,
+      "sql_strategy": "structured_first_with_fallback",
+      "sql_exact_row_count": 40,
+      "sql_metric_hints": [],
+      "sql_hint_row_count": 0,
+      "sql_hint_supplement_count": 0,
+      "sql_recent_supplement_count": 0,
+      "sql_accn_filters": null,
+      "sql_merged_cap": 40,
+      "sql_rag_led_budget_cap": true,
+      "sql_recent_limit": 8,
+      "sql_primary_filing_preferred": [],
+      "sql_preferred_metric_keys": [
+        "AccumulatedDeficit",
+        "AssetsCurrent",
+        "Cash",
+        "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+        "LiabilitiesCurrent",
+        "NetIncomeLoss",
+        "StockholdersEquity",
+        "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+        "WorkingCapital"
+      ],
+      "sql_rows_kept": 40,
+      "sql_rows_filtered_out": 0,
+      "finance_query_plan": {
+        "metric_sql_hints": [],
+        "metric_exact_keys": [],
+        "form_filters": [
+          "10-K",
+          "10-Q"
+        ],
+        "period_end_dates": [],
+        "period_years": [],
+        "compare_mode": "generic",
+        "prefer_recent": true,
+        "retrieval_query": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts."
+      },
+      "evidence_plan": {
+        "question_mode": "mixed_narrative_first",
+        "sql_plan": {
+          "metric_sql_hints": [],
+          "metric_exact_keys": [],
+          "form_filters": [
+            "10-K",
+            "10-Q"
+          ],
+          "period_end_dates": [],
+          "period_years": [],
+          "compare_mode": "generic",
+          "prefer_recent": true,
+          "retrieval_query": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts."
+        },
+        "filing_hypotheses": [
+          {
+            "accession": "0001193125-21-100318",
+            "weight": 1.2401,
+            "reasons": [
+              "rag"
+            ]
+          },
+          {
+            "accession": "0001193125-21-171038",
+            "weight": 1.2304,
+            "reasons": [
+              "rag"
+            ]
+          },
+          {
+            "accession": "0001193125-21-321615",
+            "weight": 1.161,
+            "reasons": [
+              "rag"
+            ]
+          }
+        ],
+        "narrative_targets": [
+          "liquidity",
+          "going_concern"
+        ],
+        "term_targets": [
+          "liquidity",
+          "capital resources",
+          "working capital",
+          "going concern",
+          "substantial doubt",
+          "持续经营",
+          "10-K",
+          "10-Q",
+          "0001193125-21-100318",
+          "0001193125-21-171038"
+        ],
+        "retrieval_budget": {
+          "sql_row_budget": 56,
+          "summary_candidates": 8,
+          "leaf_candidates": 12,
+          "per_filing_cap": 4,
+          "max_second_pass_accns": 3
+        },
+        "evidence_requirements": {
+          "need_narrative": true,
+          "need_numeric_fact": true,
+          "need_cross_filing": false
+        }
+      },
+      "retrieval_metadata_filters": {
+        "finance_form_base": [
+          "10-K",
+          "10-Q"
+        ]
+      },
+      "retrieval_query": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts.",
+      "finance_intent": {
+        "question_kind": "mixed",
+        "sql_prompt_max_rows": 20,
+        "effective_sql_prompt_max_rows": 20,
+        "intent_detail": "llm_intent"
+      },
+      "sql_plan_source": "llm"
+    },
+    "evidence_plan": {
+      "question_mode": "mixed_narrative_first",
+      "sql_plan": {
+        "metric_sql_hints": [],
+        "metric_exact_keys": [],
+        "form_filters": [
+          "10-K",
+          "10-Q"
+        ],
+        "period_end_dates": [],
+        "period_years": [],
+        "compare_mode": "generic",
+        "prefer_recent": true,
+        "retrieval_query": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts."
+      },
+      "filing_hypotheses": [
+        {
+          "accession": "0001193125-21-100318",
+          "weight": 1.2401,
+          "reasons": [
+            "rag"
+          ]
+        },
+        {
+          "accession": "0001193125-21-171038",
+          "weight": 1.2304,
+          "reasons": [
+            "rag"
+          ]
+        },
+        {
+          "accession": "0001193125-21-321615",
+          "weight": 1.161,
+          "reasons": [
+            "rag"
+          ]
+        }
+      ],
+      "narrative_targets": [
+        "liquidity",
+        "going_concern"
+      ],
+      "term_targets": [
+        "liquidity",
+        "capital resources",
+        "working capital",
+        "going concern",
+        "substantial doubt",
+        "持续经营",
+        "10-K",
+        "10-Q",
+        "0001193125-21-100318",
+        "0001193125-21-171038"
+      ],
+      "retrieval_budget": {
+        "sql_row_budget": 56,
+        "summary_candidates": 8,
+        "leaf_candidates": 12,
+        "per_filing_cap": 4,
+        "max_second_pass_accns": 3
+      },
+      "evidence_requirements": {
+        "need_narrative": true,
+        "need_numeric_fact": true,
+        "need_cross_filing": false
+      }
+    },
+    "evidence_controller": {
+      "question_mode": "mixed_narrative_first",
+      "primary_modality": "rag",
+      "sql_filing_distribution": [
+        {
+          "filing": "0001193125-22-219917",
+          "weight": 40.0,
+          "count": 40
+        }
+      ],
+      "rag_filing_distribution": [
+        {
+          "filing": "0001193125-21-100318",
+          "weight": 1.2401,
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-171038",
+          "weight": 1.2304,
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-321615",
+          "weight": 1.161,
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-171047",
+          "weight": 0.6675,
+          "count": 1
+        },
+        {
+          "filing": "0001193125-21-369238",
+          "weight": 0.5884,
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-369242",
+          "weight": 0.4396,
+          "count": 1
+        },
+        {
+          "filing": "0001193125-22-219917",
+          "weight": 0.3927,
+          "count": 1
+        },
+        {
+          "filing": "document:9202",
+          "weight": 0.25,
+          "count": 1
+        }
+      ],
+      "primary_top_filings": [
+        "0001193125-21-100318",
+        "0001193125-21-171038",
+        "0001193125-21-321615"
+      ],
+      "secondary_top_filings": [
+        "0001193125-22-219917"
+      ],
+      "target_accns": [
+        "0001193125-21-100318",
+        "0001193125-21-171038",
+        "0001193125-21-321615"
+      ],
+      "merged_filing_hypotheses": [
+        {
+          "accession": "0001193125-21-100318",
+          "weight": 1.2401,
+          "reasons": [
+            "rag"
+          ]
+        },
+        {
+          "accession": "0001193125-21-171038",
+          "weight": 1.2304,
+          "reasons": [
+            "rag"
+          ]
+        },
+        {
+          "accession": "0001193125-21-321615",
+          "weight": 1.161,
+          "reasons": [
+            "rag"
+          ]
+        }
+      ],
+      "coverage": {
+        "has_narrative": true,
+        "has_structured": true,
+        "dominant_filing": "0001193125-21-100318",
+        "sql_dominant_filing": "0001193125-22-219917",
+        "filing_alignment": false,
+        "narrative_target_count": 2,
+        "sql_row_count": 40
+      },
+      "second_pass_reasons": [
+        "filing_divergence"
+      ],
+      "run_second_pass": true
+    },
+    "sql_rag_narrowing": {
+      "applied": true,
+      "strict": true,
+      "top_k": 8,
+      "signal_accn_count": 3,
+      "signal_tag_count": 40,
+      "nodes_in": 18,
+      "nodes_text_matched_in_pool": 9,
+      "nodes_structured_matched_in_pool": 9,
+      "nodes_text_fallback_matched_in_pool": 0,
+      "pool_out": 8,
+      "strict_matched_used": 8,
+      "strict_backfill_used": 0,
+      "sample_accns": [
+        "0001193125-21-100318",
+        "0001193125-21-321615",
+        "0001193125-22-219917"
+      ],
+      "sample_tags": [
+        "us-gaap.AssetsHeldInTrust",
+        "us-gaap.Cash",
+        "us-gaap.CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+        "us-gaap.CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect",
+        "us-gaap.CashEquivalentsAtCarryingValue",
+        "us-gaap.CashFDICInsuredAmount",
+        "us-gaap.ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1",
+        "us-gaap.DilutiveSecurities"
+      ]
+    },
+    "runtime_config": {
+      "opensearch_sparse_analyzer_env": "",
+      "opensearch_sparse_search_analyzer_env": "",
+      "opensearch_sparse_analyzer_effective": "",
+      "opensearch_sparse_search_analyzer_effective": "",
+      "opensearch_sparse_index": "rag_nodes_sparse",
+      "opensearch_sparse_index_exam": "rag_nodes_sparse_exam_v1",
+      "opensearch_sparse_index_finance": "rag_nodes_sparse_finance_v1",
+      "opensearch_sparse_search_scope": "finance",
+      "sparse_backend": "opensearch"
+    },
+    "retrieval_compare_meta": {
+      "sparse_top_k": 30,
+      "dense_top_k": 20,
+      "summary_levels": [
+        1,
+        2
+      ],
+      "leaf_levels": [
+        0
+      ],
+      "text_preview_max_chars": 800,
+      "sparse_query_profile": "finance_v1",
+      "sparse_query_slots": {
+        "domain": "finance",
+        "finance_sections": [
+          "liquidity",
+          "going_concern"
+        ],
+        "term_targets": [
+          "liquidity",
+          "capital resources",
+          "working capital",
+          "going concern",
+          "substantial doubt",
+          "持续经营",
+          "10-K",
+          "10-Q"
+        ]
+      },
+      "counts_meaning": "summary_sparse = sparse 在 level∈{1,2} 上的命中条数（≤sparse_top_k，实际可能更少）；leaf_sparse = sparse 在 level=0 上的命中条数（同上）。两路各自独立查询，与 dense 的 summary_dense/leaf_dense 含义对称。"
+    },
+    "retrieval_dense_hits": {
+      "summary": [
+        {
+          "node_id": "b641d6f9-75da-4415-ad8c-88b247efdfb2",
+          "document_id": 9207,
+          "level": 1,
+          "dense_score": 0.6574532,
+          "title": "16",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "16",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "The company faces significant liquidity challenges, with a working capital deficit of $1,312,053 and only $4,386 in its operating bank account as of September 30, 2021. Management has determined these conditions raise substantial doubt about the company's ability to continue as a going concern within the next year. Liquidity needs have been met through sponsor payments and loans, but the company warns that without new financing, it may need to suspend its search for a business combination.\n\nDespite having no operating revenue, the company reported net income of approximately $7.9 million for the quarter, primarily due to an $8.3 million change in the fair value of derivative warrant liabilities. Contractual obligations include registration rights for holders of Founder Shares and Private P",
+          "text_truncated": false
+        },
+        {
+          "node_id": "040d5d1d-6fbc-4c38-b6d1-e6144aba34ca",
+          "document_id": 9203,
+          "level": 1,
+          "dense_score": 0.6514373,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This group of document chunks covers management's liquidity assessment and key accounting policies. Management believes the company has sufficient working capital and borrowing capacity to meet its needs for at least one year or until a business combination is completed. Funds will be used for accounts payable, evaluating and performing due diligence on target businesses, travel, and structuring the eventual transaction.\n\nSignificant accounting policies include the use of estimates, which requires management judgment under U.S. GAAP and may change with future events, leading to potential differences from actual results. Deferred offering costs from the IPO, such as legal and underwriting fees, were charged to equity upon completion. For income taxes, the company follows FASB ASC 740, recog",
+          "text_truncated": false
+        },
+        {
+          "node_id": "9ff6c028-1e2e-4165-8c25-ff00c2f41bfe",
+          "document_id": 9201,
+          "level": 1,
+          "dense_score": 0.6458254,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "The company acknowledges insufficient liquidity to meet obligations over the next year from the financial statement issuance date. However, management has determined that access to Working Capital Loans from its sponsor is sufficient to fund working capital needs for at least one year, supporting the going concern assessment. Management and the board believe they will have sufficient working capital and borrowing capacity from the sponsor, its affiliates, or certain officers and directors to meet liquidity needs until the earlier of consummating a business combination or the required liquidation date if no combination occurs.\n\nFor the period from inception through December 31, 2020, the company had no operating revenues, as its activities were focused on preparing for its initial public of",
+          "text_truncated": false
+        },
+        {
+          "node_id": "85d3b541-48c0-4add-9398-87ef1f19d00e",
+          "document_id": 9201,
+          "level": 1,
+          "dense_score": 0.6339666,
+          "title": "(1) Financial Statements",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "(1) Financial Statements",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "The financial statements are prepared in accordance with U.S. GAAP and SEC regulations. The Company is an emerging growth company, which provides it with significant reporting exemptions. These include not being required to comply with the auditor attestation requirements of Section 404 of the Sarbanes-Oxley Act, reduced executive compensation disclosures, and exemptions from certain shareholder advisory votes. Critically, the Company acknowledges it lacks sufficient liquidity to meet its obligations over the next year, raising substantial doubt about its ability to continue as a going concern. However, management believes it will have sufficient working capital, as it has access to loans from its Sponsor, which are expected to fund its needs for at least one year from the issuance date.",
+          "text_truncated": false
+        },
+        {
+          "node_id": "95f598a7-4032-4d7f-9667-c8bcd56d7768",
+          "document_id": 9204,
+          "level": 1,
+          "dense_score": 0.6200235,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This group of financial statement sections addresses the company's liquidity, accounting basis, and regulatory status. The company acknowledges insufficient liquidity to meet its obligations over the next year but states that working capital loans from its Sponsor provide sufficient funding for at least one year, supporting its going concern assessment. The financial statements are prepared in accordance with U.S. GAAP and SEC regulations and include a restatement to correct prior accounting errors related to warrants. The company qualifies as an emerging growth company, granting it exemptions from certain reporting requirements, including delayed adoption of new accounting standards, reduced executive compensation disclosures, and exemption from Sarbanes-Oxley Section 404 auditor attestat",
+          "text_truncated": false
+        },
+        {
+          "node_id": "2b0e7946-01a1-4936-b56b-881c94d96f38",
+          "document_id": 9208,
+          "level": 1,
+          "dense_score": 0.6069133,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "This document section details the company's financial condition and operational results as of December 31, 2020. It discloses a critical liquidity deadline: the company must consummate a Business Combination by October 23, 2022. Management acknowledges insufficient liquidity to meet obligations until that date but has determined that Working Capital Loans from its sponsor are sufficient to fund operations for at least one year from the financial statement issuance, mitigating immediate going concern risks.\n\nThe company's entire activity since inception has been preparing for its IPO and subsequently searching for a target business. It generated no operating revenues and reported a net loss of approximately $9.6 million for the period from September 2, 2020, through December 31, 2020. This ",
+          "text_truncated": false
+        },
+        {
+          "node_id": "44dd2619-6cab-4f70-98e1-c5079aa37be2",
+          "document_id": 9205,
+          "level": 1,
+          "dense_score": 0.60032386,
+          "title": "18",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "18",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This document section details the company's liquidity position and operational results up to March 31, 2021. Management asserts sufficient working capital exists through sponsor support or loans to fund operations for one year or until a business combination is completed. These funds will cover accounts payable, due diligence, travel, and transaction costs for identifying and merging with a target business. The company's activity remains focused solely on seeking an initial business combination, generating no operating revenue. For Q1 2021, it reported net income of approximately $3.5 million, driven by a $4.8 million change in the fair value of derivative warrant liabilities, offset by general and administrative expenses. The section also notes contractual obligations for registration rig",
+          "text_truncated": false
+        },
+        {
+          "node_id": "f44fe09b-815e-45d2-b2a6-a6ddf5aafef3",
+          "document_id": 9208,
+          "level": 1,
+          "dense_score": 0.594846,
+          "title": "67",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "67",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "This section details the company's evaluation of its disclosure controls and procedures as of December 31, 2020. These controls are designed to ensure timely and accurate reporting of required information to the SEC and to management for decision-making. The principal executive and financial officers (the \"Certifying Officers\") conducted this evaluation. The text notes the existence of a material weakness—a deficiency that could allow a material financial misstatement to go undetected or uncorrected. Management acknowledges the necessity of effective controls for reliable reporting and fraud prevention and states that remediation steps have been implemented, such as improving the review process. However, these efforts may be costly and their success is not guaranteed. The section concludes",
+          "text_truncated": false
+        },
+        {
+          "node_id": "939f3d5f-feb7-4575-843d-35ca889198ff",
+          "document_id": 9202,
+          "level": 1,
+          "dense_score": 0.5919388,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group presents unaudited financial statements and a management discussion section from H.I.G. Acquisition Corp.'s 10-Q filing. The first chunk contains the Condensed Statement of Changes in Shareholders’ Deficit for Q1 2021, showing a starting deficit of $35.76 million, a net income of $3.46 million, and an ending deficit of $32.30 million, with 9,098,625 Class B shares outstanding. The second chunk includes the Condensed Statements of Cash Flows for Q1 2022 and 2021, detailing net income and key adjustments like changes in derivative warrant liabilities and prepaid expenses. The final chunks introduce Management’s Discussion and Analysis (Item 2) and a Cautionary Note, warning that the report contains forward-looking statements subject to risks and uncertainties under the Secur",
+          "text_truncated": false
+        },
+        {
+          "node_id": "70f14d81-b8b3-4bec-af16-263478287f5b",
+          "document_id": 9210,
+          "level": 1,
+          "dense_score": 0.5879368,
+          "title": "2a-7",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "2a-7",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "This chunk group details the company's financial constraints and the specific requirements for its business combination. Management has broad discretion over the use of IPO proceeds, which are primarily intended for a Business Combination. To complete such a combination, the target must have a fair market value of at least 80% of the Trust Account's net assets, and the post-transaction company must own or acquire at least 50% of the target's voting interests.\n\nFinancially, the company faces significant liquidity challenges. As of June 30, 2022, it had minimal cash and a working capital deficit of $2.9 million. It has relied on sponsor payments and private placement proceeds to meet expenses. While up to $4.5 million in Working Capital Loans may be available from insiders, management has co",
+          "text_truncated": false
+        },
+        {
+          "node_id": "723c5bf8-9deb-4484-9602-6ccf2109e937",
+          "document_id": 9209,
+          "level": 1,
+          "dense_score": 0.5863071,
+          "title": "17",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "17",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This section outlines the company's use of proceeds, mandatory liquidation conditions, and significant liquidity concerns. Management has broad discretion over net proceeds from the IPO, over-allotment, and private placement warrants, with the general intent to apply them toward consummating a Business Combination. The company must complete one or more initial Business Combinations with an aggregate fair market value of at least 80% of the net assets held in the Trust Account at the time of signing a definitive agreement.\n\nIf a Business Combination is not completed, the company will redeem all outstanding Public Shares for a pro-rata portion of the funds in the Trust Account, effectively extinguishing shareholders' rights, and subsequently liquidate and dissolve. The text highlights substa",
+          "text_truncated": false
+        },
+        {
+          "node_id": "a897c6b0-b802-4b18-98e2-568afb3a7069",
+          "document_id": 9202,
+          "level": 1,
+          "dense_score": 0.5794612,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "The company faces substantial doubt about its ability to continue as a going concern, as it must complete a Business Combination by October 23, 2022, or face mandatory liquidation and dissolution. For the three months ended March 31, 2022, net income was $6,068,539, driven by a $6,440,410 gain from the change in fair value of derivative warrant liabilities, offset by general and administrative expenses. This compares to net income of $3,455,249 for the same period in 2021. The company incurs public company compliance and due diligence expenses. Additionally, holders of Founder Shares and Private Placement Warrants have registration rights, subject to lock-up periods, with the company bearing related filing expenses. The underwriters previously exercised an over-allotment option, purchasing",
+          "text_truncated": false
+        },
+        {
+          "node_id": "a6551518-790e-4598-9857-13a182d8a53c",
+          "document_id": 9207,
+          "level": 1,
+          "dense_score": 0.5701732,
+          "title": "11",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "11",
+          "exam_section": null,
+          "finance_statement": "management_discussion",
+          "finance_period": null,
+          "text_preview": "This chunk group comprises sections 11 through 15 of H.I.G. Acquisition Corp.'s unaudited condensed financial statements, transitioning into the Management's Discussion and Analysis (MD&A). The initial sections (11-14) are placeholder headings for the Notes to Condensed Financial Statements, indicating detailed disclosures are contained within. The core content begins in section 15, which introduces Item 2: Management’s Discussion and Analysis of Financial Condition and Results of Operations. This section explicitly references the accompanying unaudited financial statements and notes, establishing the required context for the analysis. Crucially, it contains a prominent cautionary note regarding forward-looking statements, defining them under securities laws and warning that they are subje",
+          "text_truncated": false
+        },
+        {
+          "node_id": "ac6dfcd2-c5b3-4ebf-87af-348a24b88507",
+          "document_id": 9208,
+          "level": 1,
+          "dense_score": 0.5699345,
+          "title": "48",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "48",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "The company identified a material weakness in internal control over financial reporting as of December 31, 2020, rendering it ineffective. This weakness led to a material misstatement of derivative warrant liabilities, changes in their fair value, Class A ordinary shares subject to possible redemption, additional capital, accumulated deficit, and related disclosures for affected periods. Management is dedicating significant resources to remediate this issue.\n\nFailure to maintain effective internal controls could severely impact the timely and accurate reporting of financial results. Inaccurate or delayed financial statements may mislead investors and trigger sanctions or investigations by stock exchanges or the SEC, such as the SEC. Such failures could cause a material adverse effect on th",
+          "text_truncated": false
+        },
+        {
+          "node_id": "998591f8-65a8-4bc5-bc40-010fd798179d",
+          "document_id": 9201,
+          "level": 1,
+          "dense_score": 0.5689187,
+          "title": "1450 Brickell Avenue, 31st Floor",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "1450 Brickell Avenue, 31st Floor",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This section outlines significant risks and conflicts of interest for the SPAC, emphasizing that past performance of H.I.G. Capital or its funds is not indicative of future results. Key disclosures include that management has no prior SPAC operating experience and that officers and directors have fiduciary duties to other entities, which may require them to present suitable business combination opportunities to those entities first. Additionally, management is not required to commit specific time to the SPAC, creating potential conflicts in time allocation. The business strategy involves leveraging H.I.G. Capital's 27-year deal-sourcing network and expertise to identify and acquire a company that can create long-term shareholder value, without being limited to a specific industry or region",
+          "text_truncated": false
+        },
+        {
+          "node_id": "83cea753-886c-40c0-8404-60925fde6fa6",
+          "document_id": 9210,
+          "level": 1,
+          "dense_score": 0.5676241,
+          "title": "12",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "12",
+          "exam_section": null,
+          "finance_statement": "management_discussion",
+          "finance_period": null,
+          "text_preview": "This chunk group primarily consists of placeholder \"Table of Contents\" sections (sections 12-15) and the beginning of a critical financial disclosure section. The substantive content begins with Item 2: \"Management’s Discussion and Analysis of Financial Condition and Results of Operations\" (MD&A) for H.I.G. Acquisition Corp. The text establishes that the discussion should be read alongside the company's unaudited interim financial statements. It prominently features a mandatory cautionary note regarding forward-looking statements. These statements, as defined under the Securities Act and Exchange Act, are not historical facts and involve risks and uncertainties that could cause actual results to differ materially from projected outcomes. The forward-looking statements specifically pertain ",
+          "text_truncated": false
+        },
+        {
+          "node_id": "2bd9b2c8-110f-45e5-b01a-8f6465fca2cb",
+          "document_id": 9203,
+          "level": 1,
+          "dense_score": 0.5656806,
+          "title": "14",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "14",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group details the company's financial activities and operational status following its Initial Public Offering (IPO). It describes the concurrent private placement of warrants to the Sponsor, generating $8.5 million initially and an additional $0.8 million later. A total of $363.9 million in net proceeds was placed into a Trust Account. The filing states that if a Business Combination is not completed by October 23, 2022, the company will liquidate, redeem public shares from the Trust Account, and dissolve. For the period from inception through September 30, 2020, the company reported a net loss of $20,000, no operating revenue, a working capital deficit of approximately $491,000, and no cash on hand. Liquidity has been provided by sponsor contributions, a loan, and private place",
+          "text_truncated": false
+        },
+        {
+          "node_id": "2161e166-cec7-4c80-9dc4-72a96fdd89c4",
+          "document_id": 9201,
+          "level": 1,
+          "dense_score": 0.5647443,
+          "title": "(1) Financial Statements",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "(1) Financial Statements",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "This chunk group covers two key sections from the financial statements: Risks and Uncertainties, and Shareholders' Equity. Management acknowledges that a virus (likely COVID-19) could negatively impact the company's financial position, operations, or partner search, but the specific effect is not yet determinable, so no adjustments are included in the statements.\n\nThe equity section details the company's capital structure. It is authorized to issue 1,000,000 preference shares (none outstanding) and 950,000,000 Class A ordinary shares. As of December 31, 2020, 36,394,500 Class A shares were issued, with 34,718,347 subject to possible redemption. It is also authorized to issue 95,000,000 Class B ordinary shares. Following an initial issuance and subsequent surrenders by the Sponsor, 9,343,75",
+          "text_truncated": false
+        },
+        {
+          "node_id": "0dc59d57-b967-4d88-a824-f82ab10d71fa",
+          "document_id": 9204,
+          "level": 1,
+          "dense_score": 0.56468594,
+          "title": "30",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "30",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This section outlines significant competitive and financial risks faced by the company. It operates in a highly competitive environment for acquisitions, contending with well-established private investors, other blank check companies, and entities possessing greater resources and industry knowledge. The company acknowledges its financial resources are relatively limited compared to these competitors.\n\nA primary risk is the sufficiency of funds. The net proceeds from its IPO and private placement, held outside the trust account, must fund operations for 24 months. If these funds are insufficient, it would limit the search for and completion of an initial business combination. The company would then depend on loans from its sponsor, management, or board of directors, though these parties are",
+          "text_truncated": false
+        },
+        {
+          "node_id": "af777dd3-960d-4e60-b9e7-917b8ca20cd7",
+          "document_id": 9207,
+          "level": 2,
+          "dense_score": 0.56456983,
+          "title": "Document Summary",
+          "domain": "finance",
+          "content_type": "document_summary",
+          "source_section": "Document Summary",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "This document is the Form 10-Q quarterly report for H.I.G. Acquisition Corp., a Cayman Islands-based special purpose acquisition company (SPAC), filed with the SEC on November 5, 2021, covering the nine months ended September 30, 2021. The company is an emerging growth company with its securities (Units, Class A shares, redeemable warrants) traded on the NYSE.\n\nKey financial data shows a slight decrease in total assets to $364.6 million, primarily held in a Trust Account ($364.0 million). However, the company faces a significant liquidity challenge, with a working capital deficit of $1.3 million and minimal operating cash ($4,386), while current liabilities have risen to $1.9 million. Despite this, the company reported net income of $9.2 million for the period, largely due to non-cash adju…",
+          "text_truncated": true
+        }
+      ],
+      "leaf": [
+        {
+          "node_id": "a048876f-512d-42e5-8033-02557b1f32b7",
+          "document_id": 9209,
+          "level": 0,
+          "dense_score": 0.67599106,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "2014-15,\n\n“Disclosures of Uncertainties about an Entity’s Ability to Continue as a Going Concern,” management has determined that the liquidity condition and date for mandatory liquidation and dissolution raise substantial doubt about the Company’s ability to continue as a going concern. These condensed financial s statements do not include any adjustments relating to the recovery of the recorded assets or the classification of the liabilities that might be necessary should the Company be unable to continue as a going concern.\n\nThrough September 30, 2021, our liquidity needs have been satisfied through a payment of $25,000 from the Sponsor to pay for certain offering costs in exchange for issuance of the Founder Shares (as defined in Note 5), the loan under the Note of approximately $237,0…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "697f9e46-1074-425e-94b9-b470286c84dd",
+          "document_id": 9207,
+          "level": 0,
+          "dense_score": 0.67139745,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "2014-15,\n\n“Disclosures of Uncertainties about an Entity’s Ability to Continue as a Going Concern,” management has determined that the liquidity condition and date for mandatory liquidation and dissolution raise substantial doubt about the Company’s ability to continue as a going concern through approximately one year from the date these condensed financial statements were issued. These condensed financial s statements do not include any adjustments relating to the recovery of the recorded assets or the classification of the liabilities that might be necessary should the Company be unable to continue as a going concern.\n\nThrough September 30, 2021, our liquidity needs have been satisfied through a payment of $25,000 from the Sponsor to pay for certain offering costs in exchange for issuance…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "dce06dda-2db1-4adb-a7fd-9191788439b6",
+          "document_id": 9207,
+          "level": 0,
+          "dense_score": 0.67038804,
+          "title": "16",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "16",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "Liquidity and Capital Resources\n\nAs of September 30, 2021, we had $4,386 in our operating bank account, and working capital deficit of $1,312,053. Further, we have incurred and expects to continue to incur significant costs in pursuit of our acquisition plans.\n\nIf the Company is unable to raise additional capital, it may be required to take additional measures to conserve liquidity, which could include, but not necessarily be limited to, suspending the pursuit of a Business Combination. The Company cannot provide any assurance that new financing will be available to it on commercially acceptable terms, if at all.\n\nAs a result of the above, in connection with the Company’s assessment of going concern considerations in accordance with Accounting Standards Update (“ASU”)",
+          "text_truncated": false
+        },
+        {
+          "node_id": "79745cb1-1f85-422d-aee1-5e4d3d9b4e62",
+          "document_id": 9204,
+          "level": 0,
+          "dense_score": 0.6600028,
+          "title": "66",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "66",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "66\n\nTable of Contents\n\nWe do not have sufficient liquidity to meet our anticipated obligations over the next year from the issuance of these financial statements. In connection with our assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that we have access to Working Capital Loans (as defined in Note 5) from our sponsor that are sufficient to fund our working capital needs for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management and our board of directors believe that we will have sufficient working capital and borrowing capacity from our sponsor or an affiliate of …",
+          "text_truncated": true
+        },
+        {
+          "node_id": "7802c2bc-cc62-455f-be10-58082836fd38",
+          "document_id": 9208,
+          "level": 0,
+          "dense_score": 0.65200526,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "Through December 31, 2020, our liquidity needs have been satisfied through a payment of $25,000 from our sponsor to pay for certain offering costs in exchange for issuance of the founder shares, a loan under a promissory note of approximately $237,000 from our sponsor, and the net proceeds from the consummation of the private placements not held in the trust account. We fully repaid the balance of the promissory note on October 23, 2020. In addition, in order to finance transaction costs in connection with an initial business combination, our officers, directors and initial shareholders may, but are not obligated to, provide us with loans the Company may require (Working Capital Loans). As of December 31, 2020, there were no amounts outstanding under any Working Capital Loans.\n\nIn connec…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "3118de17-7cae-4101-93fd-8f6626d737b0",
+          "document_id": 9201,
+          "level": 0,
+          "dense_score": 0.6483696,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2014",
+          "text_preview": "We do not have sufficient liquidity to meet our anticipated obligations over the next year from the issuance of these financial statements. In connection with our assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that we have access to Working Capital Loans (as defined in Note 4) from our sponsor that are sufficient to fund our working capital needs for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management and our board of directors believe that we will have sufficient working capital and borrowing capacity from our sponsor or an affiliate of our sponsor, or certain…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "a3a9115b-e170-4dc8-aab6-9914acac7803",
+          "document_id": 9208,
+          "level": 0,
+          "dense_score": 0.6460063,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "In connection with the Companys assessment of going concern considerations in accordance with Financial Accounting Standards Boards Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, the Company has until October 23, 2022 to consummate a Business Combination. It is uncertain that the Company will be able to consummate a Business Combination by this time. If a Business Combination is not consummated by this date, there will be a mandatory liquidation and subsequent dissolution of the Company. Management has determined that the liquidity condition and mandatory liquidation, should a Business Combination not occur, and potential subsequent dissolution raises substantial doubt about the Companys ability to co…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "281dbede-f16a-451a-bc64-aef57757fb21",
+          "document_id": 9201,
+          "level": 0,
+          "dense_score": 0.6412099,
+          "title": "(1) Financial Statements",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2014",
+          "text_preview": "The Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that the Company has access to working capital loans (as defined in Note 4) from the Sponsor that are sufficient to fund the working capital needs of the Company for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management believes that the Company will have sufficient working capital and borrowing capacity from the Sponsor or an affiliate…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "9fdcf71b-2890-44b4-a182-7188d572b1c3",
+          "document_id": 9210,
+          "level": 0,
+          "dense_score": 0.6410315,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "2014-15,\n\n“Disclosures of Uncertainties about an Entity’s Ability to Continue as a Going Concern,” we have determined that the liquidity condition and mandatory liquidation, should a Business Combination not occur, and potential subsequent dissolution raises substantial doubt about our ability to continue as a going concern. It is uncertain that we will be able to consummate a Business Combination by this time. If a Business Combination is not consummated by this date, there will be a mandatory liquidation and subsequent dissolution of the Company. Management has determined that the liquidity condition and mandatory liquidation, should a Business Combination not occur, and potential subsequent dissolution raises substantial doubt about our ability to continue as a going concern. No adjustm…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "9fd24cb6-a6e6-4797-9fd8-ae80e8372e22",
+          "document_id": 9208,
+          "level": 0,
+          "dense_score": 0.6372589,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "Restatement of Financial Statements\n\nAs discussed in Note 2 to the financial statements, the 2020 financial statements have been restated to correct certain misstatements.\n\nGoing Concern\n\nThe accompanying financial statements have been prepared assuming that the Company will continue as a going concern. As discussed in Note 1 to the financial statements, if the Company is unable to raise additional funds to alleviate liquidity needs and complete a business combination by October 23, 2022 then the Company will cease all operations except for the purpose of liquidating. The liquidity condition and date for mandatory liquidation and subsequent dissolution raise substantial doubt about the Companys ability to continue as a going concern. Managements plans in regard to these matters are also …",
+          "text_truncated": true
+        },
+        {
+          "node_id": "b22f346d-466e-41ce-a0fc-13817f789031",
+          "document_id": 9208,
+          "level": 0,
+          "dense_score": 0.6325055,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "64\n\nTable of Contents\n\nWe have until October 23, 2022 to consummate a Business Combination. We do not have sufficient liquidity to meet or anticipated obligations until this date. In connection with our assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that we have access to Working Capital Loans (as defined in Note 5) from our sponsor that are sufficient to fund our working capital needs for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management and our board of directors do not believe that we will have sufficient working capital and borrowing capacity from our sponsor or a…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "05281e92-f195-4116-9c73-9042a1d875ca",
+          "document_id": 9204,
+          "level": 0,
+          "dense_score": 0.63019794,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "F-9\n\nTable of Contents\n\nThe Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that the Company has access to working capital loans (as defined in Note 5) from the Sponsor that are sufficient to fund the working capital needs of the Company for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management believes that the Company will have sufficient working capital and borrowing capacity from the…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "9e885853-7857-41bb-90f4-6caf0eb28086",
+          "document_id": 9205,
+          "level": 0,
+          "dense_score": 0.62670773,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "The Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that the Company has access to working capital loans (as defined in Note 4) from the Sponsor that are sufficient to fund the working capital needs of the Company for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management believes that the Company will have sufficient working capital and borrowing capacity from the Sponsor or an affiliate of the S…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "5874d63d-f1cf-4f14-a95e-84ffb81d7aba",
+          "document_id": 9201,
+          "level": 0,
+          "dense_score": 0.6236902,
+          "title": "(1) Financial Statements",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "F-9\n\nTable of Contents\n\nOctober 23, 2020. In addition, in order to finance transaction costs in connection with an initial Business Combination, the Companys officers, directors and initial shareholders may, but are not obligated to, provide the Company Working Capital Loans (see Note 4). As of December 31, 2020, there were no amounts outstanding under any Working Capital Loans.\n\nThe Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined tha…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "86b74f06-59c6-491f-ada5-25e1686656d3",
+          "document_id": 9201,
+          "level": 0,
+          "dense_score": 0.618522,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "Through December 31, 2020, our liquidity needs have been satisfied through a payment of $25,000 from our sponsor to pay for certain offering costs in exchange for issuance of the founder shares, a loan under a promissory note of approximately $237,000 from our sponsor, and the net proceeds from the consummation of the private placements not held in the trust account. We fully repaid the balance of the promissory note on October 23, 2020. In addition, in order to finance transaction costs in connection with an initial business combination, our officers, directors and initial shareholders may, but are not obligated to, provide us with loans the Company may require (Working Capital Loans). As of December 31, 2020, there were no amounts outstanding under any Working Capital Loans.\n\nWe do not…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "5a4528f9-fe2b-4673-b731-513ec09ee189",
+          "document_id": 9202,
+          "level": 0,
+          "dense_score": 0.61370754,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "2014-15,\n\n“Disclosures of Uncertainties about an Entity’s Ability to Continue as a Going Concern,” the Company has until October 23, 2022 to consummate a Business Combination. It is uncertain that we will be able to consummate a Business Combination by this time. If a Business Combination is not consummated by this date, there will be a mandatory liquidation and subsequent dissolution of the Company. Management has determined that the liquidity condition and mandatory liquidation, should a Business Combination not occur, and potential subsequent dissolution raises substantial doubt about our ability to continue as a going concern. No adjustments have been made to the carrying amounts of assets or liabilities should the Company be required to liquidate after October 23, 2022.\n\nResults of Op…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "e2174267-7dd9-4b86-8c0a-12fa3b7600b3",
+          "document_id": 9203,
+          "level": 0,
+          "dense_score": 0.61254954,
+          "title": "14",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "14",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "14\n\nTable of Contents\n\nItem 2. Managements Discussion and Analysis of Financial Condition and Results of Operations.\n\nReferences to the Company, our, us or we refer to H.I.G. Acquisition Corp. The following discussion and analysis of the Companys financial condition and results of operations should be read in conjunction with the unaudited condensed financial statements and the notes thereto contained elsewhere in this report. Certain information contained in the discussion and analysis set forth below includes forward-looking statements that involve risks and uncertainties.\n\nCautionary Note Regarding Forward-Looking Statements",
+          "text_truncated": false
+        },
+        {
+          "node_id": "d0841580-16cd-4171-9b55-6b24ad707400",
+          "document_id": 9210,
+          "level": 0,
+          "dense_score": 0.61218846,
+          "title": "17",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "17",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "17\n\nTable of Contents\n\nliquidation distributions, if any); and (iii) as promptly as reasonably possible following such redemption, subject to the approval of the remaining shareholders and the board of directors, liquidate and dissolve, subject in the case of clauses (ii) and (iii), to our obligations under Cayman Islands law to provide for claims of creditors and the requirements of other applicable law.\n\nLiquidity and Going Concern Considerations\n\nAs of June 30, 2022, we had approximately $4,000 in our operating bank account, and working capital deficit of $2.9 million. Further, we have incurred and expect to continue to incur significant costs in pursuit of our acquisition plans.\n\nThrough June 30, 2022, we have addressed our liquidity needs by having the Sponsor pay $1.6 million of our …",
+          "text_truncated": true
+        },
+        {
+          "node_id": "3677b4a7-5a05-4a93-a6ee-7d8c14fc6086",
+          "document_id": 9201,
+          "level": 0,
+          "dense_score": 0.6071692,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "64\n\nTable of Contents\n\nboard of directors, liquidate and dissolve, subject in the case of clauses (ii) and (iii), to our obligations under Cayman Islands law to provide for claims of creditors and the requirements of other applicable law.\n\nLiquidity and Capital Resources\n\nGoing Concern Consideration\n\nAs of December 31, 2020, we had approximately $30,000 in our operating bank accounts and working capital of approximately $970,000. Further, we have incurred and expect to continue to incur significant costs in pursuit of its acquisition plans.\n\nThrough December 31, 2020, our liquidity needs have been satisfied through a payment of $25,000 from our sponsor to pay for certain offering costs in exchange for issuance of the founder shares, a loan under a promissory note of approximately $237,000 …",
+          "text_truncated": true
+        },
+        {
+          "node_id": "d58ba552-8b54-45f3-b2f0-0d94c16e0e39",
+          "document_id": 9205,
+          "level": 0,
+          "dense_score": 0.606565,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "Through March 31, 2021, the Companys liquidity needs have been satisfied through a payment of $25,000 from the Sponsor to pay for certain offering costs in exchange for issuance of the Founder Shares (as defined in Note 4), the loan under the Note of approximately $237,000 (see Note 4), and the net proceeds from the consummation of the Private Placement not held in the Trust Account. The Company fully repaid the Note on October 23, 2020. In addition, in order to finance transaction costs in connection with an initial Business Combination, the Companys officers, directors and initial shareholders may, but are not obligated to, provide the Company Working Capital Loans (see Note 4). As of March 31, 2021 and December 31, 2020, there were no amounts outstanding under any Working Capital Loan…",
+          "text_truncated": true
+        }
+      ]
+    },
+    "retrieval_sparse_hits": {
+      "summary": [
+        {
+          "node_id": "a6551518-790e-4598-9857-13a182d8a53c",
+          "document_id": 9207,
+          "level": 1,
+          "sparse_score": 56.058636,
+          "title": "11",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "11",
+          "exam_section": null,
+          "finance_statement": "management_discussion",
+          "finance_period": null,
+          "text_preview": "This chunk group comprises sections 11 through 15 of H.I.G. Acquisition Corp.'s unaudited condensed financial statements, transitioning into the Management's Discussion and Analysis (MD&A). The initial sections (11-14) are placeholder headings for the Notes to Condensed Financial Statements, indicating detailed disclosures are contained within. The core content begins in section 15, which introduces Item 2: Management’s Discussion and Analysis of Financial Condition and Results of Operations. This section explicitly references the accompanying unaudited financial statements and notes, establishing the required context for the analysis. Crucially, it contains a prominent cautionary note regarding forward-looking statements, defining them under securities laws and warning that they are subje",
+          "text_truncated": false
+        },
+        {
+          "node_id": "7386f91d-fc1d-401b-83e3-8f07346dd2c3",
+          "document_id": 9206,
+          "level": 1,
+          "sparse_score": 56.058636,
+          "title": "15",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "15",
+          "exam_section": null,
+          "finance_statement": "management_discussion",
+          "finance_period": null,
+          "text_preview": "This document section contains the Management's Discussion and Analysis (MD&A) for H.I.G. Acquisition Corp., a Cayman Islands blank check company formed in September 2020. The MD&A, which should be read with the accompanying unaudited financial statements, includes forward-looking statements subject to risks and uncertainties, as cautioned under securities laws. The company completed its Initial Public Offering (IPO) in October 2020, issuing 32,500,000 units, each comprising one Class A ordinary share and one-third of a redeemable warrant. In December 2020, the underwriters partially exercised an over-allotment option, purchasing an additional 3,894,500 units. The entity's purpose is to effect a business combination with one or more target companies.",
+          "text_truncated": false
+        },
+        {
+          "node_id": "83cea753-886c-40c0-8404-60925fde6fa6",
+          "document_id": 9210,
+          "level": 1,
+          "sparse_score": 56.058636,
+          "title": "12",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "12",
+          "exam_section": null,
+          "finance_statement": "management_discussion",
+          "finance_period": null,
+          "text_preview": "This chunk group primarily consists of placeholder \"Table of Contents\" sections (sections 12-15) and the beginning of a critical financial disclosure section. The substantive content begins with Item 2: \"Management’s Discussion and Analysis of Financial Condition and Results of Operations\" (MD&A) for H.I.G. Acquisition Corp. The text establishes that the discussion should be read alongside the company's unaudited interim financial statements. It prominently features a mandatory cautionary note regarding forward-looking statements. These statements, as defined under the Securities Act and Exchange Act, are not historical facts and involve risks and uncertainties that could cause actual results to differ materially from projected outcomes. The forward-looking statements specifically pertain ",
+          "text_truncated": false
+        },
+        {
+          "node_id": "758e87d4-f16b-4ab4-8056-f60f1807fd7b",
+          "document_id": 9206,
+          "level": 2,
+          "sparse_score": 52.186733,
+          "title": "Document Summary",
+          "domain": "finance",
+          "content_type": "document_summary",
+          "source_section": "Document Summary",
+          "exam_section": null,
+          "finance_statement": "management_discussion",
+          "finance_period": "2021",
+          "text_preview": "This document is a collection of key sections from H.I.G. Acquisition Corp.'s unaudited Form 10-Q quarterly report for the period ended June 30, 2021, filed with the SEC. H.I.G. Acquisition Corp. is a Cayman Islands blank check company, or special purpose acquisition company (SPAC), formed to effect a merger or acquisition. Its securities are listed on the New York Stock Exchange.\n\nThe report begins with condensed financial statements, including a balance sheet showing total liabilities of $35.3 million, significant derivative warrant liabilities, and Class A ordinary shares subject to possible redemption valued at $324.4 million. Total shareholders' equity was $5.0 million. The statements of operations report a net loss of $2.2 million for the quarter ended June 30, 2021. This is followed…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "b641d6f9-75da-4415-ad8c-88b247efdfb2",
+          "document_id": 9207,
+          "level": 1,
+          "sparse_score": 38.31219,
+          "title": "16",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "16",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "The company faces significant liquidity challenges, with a working capital deficit of $1,312,053 and only $4,386 in its operating bank account as of September 30, 2021. Management has determined these conditions raise substantial doubt about the company's ability to continue as a going concern within the next year. Liquidity needs have been met through sponsor payments and loans, but the company warns that without new financing, it may need to suspend its search for a business combination.\n\nDespite having no operating revenue, the company reported net income of approximately $7.9 million for the quarter, primarily due to an $8.3 million change in the fair value of derivative warrant liabilities. Contractual obligations include registration rights for holders of Founder Shares and Private P",
+          "text_truncated": false
+        },
+        {
+          "node_id": "939f3d5f-feb7-4575-843d-35ca889198ff",
+          "document_id": 9202,
+          "level": 1,
+          "sparse_score": 32.461052,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group presents unaudited financial statements and a management discussion section from H.I.G. Acquisition Corp.'s 10-Q filing. The first chunk contains the Condensed Statement of Changes in Shareholders’ Deficit for Q1 2021, showing a starting deficit of $35.76 million, a net income of $3.46 million, and an ending deficit of $32.30 million, with 9,098,625 Class B shares outstanding. The second chunk includes the Condensed Statements of Cash Flows for Q1 2022 and 2021, detailing net income and key adjustments like changes in derivative warrant liabilities and prepaid expenses. The final chunks introduce Management’s Discussion and Analysis (Item 2) and a Cautionary Note, warning that the report contains forward-looking statements subject to risks and uncertainties under the Secur",
+          "text_truncated": false
+        },
+        {
+          "node_id": "85d3b541-48c0-4add-9398-87ef1f19d00e",
+          "document_id": 9201,
+          "level": 1,
+          "sparse_score": 31.854963,
+          "title": "(1) Financial Statements",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "(1) Financial Statements",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "The financial statements are prepared in accordance with U.S. GAAP and SEC regulations. The Company is an emerging growth company, which provides it with significant reporting exemptions. These include not being required to comply with the auditor attestation requirements of Section 404 of the Sarbanes-Oxley Act, reduced executive compensation disclosures, and exemptions from certain shareholder advisory votes. Critically, the Company acknowledges it lacks sufficient liquidity to meet its obligations over the next year, raising substantial doubt about its ability to continue as a going concern. However, management believes it will have sufficient working capital, as it has access to loans from its Sponsor, which are expected to fund its needs for at least one year from the issuance date.",
+          "text_truncated": false
+        },
+        {
+          "node_id": "a897c6b0-b802-4b18-98e2-568afb3a7069",
+          "document_id": 9202,
+          "level": 1,
+          "sparse_score": 30.973434,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "The company faces substantial doubt about its ability to continue as a going concern, as it must complete a Business Combination by October 23, 2022, or face mandatory liquidation and dissolution. For the three months ended March 31, 2022, net income was $6,068,539, driven by a $6,440,410 gain from the change in fair value of derivative warrant liabilities, offset by general and administrative expenses. This compares to net income of $3,455,249 for the same period in 2021. The company incurs public company compliance and due diligence expenses. Additionally, holders of Founder Shares and Private Placement Warrants have registration rights, subject to lock-up periods, with the company bearing related filing expenses. The underwriters previously exercised an over-allotment option, purchasing",
+          "text_truncated": false
+        },
+        {
+          "node_id": "b2cc04f2-a856-4ffe-a484-20cf422c1ef3",
+          "document_id": 9208,
+          "level": 1,
+          "sparse_score": 29.686962,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group contains the independent auditor's report for HIG Acquisition Corp's 2020 financial statements, which have been restated. The auditor, a PCAOB-registered firm, expresses an unqualified opinion that the statements fairly present the company's financial position and results for the period from inception (September 2, 2020) through December 31, 2020, in accordance with U.S. GAAP. The report discloses that the 2020 statements were restated to correct certain misstatements. It also highlights a significant going concern issue, noting substantial doubt about the company's ability to continue due to liquidity needs and a mandatory liquidation date of October 23, 2022, if a business combination is not completed. The financial statements do not include adjustments related to this u",
+          "text_truncated": false
+        },
+        {
+          "node_id": "033f490d-109f-4544-9370-0ab6dcbf5498",
+          "document_id": 9209,
+          "level": 1,
+          "sparse_score": 27.525398,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "This chunk group presents financial data and management discussion from H.I.G. Acquisition Corp.'s 10-Q filing. The key financial results for the nine months ended September 30, 2021, show a net income of $9.17 million, significantly impacted by an $11.42 million non-cash adjustment for the change in fair value of derivative warrant liabilities. Despite the reported net income, net cash used in operating activities was negative after adjustments, including a $27,225 interest income from the Trust Account. The period from inception through September 30, 2020, recorded a net loss of $20,033. The statement of cash flows indicates a net decrease in cash of $25,717, ending with $4,386. Supplemental disclosures note significant non-cash deferred offering costs from the prior period. The final ch",
+          "text_truncated": false
+        },
+        {
+          "node_id": "32c85a5b-13ef-42fb-8569-9942db28b272",
+          "document_id": 9202,
+          "level": 1,
+          "sparse_score": 26.954891,
+          "title": "10-Q,",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-Q,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group primarily addresses regulatory compliance risks and required exhibits. The 10-Q section states there have been no material changes to risk factors since the March 29, 2022, Form 10-K filing, though updates may occur in future filings. A key risk factor from the 10-K is highlighted: changes in laws or regulations, or a failure to comply, could adversely affect the company's business, including its ability to complete an initial business combination. Compliance is noted as potentially difficult, time-consuming, and costly, and evolving interpretations could materially impact operations. The group concludes with a list of exhibits from the filing, including Sarbanes-Oxley Act certifications by the CEO and CFO under Sections 302 and 906, affirming the accuracy of financial rep",
+          "text_truncated": false
+        },
+        {
+          "node_id": "343ffccb-31cf-4023-a54a-d57cf1c4ca52",
+          "document_id": 9202,
+          "level": 2,
+          "sparse_score": 26.420803,
+          "title": "Document Summary",
+          "domain": "finance",
+          "content_type": "document_summary",
+          "source_section": "Document Summary",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "This document is the Form 10-Q quarterly report filed with the SEC by H.I.G. Acquisition Corp. for the quarter ended March 31, 2022. The company is a Cayman Islands blank check company (special purpose acquisition company, or SPAC) formed to pursue a business combination. It is classified as an emerging growth company, a smaller reporting company, and a non-accelerated filer. Its securities (Units, Class A ordinary shares, and redeemable warrants) are listed on the New York Stock Exchange.\n\nKey financial data for the quarter shows total assets of $364.4 million, primarily consisting of $364.0 million held in a Trust Account. The company reported net income of $6,068,539, largely driven by a $6,440,410 non-cash gain from the change in fair value of derivative warrant liabilities, offset by …",
+          "text_truncated": true
+        },
+        {
+          "node_id": "4dc58b94-36a4-48f9-a79b-4ee71750cf1a",
+          "document_id": 9209,
+          "level": 1,
+          "sparse_score": 25.579372,
+          "title": "10-K/A",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-K/A",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group covers the final sections of a Form 10-K/A filing by H.I.G. ACQUISITION CORP., dated December 29, 2021. It includes a series of standard negative disclosures for Items 2 through 5, stating there were no unregistered sales of equity securities, defaults upon senior securities, mine safety disclosures, or other information to report. The primary content details the required exhibits, specifically the Sarbanes-Oxley Act certifications: Exhibit 31.1 and 31.2 contain the Section 302 certifications by the CEO and CFO, respectively, while Exhibit 32.1 and 32.2 contain their Section 906 certifications. The filing concludes with the signature page, confirming the report was signed by Chief Financial Officer Timur Akazhanov on behalf of the registrant on December 29, 2021.",
+          "text_truncated": false
+        },
+        {
+          "node_id": "af777dd3-960d-4e60-b9e7-917b8ca20cd7",
+          "document_id": 9207,
+          "level": 2,
+          "sparse_score": 23.843557,
+          "title": "Document Summary",
+          "domain": "finance",
+          "content_type": "document_summary",
+          "source_section": "Document Summary",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "This document is the Form 10-Q quarterly report for H.I.G. Acquisition Corp., a Cayman Islands-based special purpose acquisition company (SPAC), filed with the SEC on November 5, 2021, covering the nine months ended September 30, 2021. The company is an emerging growth company with its securities (Units, Class A shares, redeemable warrants) traded on the NYSE.\n\nKey financial data shows a slight decrease in total assets to $364.6 million, primarily held in a Trust Account ($364.0 million). However, the company faces a significant liquidity challenge, with a working capital deficit of $1.3 million and minimal operating cash ($4,386), while current liabilities have risen to $1.9 million. Despite this, the company reported net income of $9.2 million for the period, largely due to non-cash adju…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "2b0e7946-01a1-4936-b56b-881c94d96f38",
+          "document_id": 9208,
+          "level": 1,
+          "sparse_score": 23.795002,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "This document section details the company's financial condition and operational results as of December 31, 2020. It discloses a critical liquidity deadline: the company must consummate a Business Combination by October 23, 2022. Management acknowledges insufficient liquidity to meet obligations until that date but has determined that Working Capital Loans from its sponsor are sufficient to fund operations for at least one year from the financial statement issuance, mitigating immediate going concern risks.\n\nThe company's entire activity since inception has been preparing for its IPO and subsequently searching for a target business. It generated no operating revenues and reported a net loss of approximately $9.6 million for the period from September 2, 2020, through December 31, 2020. This ",
+          "text_truncated": false
+        },
+        {
+          "node_id": "145e8c27-6d40-45ff-8f7a-14c9095a443a",
+          "document_id": 9209,
+          "level": 1,
+          "sparse_score": 23.602665,
+          "title": "10-Q,",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-Q,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This document group details a financial restatement by the company, requiring the reclassification of all Public Shares from permanent to temporary equity for specific periods (the \"Affected Periods\"). The affected filings include unaudited financial statements from Q1, Q2, and Q3 of 2021, as well as the Post-IPO Balance Sheet and audited 2020 financials. These are being corrected via amended Forms 10-K/A and 10-Q/A.\n\nThe restatement, driven by an internal control consideration regarding the inappropriate $5,000,000 permanent equity classification, does not impact the company's cash position or the trust account. The previously filed financial reports for these periods are superseded and should no longer be relied upon. The amendment specifically updates the Financial Statements, Controls ",
+          "text_truncated": false
+        },
+        {
+          "node_id": "e7fd66e7-76c6-474f-ad93-b51f5cb6c3b4",
+          "document_id": 9208,
+          "level": 1,
+          "sparse_score": 22.65057,
+          "title": "1450 Brickell Avenue, 31st Floor",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "1450 Brickell Avenue, 31st Floor",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "This document section pertains to Amendment No. 2 to the company's Annual Report on Form 10-K for the period ended December 31, 2020. The amendment's primary purpose is to reflect a restatement specifically related to the reclassification of Public Shares as temporary equity. It explicitly amends only the following sections to account for this restatement: Part I - Item 1A (Risk Factors), Part II - Item 7 (Management’s Discussion and Analysis), Part II - Item 9A (Controls and Procedures), and Part IV - Item 15 (Exhibits). The amendment clarifies that it does not update any other disclosures from the original or first amended filings, nor does it reflect events occurring after their respective filing dates (March 30, 2021, and May 24, 2021). It must be read in conjunction with those prior f",
+          "text_truncated": false
+        },
+        {
+          "node_id": "5bbab098-d7bb-4f44-a5b3-34ae22024456",
+          "document_id": 9209,
+          "level": 1,
+          "sparse_score": 22.63821,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group from H.I.G. Acquisition Corp.'s 10-Q filing presents key unaudited condensed financial statements for the period ending September 30, 2021. The data includes the condensed balance sheet, which shows total liabilities and shareholders' deficit of approximately $364.6 million, with a significant accumulated deficit. The statements of operations reveal a net income of $7.93 million for the three-month period and $9.17 million for the nine-month period, driven primarily by an $8.31 million non-cash gain from the change in fair value of derivative warrant liabilities, despite operational losses from general and administrative expenses. The section also references the statements of changes in shareholders' equity, detailing the structure of Class A and Class B ordinary shares. A",
+          "text_truncated": false
+        },
+        {
+          "node_id": "f7fec53c-4dfe-4f2e-ad98-65d20a5e1670",
+          "document_id": 9206,
+          "level": 1,
+          "sparse_score": 22.510006,
+          "title": "10-K",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-K",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "This chunk group covers the final sections of a 10-K annual report filing, including exhibits, signatures, and administrative details. The content specifies that the original 10-K was filed with the SEC on March 30, 2021, and an amended version (10-K/A) was filed on May 24, 2021. It includes a series of standard negative disclosures for Items 2 through 5, stating there were no unregistered sales of equity securities, defaults on senior securities, mine safety disclosures, or other information to report. The core of the group is the list of required exhibits, primarily the Sarbanes-Oxley certifications: Section 302 certifications from the CEO and CFO (Exhibits 31.1 and 31.2) and Section 906 certifications (Exhibits 32.1 and 32.2). The document concludes with the signature page, dated August",
+          "text_truncated": false
+        },
+        {
+          "node_id": "95f598a7-4032-4d7f-9667-c8bcd56d7768",
+          "document_id": 9204,
+          "level": 1,
+          "sparse_score": 22.174946,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This group of financial statement sections addresses the company's liquidity, accounting basis, and regulatory status. The company acknowledges insufficient liquidity to meet its obligations over the next year but states that working capital loans from its Sponsor provide sufficient funding for at least one year, supporting its going concern assessment. The financial statements are prepared in accordance with U.S. GAAP and SEC regulations and include a restatement to correct prior accounting errors related to warrants. The company qualifies as an emerging growth company, granting it exemptions from certain reporting requirements, including delayed adoption of new accounting standards, reduced executive compensation disclosures, and exemption from Sarbanes-Oxley Section 404 auditor attestat",
+          "text_truncated": false
+        },
+        {
+          "node_id": "9ff6c028-1e2e-4165-8c25-ff00c2f41bfe",
+          "document_id": 9201,
+          "level": 1,
+          "sparse_score": 21.904589,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "The company acknowledges insufficient liquidity to meet obligations over the next year from the financial statement issuance date. However, management has determined that access to Working Capital Loans from its sponsor is sufficient to fund working capital needs for at least one year, supporting the going concern assessment. Management and the board believe they will have sufficient working capital and borrowing capacity from the sponsor, its affiliates, or certain officers and directors to meet liquidity needs until the earlier of consummating a business combination or the required liquidation date if no combination occurs.\n\nFor the period from inception through December 31, 2020, the company had no operating revenues, as its activities were focused on preparing for its initial public of",
+          "text_truncated": false
+        },
+        {
+          "node_id": "b583de77-1e48-46e0-ae5f-028e9f43f277",
+          "document_id": 9207,
+          "level": 1,
+          "sparse_score": 21.799648,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This document group describes the formation, initial public offering (IPO), and capital structure of a blank check company. The company, incorporated in the Cayman Islands in September 2020, was formed to pursue a business combination. Its sponsor is H.I.G. Acquisition Advisors, LLC. The IPO of 32.5 million units occurred on October 23, 2020, with each unit consisting of one Class A ordinary share and one-third of a redeemable warrant. An over-allotment option was partially exercised, resulting in the sale of an additional 3,894,500 units on December 1, 2020. Concurrent private placements with the sponsor sold warrants, generating total proceeds of approximately $9.3 million. The combined net proceeds from the IPO, over-allotment, and private placements, totaling about $363.9 million, were",
+          "text_truncated": false
+        },
+        {
+          "node_id": "11cce7b6-e5fa-4d6c-b128-7e9dceff98d1",
+          "document_id": 9203,
+          "level": 1,
+          "sparse_score": 21.683048,
+          "title": "13",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "13",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group covers sections 13 and 14 of the document, detailing warrant redemption terms and the company's forward-looking statements. For warrant redemption, the \"fair market value\" of Class A ordinary shares is defined as the volume-weighted average price over the 10 trading days following the redemption notice. Warrants are capped at a maximum exercise of 0.361 shares per warrant. If the company fails to complete a Business Combination within the specified period and liquidates, warrant holders will not receive any funds from the Trust Account or other company assets, potentially rendering the warrants worthless.\n\nThe group then transitions to Management's Discussion and Analysis, beginning with a cautionary note on forward-looking statements under U.S. securities laws. These stat",
+          "text_truncated": false
+        },
+        {
+          "node_id": "2bd9b2c8-110f-45e5-b01a-8f6465fca2cb",
+          "document_id": 9203,
+          "level": 1,
+          "sparse_score": 20.886465,
+          "title": "14",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "14",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group details the company's financial activities and operational status following its Initial Public Offering (IPO). It describes the concurrent private placement of warrants to the Sponsor, generating $8.5 million initially and an additional $0.8 million later. A total of $363.9 million in net proceeds was placed into a Trust Account. The filing states that if a Business Combination is not completed by October 23, 2022, the company will liquidate, redeem public shares from the Trust Account, and dissolve. For the period from inception through September 30, 2020, the company reported a net loss of $20,000, no operating revenue, a working capital deficit of approximately $491,000, and no cash on hand. Liquidity has been provided by sponsor contributions, a loan, and private place",
+          "text_truncated": false
+        },
+        {
+          "node_id": "06374ad4-ad40-4944-b376-862d332808ce",
+          "document_id": 9202,
+          "level": 1,
+          "sparse_score": 20.658081,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "This chunk group presents H.I.G. Acquisition Corp.'s condensed financial statements from its 10-Q filing for the quarter ended March 31, 2022. The balance sheet shows total assets of $364.4 million, primarily consisting of $364.0 million held in a Trust Account, with a slight decrease from the prior quarter. Current liabilities increased to $2.68 million, driven by accounts payable, amounts due to a related party, and accrued expenses. The shareholders' deficit improved to $(21.4) million from $(27.4) million at year-end, largely due to a reduction in accumulated deficit. The statement of operations indicates general and administrative expenses were $374,320 for the quarter, significantly lower than the $1.29 million incurred in the same period the prior year.",
+          "text_truncated": false
+        },
+        {
+          "node_id": "040d5d1d-6fbc-4c38-b6d1-e6144aba34ca",
+          "document_id": 9203,
+          "level": 1,
+          "sparse_score": 19.77111,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This group of document chunks covers management's liquidity assessment and key accounting policies. Management believes the company has sufficient working capital and borrowing capacity to meet its needs for at least one year or until a business combination is completed. Funds will be used for accounts payable, evaluating and performing due diligence on target businesses, travel, and structuring the eventual transaction.\n\nSignificant accounting policies include the use of estimates, which requires management judgment under U.S. GAAP and may change with future events, leading to potential differences from actual results. Deferred offering costs from the IPO, such as legal and underwriting fees, were charged to equity upon completion. For income taxes, the company follows FASB ASC 740, recog",
+          "text_truncated": false
+        },
+        {
+          "node_id": "70f14d81-b8b3-4bec-af16-263478287f5b",
+          "document_id": 9210,
+          "level": 1,
+          "sparse_score": 19.42777,
+          "title": "2a-7",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "2a-7",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "This chunk group details the company's financial constraints and the specific requirements for its business combination. Management has broad discretion over the use of IPO proceeds, which are primarily intended for a Business Combination. To complete such a combination, the target must have a fair market value of at least 80% of the Trust Account's net assets, and the post-transaction company must own or acquire at least 50% of the target's voting interests.\n\nFinancially, the company faces significant liquidity challenges. As of June 30, 2022, it had minimal cash and a working capital deficit of $2.9 million. It has relied on sponsor payments and private placement proceeds to meet expenses. While up to $4.5 million in Working Capital Loans may be available from insiders, management has co",
+          "text_truncated": false
+        },
+        {
+          "node_id": "6c27f96c-8520-4be5-8d6b-94c6ae17e77b",
+          "document_id": 9205,
+          "level": 1,
+          "sparse_score": 19.356903,
+          "title": "15",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "15",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This chunk group covers financial reporting methodologies and forward-looking statements. For fair value measurement, Level 1 instruments include mutual funds in government securities, valued using trade data, benchmark yields, and quoted prices. Public Warrants from the Public Offering were initially valued using a Monte Carlo simulation, then measured as Level 1 based on listed market prices starting December 2020. Private Placement Warrants are valued by referencing Public Warrant trading prices, with a gain recognized for Q1 2021. Subsequent events after March 31, 2021, were evaluated, with no adjustments or disclosures required. The section also introduces Management’s Discussion and Analysis, cautioning that forward-looking statements involve risks and uncertainties, based on current",
+          "text_truncated": false
+        },
+        {
+          "node_id": "b665a1b7-62d2-4665-92c4-e41d04583116",
+          "document_id": 9207,
+          "level": 1,
+          "sparse_score": 19.287094,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "This chunk group presents unaudited condensed financial statements for H.I.G. Acquisition Corp. from its 10-Q filing. It includes the Statements of Changes in Shareholders’ Equity and the Statements of Cash Flows for specified periods.\n\nThe equity statements show the initial issuance of 9,098,625 Class B ordinary shares to the Sponsor for $910 at inception in September 2020, resulting in a net loss of $20,033 for that initial period. For the nine months ended September 30, 2021, the company reported net income of $9,167,659.\n\nThe cash flow statements reconcile this net income to net cash used in operations, highlighting significant non-cash adjustments. A key item is an $11,422,753 change in the fair value of derivative warrant liabilities, which increased reported income but did not provi",
+          "text_truncated": false
+        },
+        {
+          "node_id": "44dd2619-6cab-4f70-98e1-c5079aa37be2",
+          "document_id": 9205,
+          "level": 1,
+          "sparse_score": 19.096172,
+          "title": "18",
+          "domain": "finance",
+          "content_type": "section_summary",
+          "source_section": "18",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "This document section details the company's liquidity position and operational results up to March 31, 2021. Management asserts sufficient working capital exists through sponsor support or loans to fund operations for one year or until a business combination is completed. These funds will cover accounts payable, due diligence, travel, and transaction costs for identifying and merging with a target business. The company's activity remains focused solely on seeking an initial business combination, generating no operating revenue. For Q1 2021, it reported net income of approximately $3.5 million, driven by a $4.8 million change in the fair value of derivative warrant liabilities, offset by general and administrative expenses. The section also notes contractual obligations for registration rig",
+          "text_truncated": false
+        }
+      ],
+      "leaf": [
+        {
+          "node_id": "a048876f-512d-42e5-8033-02557b1f32b7",
+          "document_id": 9209,
+          "level": 0,
+          "sparse_score": 45.49874,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "2014-15,\n\n“Disclosures of Uncertainties about an Entity’s Ability to Continue as a Going Concern,” management has determined that the liquidity condition and date for mandatory liquidation and dissolution raise substantial doubt about the Company’s ability to continue as a going concern. These condensed financial s statements do not include any adjustments relating to the recovery of the recorded assets or the classification of the liabilities that might be necessary should the Company be unable to continue as a going concern.\n\nThrough September 30, 2021, our liquidity needs have been satisfied through a payment of $25,000 from the Sponsor to pay for certain offering costs in exchange for issuance of the Founder Shares (as defined in Note 5), the loan under the Note of approximately $237,0…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "9e885853-7857-41bb-90f4-6caf0eb28086",
+          "document_id": 9205,
+          "level": 0,
+          "sparse_score": 44.94002,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "The Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that the Company has access to working capital loans (as defined in Note 4) from the Sponsor that are sufficient to fund the working capital needs of the Company for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management believes that the Company will have sufficient working capital and borrowing capacity from the Sponsor or an affiliate of the S…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "697f9e46-1074-425e-94b9-b470286c84dd",
+          "document_id": 9207,
+          "level": 0,
+          "sparse_score": 43.576595,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "2014-15,\n\n“Disclosures of Uncertainties about an Entity’s Ability to Continue as a Going Concern,” management has determined that the liquidity condition and date for mandatory liquidation and dissolution raise substantial doubt about the Company’s ability to continue as a going concern through approximately one year from the date these condensed financial statements were issued. These condensed financial s statements do not include any adjustments relating to the recovery of the recorded assets or the classification of the liabilities that might be necessary should the Company be unable to continue as a going concern.\n\nThrough September 30, 2021, our liquidity needs have been satisfied through a payment of $25,000 from the Sponsor to pay for certain offering costs in exchange for issuance…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "d58ba552-8b54-45f3-b2f0-0d94c16e0e39",
+          "document_id": 9205,
+          "level": 0,
+          "sparse_score": 42.500183,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "Through March 31, 2021, the Companys liquidity needs have been satisfied through a payment of $25,000 from the Sponsor to pay for certain offering costs in exchange for issuance of the Founder Shares (as defined in Note 4), the loan under the Note of approximately $237,000 (see Note 4), and the net proceeds from the consummation of the Private Placement not held in the Trust Account. The Company fully repaid the Note on October 23, 2020. In addition, in order to finance transaction costs in connection with an initial Business Combination, the Companys officers, directors and initial shareholders may, but are not obligated to, provide the Company Working Capital Loans (see Note 4). As of March 31, 2021 and December 31, 2020, there were no amounts outstanding under any Working Capital Loan…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "9fdcf71b-2890-44b4-a182-7188d572b1c3",
+          "document_id": 9210,
+          "level": 0,
+          "sparse_score": 41.905224,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "2014-15,\n\n“Disclosures of Uncertainties about an Entity’s Ability to Continue as a Going Concern,” we have determined that the liquidity condition and mandatory liquidation, should a Business Combination not occur, and potential subsequent dissolution raises substantial doubt about our ability to continue as a going concern. It is uncertain that we will be able to consummate a Business Combination by this time. If a Business Combination is not consummated by this date, there will be a mandatory liquidation and subsequent dissolution of the Company. Management has determined that the liquidity condition and mandatory liquidation, should a Business Combination not occur, and potential subsequent dissolution raises substantial doubt about our ability to continue as a going concern. No adjustm…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "281dbede-f16a-451a-bc64-aef57757fb21",
+          "document_id": 9201,
+          "level": 0,
+          "sparse_score": 39.872974,
+          "title": "(1) Financial Statements",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2014",
+          "text_preview": "The Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that the Company has access to working capital loans (as defined in Note 4) from the Sponsor that are sufficient to fund the working capital needs of the Company for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management believes that the Company will have sufficient working capital and borrowing capacity from the Sponsor or an affiliate…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "05281e92-f195-4116-9c73-9042a1d875ca",
+          "document_id": 9204,
+          "level": 0,
+          "sparse_score": 39.631496,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "F-9\n\nTable of Contents\n\nThe Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that the Company has access to working capital loans (as defined in Note 5) from the Sponsor that are sufficient to fund the working capital needs of the Company for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management believes that the Company will have sufficient working capital and borrowing capacity from the…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "5a4528f9-fe2b-4673-b731-513ec09ee189",
+          "document_id": 9202,
+          "level": 0,
+          "sparse_score": 38.729916,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "2014-15,\n\n“Disclosures of Uncertainties about an Entity’s Ability to Continue as a Going Concern,” the Company has until October 23, 2022 to consummate a Business Combination. It is uncertain that we will be able to consummate a Business Combination by this time. If a Business Combination is not consummated by this date, there will be a mandatory liquidation and subsequent dissolution of the Company. Management has determined that the liquidity condition and mandatory liquidation, should a Business Combination not occur, and potential subsequent dissolution raises substantial doubt about our ability to continue as a going concern. No adjustments have been made to the carrying amounts of assets or liabilities should the Company be required to liquidate after October 23, 2022.\n\nResults of Op…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "5874d63d-f1cf-4f14-a95e-84ffb81d7aba",
+          "document_id": 9201,
+          "level": 0,
+          "sparse_score": 38.054928,
+          "title": "(1) Financial Statements",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "F-9\n\nTable of Contents\n\nOctober 23, 2020. In addition, in order to finance transaction costs in connection with an initial Business Combination, the Companys officers, directors and initial shareholders may, but are not obligated to, provide the Company Working Capital Loans (see Note 4). As of December 31, 2020, there were no amounts outstanding under any Working Capital Loans.\n\nThe Company does not have sufficient liquidity to meet its anticipated obligations over the next year from the issuance of these financial statements. In connection with the Companys assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined tha…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "79745cb1-1f85-422d-aee1-5e4d3d9b4e62",
+          "document_id": 9204,
+          "level": 0,
+          "sparse_score": 36.581596,
+          "title": "66",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "66",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "66\n\nTable of Contents\n\nWe do not have sufficient liquidity to meet our anticipated obligations over the next year from the issuance of these financial statements. In connection with our assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that we have access to Working Capital Loans (as defined in Note 5) from our sponsor that are sufficient to fund our working capital needs for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management and our board of directors believe that we will have sufficient working capital and borrowing capacity from our sponsor or an affiliate of …",
+          "text_truncated": true
+        },
+        {
+          "node_id": "7802c2bc-cc62-455f-be10-58082836fd38",
+          "document_id": 9208,
+          "level": 0,
+          "sparse_score": 36.474026,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "Through December 31, 2020, our liquidity needs have been satisfied through a payment of $25,000 from our sponsor to pay for certain offering costs in exchange for issuance of the founder shares, a loan under a promissory note of approximately $237,000 from our sponsor, and the net proceeds from the consummation of the private placements not held in the trust account. We fully repaid the balance of the promissory note on October 23, 2020. In addition, in order to finance transaction costs in connection with an initial business combination, our officers, directors and initial shareholders may, but are not obligated to, provide us with loans the Company may require (Working Capital Loans). As of December 31, 2020, there were no amounts outstanding under any Working Capital Loans.\n\nIn connec…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "dce06dda-2db1-4adb-a7fd-9191788439b6",
+          "document_id": 9207,
+          "level": 0,
+          "sparse_score": 36.40683,
+          "title": "16",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "16",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "Liquidity and Capital Resources\n\nAs of September 30, 2021, we had $4,386 in our operating bank account, and working capital deficit of $1,312,053. Further, we have incurred and expects to continue to incur significant costs in pursuit of our acquisition plans.\n\nIf the Company is unable to raise additional capital, it may be required to take additional measures to conserve liquidity, which could include, but not necessarily be limited to, suspending the pursuit of a Business Combination. The Company cannot provide any assurance that new financing will be available to it on commercially acceptable terms, if at all.\n\nAs a result of the above, in connection with the Company’s assessment of going concern considerations in accordance with Accounting Standards Update (“ASU”)",
+          "text_truncated": false
+        },
+        {
+          "node_id": "a3a9115b-e170-4dc8-aab6-9914acac7803",
+          "document_id": 9208,
+          "level": 0,
+          "sparse_score": 36.256233,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "In connection with the Companys assessment of going concern considerations in accordance with Financial Accounting Standards Boards Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, the Company has until October 23, 2022 to consummate a Business Combination. It is uncertain that the Company will be able to consummate a Business Combination by this time. If a Business Combination is not consummated by this date, there will be a mandatory liquidation and subsequent dissolution of the Company. Management has determined that the liquidity condition and mandatory liquidation, should a Business Combination not occur, and potential subsequent dissolution raises substantial doubt about the Companys ability to co…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "3118de17-7cae-4101-93fd-8f6626d737b0",
+          "document_id": 9201,
+          "level": 0,
+          "sparse_score": 36.14758,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2014",
+          "text_preview": "We do not have sufficient liquidity to meet our anticipated obligations over the next year from the issuance of these financial statements. In connection with our assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) 2014-15, Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that we have access to Working Capital Loans (as defined in Note 4) from our sponsor that are sufficient to fund our working capital needs for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management and our board of directors believe that we will have sufficient working capital and borrowing capacity from our sponsor or an affiliate of our sponsor, or certain…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "b22f346d-466e-41ce-a0fc-13817f789031",
+          "document_id": 9208,
+          "level": 0,
+          "sparse_score": 36.014267,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "64\n\nTable of Contents\n\nWe have until October 23, 2022 to consummate a Business Combination. We do not have sufficient liquidity to meet or anticipated obligations until this date. In connection with our assessment of going concern considerations in accordance with FASBs Accounting Standards Update (ASU) Disclosures of Uncertainties about an Entitys Ability to Continue as a Going Concern, management has determined that we have access to Working Capital Loans (as defined in Note 5) from our sponsor that are sufficient to fund our working capital needs for at least one year from the issuance of these financial statements.\n\nBased on the foregoing, management and our board of directors do not believe that we will have sufficient working capital and borrowing capacity from our sponsor or a…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "fca14e84-4d42-49eb-b744-788b34e6c7d2",
+          "document_id": 9209,
+          "level": 0,
+          "sparse_score": 35.189327,
+          "title": "10-K/A",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-K/A",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "TABLE | Exhibit Number |  | Description\nTABLE | 31.1 |  | Certification of Chief Executive Officer (Principal Executive Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.\nTABLE | 31.2 |  | Certification of Chief Financial Officer (Principal Financial and Accounting Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.\nTABLE | 32.1* |  | Certification of Chief Executive Officer (Principal Executive Officer) Pursuant to 18 U.S.C. Section 1350, as Adopted Pursuant to Section 906 of the Sarbanes-Oxley Act of 2002.\nTABLE | 32.2* |  | Certification of Chief Financial Officer (…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "9fd24cb6-a6e6-4797-9fd8-ae80e8372e22",
+          "document_id": 9208,
+          "level": 0,
+          "sparse_score": 34.749397,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "Restatement of Financial Statements\n\nAs discussed in Note 2 to the financial statements, the 2020 financial statements have been restated to correct certain misstatements.\n\nGoing Concern\n\nThe accompanying financial statements have been prepared assuming that the Company will continue as a going concern. As discussed in Note 1 to the financial statements, if the Company is unable to raise additional funds to alleviate liquidity needs and complete a business combination by October 23, 2022 then the Company will cease all operations except for the purpose of liquidating. The liquidity condition and date for mandatory liquidation and subsequent dissolution raise substantial doubt about the Companys ability to continue as a going concern. Managements plans in regard to these matters are also …",
+          "text_truncated": true
+        },
+        {
+          "node_id": "86b74f06-59c6-491f-ada5-25e1686656d3",
+          "document_id": 9201,
+          "level": 0,
+          "sparse_score": 32.735794,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "text_preview": "Through December 31, 2020, our liquidity needs have been satisfied through a payment of $25,000 from our sponsor to pay for certain offering costs in exchange for issuance of the founder shares, a loan under a promissory note of approximately $237,000 from our sponsor, and the net proceeds from the consummation of the private placements not held in the trust account. We fully repaid the balance of the promissory note on October 23, 2020. In addition, in order to finance transaction costs in connection with an initial business combination, our officers, directors and initial shareholders may, but are not obligated to, provide us with loans the Company may require (Working Capital Loans). As of December 31, 2020, there were no amounts outstanding under any Working Capital Loans.\n\nWe do not…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "7bda06a2-f96f-461a-8cf6-492a8bd3a341",
+          "document_id": 9202,
+          "level": 0,
+          "sparse_score": 32.362446,
+          "title": "15",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "15",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "15\n\nLiquidity and Capital Resources\n\nAs of March 31, 2022, we had $4,186 in our operating bank account, and working capital deficit of $2,332,985. Further, we have incurred and expects to continue to incur significant costs in pursuit of our acquisition plans.\n\nThrough March 31, 2022, our liquidity needs have been satisfied due to the Sponsor paying approximately $1,354,820 of our expenses on our behalf, and the net proceeds from the consummation of the private placements not held in the trust account. We fully repaid the balance of approximately $237,000 related to the promissory note on October 23, 2020. In addition, in order to finance transaction costs in connection with an initial business combination, our officers, directors and initial shareholders may, but are not obligated to, pro…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "90076329-86fc-40d7-9660-5f968c26f1a7",
+          "document_id": 9209,
+          "level": 0,
+          "sparse_score": 31.3403,
+          "title": "10-K/A",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-K/A",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "None.\n\nTABLE | Item 3. | Defaults upon Senior Securities\n\nNone.\n\nTABLE | Item 4. | Mine Safety Disclosures.\n\nNot applicable.\n\nTABLE | Item 5. | Other Information.\n\nNone.\n\nTABLE | Item 6. | Exhibits.\n\nTABLE | Exhibit Number |  | Description\nTABLE | 31.1 |  | Certification of Chief Executive Officer (Principal Executive Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.\nTABLE | 31.2 |  | Certification of Chief Financial Officer (Principal Financial and Accounting Officer) Pursuant to Rules 13a-14(a) and 15d-14(a) under the Securities Exchange Act of 1934, as Adopted Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002.\nTABLE | 32.1* |  | Certification of Chief Executive Offic…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "31fefc37-3e30-4f88-9fa7-c1109f7a512e",
+          "document_id": 9209,
+          "level": 0,
+          "sparse_score": 31.04139,
+          "title": "17",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "17",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "text_preview": "If the Company is unable to raise additional capital, it may be required to take additional measures to conserve liquidity, which could include, but not necessarily be limited to, suspending the pursuit of a Business Combination. The Company cannot provide any assurance that new financing will be available to it on commercially acceptable terms, if at all.\n\nAs a result of the above, in connection with the Company’s assessment of going concern considerations in accordance with Accounting Standards Update (“ASU”)",
+          "text_truncated": false
+        },
+        {
+          "node_id": "e8c86938-b5a5-44ed-abf4-0579abba2db6",
+          "document_id": 9209,
+          "level": 0,
+          "sparse_score": 29.388554,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "10-Q\n\nFor the nine months ended September 30, 2021, and period ended December 31, 2020\n\nTable of Contents\n\nTABLE |  |  |  |  | Page | \nTABLE | PART I. FINANCIAL INFORMATION |  |  |  | \nTABLE | Item 1. |  | Financial Statements |  |  | 1 | \nTABLE |  |  | Condensed Balance Sheets as of September 30, 2021 (Unaudited) and December 31, 2020 |  |  | 1 | \nTABLE |  |  | Unaudited Condensed Statements of Operations for the period for the Three and Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 |  |  | 2 | \nTABLE |  |  | Unaudited Condensed Statements of Changes in Shareholders’ Equity for the Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 |  |  | 3 | \nTABLE |  |  |…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "710b43d9-75c4-4daf-9230-960059fd9ab5",
+          "document_id": 9209,
+          "level": 0,
+          "sparse_score": 28.453701,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "TABLE |  |  |  |  | Page | \nTABLE | PART I. FINANCIAL INFORMATION |  |  |  | \nTABLE | Item 1. |  | Financial Statements |  |  | 1 | \nTABLE |  |  | Condensed Balance Sheets as of September 30, 2021 (Unaudited) and December 31, 2020 |  |  | 1 | \nTABLE |  |  | Unaudited Condensed Statements of Operations for the period for the Three and Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 |  |  | 2 | \nTABLE |  |  | Unaudited Condensed Statements of Changes in Shareholders’ Equity for the Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020 |  |  | 3 | \nTABLE |  |  | Unaudited Condensed Statement of Cash Flows for the Three and Nine Months Ended September 30, 2021, and th…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "ffc59b66-faa4-4f36-8ab3-72cf30742864",
+          "document_id": 9209,
+          "level": 0,
+          "sparse_score": 28.132343,
+          "title": "10-K/A",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-K/A",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "10-K/A\n\nand in a\n\nForm 10-Q/A\n\nfor the unaudited condensed financial statements for the periods ended March 31, 2021, and June 30, 2021.\n\nThe restatement does not have an impact on its cash position and cash held in the trust account (the “Trust Account”) established in connection with the initial public offering.\n\nThe financial information that has been previously filed or otherwise reported is superseded by the information in this Amendment, and the financial statements and related financial information contained in such previously filed report should no longer be relied upon.\n\nThe restatement is more fully described in Note 2 of the notes to the financial statements included herein.\n\nInternal Control and Disclosure Controls Considerations\n\nFollowing the conclusion that the classificatio…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "34e49d48-5c79-4714-8fbc-9fc3ccf8d6fd",
+          "document_id": 9205,
+          "level": 0,
+          "sparse_score": 27.686811,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "The Company will seek to reduce the possibility that the Sponsor will have to indemnify the Trust Account due to claims of creditors by endeavoring to have all vendors, service providers (other than the Companys independent registered public accounting firm), prospective target businesses or other entities with which the Company does business, execute agreements with the Company waiving any right, title, interest or claim of any kind in or to monies held in the Trust Account.\n\nGoing Concern Consideration\n\nAs of March 31, 2021, the Company had approximately $5,000 in its operating bank accounts and working deficit of approximately $346,000. Further, the Company has incurred and expects to continue to incur significant costs in pursuit of its acquisition plans.",
+          "text_truncated": false
+        },
+        {
+          "node_id": "453230dd-bcda-4480-b841-f5ecb6fc5cda",
+          "document_id": 9202,
+          "level": 0,
+          "sparse_score": 27.6582,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "10-Q\n\nFor the three months ended March 31, 2022\n\nTable of Contents\n\nTABLE |  |  |  |  | Page | \nTABLE | PART 1 – FINANCIAL INFORMATION |  |  |  | \nTABLE | Item 1. |  | Financial Statements |  |  | 1 | \nTABLE |  |  | Condensed Balance Sheets as of March 31, 2022 (unaudited) and December 31, 2021 |  |  | 1 | \nTABLE |  |  | Unaudited Condensed Statements of Operations for the three months ended March 31, 2022 and March 31, 2021 |  |  | 2 | \nTABLE |  |  | Unaudited Condensed Statements of Changes in Shareholders’ Deficit for the three months ended March 31, 2022 and March 31, 2021 |  |  | 3 | \nTABLE |  |  | Unaudited Condensed Statements of Cash Flows for the three months ended March 31, 2022 and March 31, 2021 |  |  | 4 | \nTABLE |  |  | Notes to Condensed Financial Statements |  |  | 5 | \nTAB…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "442050f2-f584-4780-83e0-75479b58df72",
+          "document_id": 9207,
+          "level": 0,
+          "sparse_score": 27.6582,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "text_preview": "10-Q\n\nFor the nine months ended September 30, 2021, and period ended December 31, 2020\n\nTable of Contents\n\nTABLE |  |  |  |  | Page | \nTABLE | PART I. FINANCIAL INFORMATION |  |  |  | \nTABLE | Item 1. |  | Financial Statements |  |  | 1 | \nTABLE |  |  | Condensed Balance Sheets as of September 30, 2021 (Unaudited) and December 31, 2020 |  |  | 1 | \nTABLE |  |  | Unaudited Condensed Statements of Operations for the period from Three and Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020. |  |  | 2 | \nTABLE |  |  | Unaudited Condensed Statements of Changes in Shareholders’ Equity for the Nine Months Ended September 30, 2021, and the period from September 2, 2020 (Inception) through September 30, 2020. |  |  | 3 | \nTABLE |  |  | …",
+          "text_truncated": true
+        },
+        {
+          "node_id": "aa7d101b-ac17-4d8b-a0d5-6221462b7d78",
+          "document_id": 9202,
+          "level": 0,
+          "sparse_score": 27.6582,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "TABLE |  |  |  |  | Page | \nTABLE | PART 1 – FINANCIAL INFORMATION |  |  |  | \nTABLE | Item 1. |  | Financial Statements |  |  | 1 | \nTABLE |  |  | Condensed Balance Sheets as of March 31, 2022 (unaudited) and December 31, 2021 |  |  | 1 | \nTABLE |  |  | Unaudited Condensed Statements of Operations for the three months ended March 31, 2022 and March 31, 2021 |  |  | 2 | \nTABLE |  |  | Unaudited Condensed Statements of Changes in Shareholders’ Deficit for the three months ended March 31, 2022 and March 31, 2021 |  |  | 3 | \nTABLE |  |  | Unaudited Condensed Statements of Cash Flows for the three months ended March 31, 2022 and March 31, 2021 |  |  | 4 | \nTABLE |  |  | Notes to Condensed Financial Statements |  |  | 5 | \nTABLE | Item 2. |  | Management’s Discussion and Analysis of Financial …",
+          "text_truncated": true
+        },
+        {
+          "node_id": "212a3e5f-e29e-468d-89d7-21e8371b037c",
+          "document_id": 9210,
+          "level": 0,
+          "sparse_score": 27.6582,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "TABLE |  |  | Page | \nTABLE | PART 1 – FINANCIAL INFORMATION |  |  |  | \nTABLE | Item 1. |  | Financial Statements (unaudited) |  |  | 3 | \nTABLE |  |  | Condensed Balance Sheets as of June 30, 2022 (unaudited) and December 31, 2021 |  |  | 3 | \nTABLE |  |  | Unaudited Condensed Statements of Operations for the three and six months ended June 30, 2022 and 2021 |  |  | 4 | \nTABLE |  |  | Unaudited Condensed Statements of Changes in Shareholders’ Deficit for the three and six months ended June 30, 2022 and 2021 |  |  | 5 | \nTABLE |  |  | Unaudited Condensed Statements of Cash Flows for the six months ended June 30, 2022 and 2021 |  |  | 6 | \nTABLE |  |  | Notes to Unaudited Condensed Financial Statements |  |  | 7 | \nTABLE | Item 2. |  | Management’s Discussion and Analysis of Financial Cond…",
+          "text_truncated": true
+        },
+        {
+          "node_id": "b972c7c4-2ebf-4c0e-a95f-6f5b72c47e13",
+          "document_id": 9210,
+          "level": 0,
+          "sparse_score": 27.172497,
+          "title": "10-Q",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "10-Q",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2022",
+          "text_preview": "10-Q\n\nFor the six months ended June 30, 2022 and period ended December 31, 2021\n\nTable of Contents\n\nTABLE |  |  | Page | \nTABLE | PART 1 – FINANCIAL INFORMATION |  |  |  | \nTABLE | Item 1. |  | Financial Statements (unaudited) |  |  | 3 | \nTABLE |  |  | Condensed Balance Sheets as of June 30, 2022 (unaudited) and December 31, 2021 |  |  | 3 | \nTABLE |  |  | Unaudited Condensed Statements of Operations for the three and six months ended June 30, 2022 and 2021 |  |  | 4 | \nTABLE |  |  | Unaudited Condensed Statements of Changes in Shareholders’ Deficit for the three and six months ended June 30, 2022 and 2021 |  |  | 5 | \nTABLE |  |  | Unaudited Condensed Statements of Cash Flows for the six months ended June 30, 2022 and 2021 |  |  | 6 | \nTABLE |  |  | Notes to Unaudited Condensed Financial…",
+          "text_truncated": true
+        }
+      ]
+    },
+    "retrieval_overlap": {
+      "summary": {
+        "intersection_count": 14,
+        "union_count": 36,
+        "jaccard": 0.3889,
+        "dense_only_ids": [
+          "0dc59d57-b967-4d88-a824-f82ab10d71fa",
+          "2161e166-cec7-4c80-9dc4-72a96fdd89c4",
+          "723c5bf8-9deb-4484-9602-6ccf2109e937",
+          "998591f8-65a8-4bc5-bc40-010fd798179d",
+          "ac6dfcd2-c5b3-4ebf-87af-348a24b88507",
+          "f44fe09b-815e-45d2-b2a6-a6ddf5aafef3"
+        ],
+        "sparse_only_ids": [
+          "033f490d-109f-4544-9370-0ab6dcbf5498",
+          "06374ad4-ad40-4944-b376-862d332808ce",
+          "11cce7b6-e5fa-4d6c-b128-7e9dceff98d1",
+          "145e8c27-6d40-45ff-8f7a-14c9095a443a",
+          "32c85a5b-13ef-42fb-8569-9942db28b272",
+          "343ffccb-31cf-4023-a54a-d57cf1c4ca52",
+          "4dc58b94-36a4-48f9-a79b-4ee71750cf1a",
+          "5bbab098-d7bb-4f44-a5b3-34ae22024456",
+          "6c27f96c-8520-4be5-8d6b-94c6ae17e77b",
+          "7386f91d-fc1d-401b-83e3-8f07346dd2c3",
+          "758e87d4-f16b-4ab4-8056-f60f1807fd7b",
+          "b2cc04f2-a856-4ffe-a484-20cf422c1ef3",
+          "b583de77-1e48-46e0-ae5f-028e9f43f277",
+          "b665a1b7-62d2-4665-92c4-e41d04583116",
+          "e7fd66e7-76c6-474f-ad93-b51f5cb6c3b4",
+          "f7fec53c-4dfe-4f2e-ad98-65d20a5e1670"
+        ]
+      },
+      "leaf": {
+        "intersection_count": 17,
+        "union_count": 33,
+        "jaccard": 0.5152,
+        "dense_only_ids": [
+          "3677b4a7-5a05-4a93-a6ee-7d8c14fc6086",
+          "d0841580-16cd-4171-9b55-6b24ad707400",
+          "e2174267-7dd9-4b86-8c0a-12fa3b7600b3"
+        ],
+        "sparse_only_ids": [
+          "212a3e5f-e29e-468d-89d7-21e8371b037c",
+          "31fefc37-3e30-4f88-9fa7-c1109f7a512e",
+          "34e49d48-5c79-4714-8fbc-9fc3ccf8d6fd",
+          "442050f2-f584-4780-83e0-75479b58df72",
+          "453230dd-bcda-4480-b841-f5ecb6fc5cda",
+          "710b43d9-75c4-4daf-9230-960059fd9ab5",
+          "7bda06a2-f96f-461a-8cf6-492a8bd3a341",
+          "90076329-86fc-40d7-9660-5f968c26f1a7",
+          "aa7d101b-ac17-4d8b-a0d5-6221462b7d78",
+          "b972c7c4-2ebf-4c0e-a95f-6f5b72c47e13",
+          "e8c86938-b5a5-44ed-abf4-0579abba2db6",
+          "fca14e84-4d42-49eb-b744-788b34e6c7d2",
+          "ffc59b66-faa4-4f36-8ab3-72cf30742864"
+        ]
+      }
+    },
+    "retrieval_rerank_compare": {
+      "leaf_fused_ids": [
+        "a048876f-512d-42e5-8033-02557b1f32b7",
+        "697f9e46-1074-425e-94b9-b470286c84dd",
+        "79745cb1-1f85-422d-aee1-5e4d3d9b4e62",
+        "9fdcf71b-2890-44b4-a182-7188d572b1c3",
+        "281dbede-f16a-451a-bc64-aef57757fb21",
+        "9e885853-7857-41bb-90f4-6caf0eb28086",
+        "dce06dda-2db1-4adb-a7fd-9191788439b6",
+        "7802c2bc-cc62-455f-be10-58082836fd38",
+        "05281e92-f195-4116-9c73-9042a1d875ca",
+        "3118de17-7cae-4101-93fd-8f6626d737b0",
+        "a3a9115b-e170-4dc8-aab6-9914acac7803",
+        "d58ba552-8b54-45f3-b2f0-0d94c16e0e39"
+      ],
+      "pre_rerank_ids": [
+        "697f9e46-1074-425e-94b9-b470286c84dd",
+        "dce06dda-2db1-4adb-a7fd-9191788439b6",
+        "3118de17-7cae-4101-93fd-8f6626d737b0",
+        "281dbede-f16a-451a-bc64-aef57757fb21",
+        "a048876f-512d-42e5-8033-02557b1f32b7",
+        "2de07d47-8d79-4f01-9502-d064fbb750fd",
+        "a08bf309-5129-4446-ae4f-3c0a0db3a550",
+        "79745cb1-1f85-422d-aee1-5e4d3d9b4e62",
+        "6473866a-74d2-4c60-8ccb-802eefbba869",
+        "9fdcf71b-2890-44b4-a182-7188d572b1c3",
+        "08f3a315-6254-44d7-b0f8-3f33b92b644d",
+        "9e885853-7857-41bb-90f4-6caf0eb28086",
+        "cc33ecda-4a5c-4c69-b777-6d4af3058a02",
+        "7802c2bc-cc62-455f-be10-58082836fd38",
+        "e1e85a42-4768-4e3a-bea8-da3a73f18899",
+        "05281e92-f195-4116-9c73-9042a1d875ca",
+        "d6abaa83-0cf0-402f-8f66-cf98ef2f943a",
+        "5ac38de3-bab5-44e9-ba04-35f400009cf6",
+        "a3a9115b-e170-4dc8-aab6-9914acac7803",
+        "d58ba552-8b54-45f3-b2f0-0d94c16e0e39",
+        "c6917ad9-902a-447c-9970-337a7bfe9c59",
+        "08e1e10d-5697-42d1-9cf1-bc81b5c214e6",
+        "b78545bc-eea9-4f92-827f-0677e0b8de24",
+        "3412ff5d-c60b-4635-9f08-d09ebc69e1d0"
+      ],
+      "final_ranked_ids": [
+        "dce06dda-2db1-4adb-a7fd-9191788439b6",
+        "9e885853-7857-41bb-90f4-6caf0eb28086",
+        "281dbede-f16a-451a-bc64-aef57757fb21",
+        "79745cb1-1f85-422d-aee1-5e4d3d9b4e62",
+        "05281e92-f195-4116-9c73-9042a1d875ca",
+        "3118de17-7cae-4101-93fd-8f6626d737b0",
+        "697f9e46-1074-425e-94b9-b470286c84dd",
+        "a048876f-512d-42e5-8033-02557b1f32b7",
+        "9fdcf71b-2890-44b4-a182-7188d572b1c3",
+        "a3a9115b-e170-4dc8-aab6-9914acac7803",
+        "7802c2bc-cc62-455f-be10-58082836fd38",
+        "6473866a-74d2-4c60-8ccb-802eefbba869"
+      ],
+      "added_from_summary_ids": [
+        "08e1e10d-5697-42d1-9cf1-bc81b5c214e6",
+        "08f3a315-6254-44d7-b0f8-3f33b92b644d",
+        "2de07d47-8d79-4f01-9502-d064fbb750fd",
+        "3412ff5d-c60b-4635-9f08-d09ebc69e1d0",
+        "5ac38de3-bab5-44e9-ba04-35f400009cf6",
+        "6473866a-74d2-4c60-8ccb-802eefbba869",
+        "a08bf309-5129-4446-ae4f-3c0a0db3a550",
+        "b78545bc-eea9-4f92-827f-0677e0b8de24",
+        "c6917ad9-902a-447c-9970-337a7bfe9c59",
+        "cc33ecda-4a5c-4c69-b777-6d4af3058a02",
+        "d6abaa83-0cf0-402f-8f66-cf98ef2f943a",
+        "e1e85a42-4768-4e3a-bea8-da3a73f18899"
+      ],
+      "dropped_by_rerank_ids": [
+        "08e1e10d-5697-42d1-9cf1-bc81b5c214e6",
+        "08f3a315-6254-44d7-b0f8-3f33b92b644d",
+        "2de07d47-8d79-4f01-9502-d064fbb750fd",
+        "3412ff5d-c60b-4635-9f08-d09ebc69e1d0",
+        "5ac38de3-bab5-44e9-ba04-35f400009cf6",
+        "a08bf309-5129-4446-ae4f-3c0a0db3a550",
+        "b78545bc-eea9-4f92-827f-0677e0b8de24",
+        "c6917ad9-902a-447c-9970-337a7bfe9c59",
+        "cc33ecda-4a5c-4c69-b777-6d4af3058a02",
+        "d58ba552-8b54-45f3-b2f0-0d94c16e0e39",
+        "d6abaa83-0cf0-402f-8f66-cf98ef2f943a",
+        "e1e85a42-4768-4e3a-bea8-da3a73f18899"
+      ]
+    },
+    "retrieval_rerank_hits": {
+      "input": [
+        {
+          "node_id": "697f9e46-1074-425e-94b9-b470286c84dd",
+          "document_id": 9207,
+          "level": 0,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "dense_score": 0.67139745,
+          "sparse_score": 43.576595,
+          "fusion_score": 0.0277569392348087,
+          "rerank_score": null
+        },
+        {
+          "node_id": "dce06dda-2db1-4adb-a7fd-9191788439b6",
+          "document_id": 9207,
+          "level": 0,
+          "title": "16",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "16",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "dense_score": 0.67038804,
+          "sparse_score": 36.40683,
+          "fusion_score": 0.0266900790166813,
+          "rerank_score": null
+        },
+        {
+          "node_id": "3118de17-7cae-4101-93fd-8f6626d737b0",
+          "document_id": 9201,
+          "level": 0,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2014",
+          "dense_score": 0.6483696,
+          "sparse_score": 36.14758,
+          "fusion_score": 0.025274725274725275,
+          "rerank_score": null
+        },
+        {
+          "node_id": "281dbede-f16a-451a-bc64-aef57757fb21",
+          "document_id": 9201,
+          "level": 0,
+          "title": "(1) Financial Statements",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2014",
+          "dense_score": 0.6412099,
+          "sparse_score": 39.872974,
+          "fusion_score": 0.025093353248693055,
+          "rerank_score": null
+        },
+        {
+          "node_id": "a048876f-512d-42e5-8033-02557b1f32b7",
+          "document_id": 9209,
+          "level": 0,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "dense_score": 0.67599106,
+          "sparse_score": 45.49874,
+          "fusion_score": 0.01639344262295082,
+          "rerank_score": null
+        },
+        {
+          "node_id": "2de07d47-8d79-4f01-9502-d064fbb750fd",
+          "document_id": 9202,
+          "level": 0,
+          "title": "10-Q",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.01639344262295082,
+          "rerank_score": null
+        },
+        {
+          "node_id": "a08bf309-5129-4446-ae4f-3c0a0db3a550",
+          "document_id": 9202,
+          "level": 0,
+          "title": "10-Q",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.016129032258064516,
+          "rerank_score": null
+        },
+        {
+          "node_id": "79745cb1-1f85-422d-aee1-5e4d3d9b4e62",
+          "document_id": 9204,
+          "level": 0,
+          "title": "66",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "66",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.6600028,
+          "sparse_score": 36.581596,
+          "fusion_score": 0.015873015873015872,
+          "rerank_score": null
+        },
+        {
+          "node_id": "6473866a-74d2-4c60-8ccb-802eefbba869",
+          "document_id": 9202,
+          "level": 0,
+          "title": "14",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.015873015873015872,
+          "rerank_score": null
+        },
+        {
+          "node_id": "9fdcf71b-2890-44b4-a182-7188d572b1c3",
+          "document_id": 9210,
+          "level": 0,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.6410315,
+          "sparse_score": 41.905224,
+          "fusion_score": 0.015625,
+          "rerank_score": null
+        },
+        {
+          "node_id": "08f3a315-6254-44d7-b0f8-3f33b92b644d",
+          "document_id": 9202,
+          "level": 0,
+          "title": "14",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.015625,
+          "rerank_score": null
+        },
+        {
+          "node_id": "9e885853-7857-41bb-90f4-6caf0eb28086",
+          "document_id": 9205,
+          "level": 0,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.62670773,
+          "sparse_score": 44.94002,
+          "fusion_score": 0.015151515151515152,
+          "rerank_score": null
+        },
+        {
+          "node_id": "cc33ecda-4a5c-4c69-b777-6d4af3058a02",
+          "document_id": 9210,
+          "level": 0,
+          "title": "12",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.014925373134328358,
+          "rerank_score": null
+        },
+        {
+          "node_id": "7802c2bc-cc62-455f-be10-58082836fd38",
+          "document_id": 9208,
+          "level": 0,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "dense_score": 0.65200526,
+          "sparse_score": 36.474026,
+          "fusion_score": 0.014705882352941176,
+          "rerank_score": null
+        },
+        {
+          "node_id": "e1e85a42-4768-4e3a-bea8-da3a73f18899",
+          "document_id": 9207,
+          "level": 0,
+          "title": "11",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.014705882352941176,
+          "rerank_score": null
+        },
+        {
+          "node_id": "05281e92-f195-4116-9c73-9042a1d875ca",
+          "document_id": 9204,
+          "level": 0,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.63019794,
+          "sparse_score": 39.631496,
+          "fusion_score": 0.014492753623188406,
+          "rerank_score": null
+        },
+        {
+          "node_id": "d6abaa83-0cf0-402f-8f66-cf98ef2f943a",
+          "document_id": 9210,
+          "level": 0,
+          "title": "13",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.014492753623188406,
+          "rerank_score": null
+        },
+        {
+          "node_id": "5ac38de3-bab5-44e9-ba04-35f400009cf6",
+          "document_id": 9207,
+          "level": 0,
+          "title": "12",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.014285714285714285,
+          "rerank_score": null
+        },
+        {
+          "node_id": "a3a9115b-e170-4dc8-aab6-9914acac7803",
+          "document_id": 9208,
+          "level": 0,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.6460063,
+          "sparse_score": 36.256233,
+          "fusion_score": 0.014084507042253521,
+          "rerank_score": null
+        },
+        {
+          "node_id": "d58ba552-8b54-45f3-b2f0-0d94c16e0e39",
+          "document_id": 9205,
+          "level": 0,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "dense_score": 0.606565,
+          "sparse_score": 42.500183,
+          "fusion_score": 0.013888888888888888,
+          "rerank_score": null
+        },
+        {
+          "node_id": "c6917ad9-902a-447c-9970-337a7bfe9c59",
+          "document_id": 9202,
+          "level": 0,
+          "title": "14",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.015384615384615385,
+          "rerank_score": null
+        },
+        {
+          "node_id": "08e1e10d-5697-42d1-9cf1-bc81b5c214e6",
+          "document_id": 9202,
+          "level": 0,
+          "title": "14",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.015151515151515152,
+          "rerank_score": null
+        },
+        {
+          "node_id": "b78545bc-eea9-4f92-827f-0677e0b8de24",
+          "document_id": 9207,
+          "level": 0,
+          "title": "13",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.014084507042253521,
+          "rerank_score": null
+        },
+        {
+          "node_id": "3412ff5d-c60b-4635-9f08-d09ebc69e1d0",
+          "document_id": 9210,
+          "level": 0,
+          "title": "14",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.013888888888888888,
+          "rerank_score": null
+        }
+      ],
+      "output": [
+        {
+          "node_id": "dce06dda-2db1-4adb-a7fd-9191788439b6",
+          "document_id": 9207,
+          "level": 0,
+          "title": "16",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "16",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "dense_score": 0.67038804,
+          "sparse_score": 36.40683,
+          "fusion_score": 0.0266900790166813,
+          "rerank_score": 0.7046438805916776
+        },
+        {
+          "node_id": "9e885853-7857-41bb-90f4-6caf0eb28086",
+          "document_id": 9205,
+          "level": 0,
+          "title": "(305)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(305)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.62670773,
+          "sparse_score": 44.94002,
+          "fusion_score": 0.015151515151515152,
+          "rerank_score": 0.6674622322931043
+        },
+        {
+          "node_id": "281dbede-f16a-451a-bc64-aef57757fb21",
+          "document_id": 9201,
+          "level": 0,
+          "title": "(1) Financial Statements",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2014",
+          "dense_score": 0.6412099,
+          "sparse_score": 39.872974,
+          "fusion_score": 0.025093353248693055,
+          "rerank_score": 0.6567683860620969
+        },
+        {
+          "node_id": "79745cb1-1f85-422d-aee1-5e4d3d9b4e62",
+          "document_id": 9204,
+          "level": 0,
+          "title": "66",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "66",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.6600028,
+          "sparse_score": 36.581596,
+          "fusion_score": 0.015873015873015872,
+          "rerank_score": 0.6161344271055263
+        },
+        {
+          "node_id": "05281e92-f195-4116-9c73-9042a1d875ca",
+          "document_id": 9204,
+          "level": 0,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.63019794,
+          "sparse_score": 39.631496,
+          "fusion_score": 0.014492753623188406,
+          "rerank_score": 0.6143136308803678
+        },
+        {
+          "node_id": "3118de17-7cae-4101-93fd-8f6626d737b0",
+          "document_id": 9201,
+          "level": 0,
+          "title": "64",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "64",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2014",
+          "dense_score": 0.6483696,
+          "sparse_score": 36.14758,
+          "fusion_score": 0.025274725274725275,
+          "rerank_score": 0.583320096105234
+        },
+        {
+          "node_id": "697f9e46-1074-425e-94b9-b470286c84dd",
+          "document_id": 9207,
+          "level": 0,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "dense_score": 0.67139745,
+          "sparse_score": 43.576595,
+          "fusion_score": 0.0277569392348087,
+          "rerank_score": 0.4563375835571379
+        },
+        {
+          "node_id": "a048876f-512d-42e5-8033-02557b1f32b7",
+          "document_id": 9209,
+          "level": 0,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2021",
+          "dense_score": 0.67599106,
+          "sparse_score": 45.49874,
+          "fusion_score": 0.01639344262295082,
+          "rerank_score": 0.4395554715660319
+        },
+        {
+          "node_id": "9fdcf71b-2890-44b4-a182-7188d572b1c3",
+          "document_id": 9210,
+          "level": 0,
+          "title": "2014-15,",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "2014-15,",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.6410315,
+          "sparse_score": 41.905224,
+          "fusion_score": 0.015625,
+          "rerank_score": 0.3927428973817097
+        },
+        {
+          "node_id": "a3a9115b-e170-4dc8-aab6-9914acac7803",
+          "document_id": 9208,
+          "level": 0,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": 0.6460063,
+          "sparse_score": 36.256233,
+          "fusion_score": 0.014084507042253521,
+          "rerank_score": 0.33840922574590837
+        },
+        {
+          "node_id": "7802c2bc-cc62-455f-be10-58082836fd38",
+          "document_id": 9208,
+          "level": 0,
+          "title": "(1) Financial Statements (As Restated)",
+          "domain": "finance",
+          "content_type": "finance_chunk",
+          "source_section": "(1) Financial Statements (As Restated)",
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": "2020",
+          "dense_score": 0.65200526,
+          "sparse_score": 36.474026,
+          "fusion_score": 0.014705882352941176,
+          "rerank_score": 0.20342116843940608
+        },
+        {
+          "node_id": "6473866a-74d2-4c60-8ccb-802eefbba869",
+          "document_id": 9202,
+          "level": 0,
+          "title": "14",
+          "domain": null,
+          "content_type": null,
+          "source_section": null,
+          "exam_section": null,
+          "finance_statement": null,
+          "finance_period": null,
+          "dense_score": null,
+          "sparse_score": null,
+          "fusion_score": 0.015873015873015872,
+          "rerank_score": 0.19227999019953695
+        }
+      ]
+    },
+    "retrieval_filing_distribution": {
+      "summary": [
+        {
+          "filing": "0001193125-21-100318",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-321615",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-22-151663",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-369238",
+          "count": 1
+        },
+        {
+          "filing": "0001193125-22-219917",
+          "count": 1
+        }
+      ],
+      "leaf": [
+        {
+          "filing": "0001193125-21-100318",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-171038",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-171047",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-321615",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-369238",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-369242",
+          "count": 1
+        },
+        {
+          "filing": "0001193125-22-219917",
+          "count": 1
+        }
+      ],
+      "pre_rerank": [
+        {
+          "filing": "0001193125-22-151663",
+          "count": 6
+        },
+        {
+          "filing": "0001193125-21-321615",
+          "count": 5
+        },
+        {
+          "filing": "0001193125-22-219917",
+          "count": 4
+        },
+        {
+          "filing": "0001193125-21-100318",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-171038",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-171047",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-369238",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-369242",
+          "count": 1
+        }
+      ],
+      "final_ranked": [
+        {
+          "filing": "0001193125-21-100318",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-171038",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-321615",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-369238",
+          "count": 2
+        },
+        {
+          "filing": "0001193125-21-171047",
+          "count": 1
+        },
+        {
+          "filing": "0001193125-21-369242",
+          "count": 1
+        },
+        {
+          "filing": "0001193125-22-151663",
+          "count": 1
+        },
+        {
+          "filing": "0001193125-22-219917",
+          "count": 1
+        }
+      ]
+    },
+    "retrieval_passes": {
+      "first": {
+        "retrieval_counts": {
+          "summary_dense": 20,
+          "summary_sparse": 30,
+          "leaf_dense": 20,
+          "leaf_sparse": 30,
+          "pre_rerank_pool": 24,
+          "final_ranked": 12,
+          "context_nodes_expanded": 12
+        },
+        "metadata_filters": {
+          "finance_form_base": [
+            "10-K",
+            "10-Q"
+          ]
+        },
+        "sparse_query_profile": "finance_v1",
+        "sparse_query_slots": {
+          "domain": "finance",
+          "finance_sections": [
+            "liquidity",
+            "going_concern"
+          ],
+          "term_targets": [
+            "liquidity",
+            "capital resources",
+            "working capital",
+            "going concern",
+            "substantial doubt",
+            "持续经营",
+            "10-K",
+            "10-Q"
+          ]
+        },
+        "fusion_quotas": {
+          "summary_limit": 8,
+          "leaf_limit": 12,
+          "per_filing_cap": 4
+        },
+        "fused_filing_distribution": {
+          "summary": [
+            {
+              "filing": "0001193125-21-100318",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-321615",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-22-151663",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-369238",
+              "count": 1
+            },
+            {
+              "filing": "0001193125-22-219917",
+              "count": 1
+            }
+          ],
+          "leaf": [
+            {
+              "filing": "0001193125-21-100318",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-171038",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-171047",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-321615",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-369238",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-369242",
+              "count": 1
+            },
+            {
+              "filing": "0001193125-22-219917",
+              "count": 1
+            }
+          ],
+          "pre_rerank": [
+            {
+              "filing": "0001193125-22-151663",
+              "count": 6
+            },
+            {
+              "filing": "0001193125-21-321615",
+              "count": 5
+            },
+            {
+              "filing": "0001193125-22-219917",
+              "count": 4
+            },
+            {
+              "filing": "0001193125-21-100318",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-171038",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-171047",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-369238",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-369242",
+              "count": 1
+            }
+          ],
+          "final_ranked": [
+            {
+              "filing": "0001193125-21-100318",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-171038",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-321615",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-369238",
+              "count": 2
+            },
+            {
+              "filing": "0001193125-21-171047",
+              "count": 1
+            },
+            {
+              "filing": "0001193125-21-369242",
+              "count": 1
+            },
+            {
+              "filing": "0001193125-22-151663",
+              "count": 1
+            },
+            {
+              "filing": "0001193125-22-219917",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "second": {
+        "retrieval_counts": {
+          "summary_dense": 20,
+          "summary_sparse": 30,
+          "leaf_dense": 20,
+          "leaf_sparse": 30,
+          "pre_rerank_pool": 24,
+          "final_ranked": 12,
+          "context_nodes_expanded": 12
+        },
+        "metadata_filters": {
+          "finance_form_base": [
+            "10-K",
+            "10-Q"
+          ],
+          "finance_accns": [
+            "0001193125-21-100318",
+            "0001193125-21-171038",
+            "0001193125-21-321615"
+          ]
+        },
+        "sparse_query_profile": "finance_v1",
+        "sparse_query_slots": {
+          "domain": "finance",
+          "finance_sections": [
+            "liquidity",
+            "going_concern"
+          ],
+          "term_targets": [
+            "liquidity",
+            "capital resources",
+            "working capital",
+            "going concern",
+            "substantial doubt",
+            "持续经营",
+            "10-K",
+            "10-Q",
+            "0001193125-21-100318",
+            "0001193125-21-171038"
+          ]
+        },
+        "fusion_quotas": {
+          "summary_limit": 8,
+          "leaf_limit": 12,
+          "per_filing_cap": 4
+        },
+        "fused_filing_distribution": {
+          "summary": [
+            {
+              "filing": "0001193125-21-100318",
+              "count": 4
+            },
+            {
+              "filing": "0001193125-21-321615",
+              "count": 3
+            },
+            {
+              "filing": "0001193125-21-171038",
+              "count": 1
+            }
+          ],
+          "leaf": [
+            {
+              "filing": "0001193125-21-100318",
+              "count": 4
+            },
+            {
+              "filing": "0001193125-21-171038",
+              "count": 4
+            },
+            {
+              "filing": "0001193125-21-321615",
+              "count": 4
+            }
+          ],
+          "pre_rerank": [
+            {
+              "filing": "0001193125-21-321615",
+              "count": 13
+            },
+            {
+              "filing": "0001193125-21-100318",
+              "count": 7
+            },
+            {
+              "filing": "0001193125-21-171038",
+              "count": 4
+            }
+          ],
+          "final_ranked": [
+            {
+              "filing": "0001193125-21-100318",
+              "count": 4
+            },
+            {
+              "filing": "0001193125-21-171038",
+              "count": 4
+            },
+            {
+              "filing": "0001193125-21-321615",
+              "count": 4
+            }
+          ]
+        }
+      }
+    },
+    "second_pass": {
+      "applied": true,
+      "reasons": [
+        "filing_divergence"
+      ],
+      "query": "What does Management’s Discussion and Analysis say about the company’s liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts.\n\nLikely filings: 0001193125-21-100318, 0001193125-21-171038, 0001193125-21-321615\nCoordination mode: rag-led\nNarrative targets: liquidity, going_concern",
+      "metadata_filters": {
+        "finance_form_base": [
+          "10-K",
+          "10-Q"
+        ],
+        "finance_accns": [
+          "0001193125-21-100318",
+          "0001193125-21-171038",
+          "0001193125-21-321615"
+        ]
+      },
+      "sql_meta": {
+        "sql_strategy": "rag_led_bucketed_supplement",
+        "sql_exact_row_count": 20,
+        "sql_metric_hints": [],
+        "sql_hint_row_count": 0,
+        "sql_hint_supplement_count": 0,
+        "sql_recent_supplement_count": 0,
+        "sql_accn_filters": [
+          "0001193125-21-100318",
+          "0001193125-21-171038",
+          "0001193125-21-321615"
+        ],
+        "sql_merged_cap": 40,
+        "sql_rag_led_budget_cap": true,
+        "sql_recent_limit": 8,
+        "sql_bucket_mode": true,
+        "sql_bucket_rows": [
+          {
+            "accn": "0001193125-21-100318",
+            "kind": "primary",
+            "rows": 10
+          },
+          {
+            "accn": "0001193125-21-171038",
+            "kind": "primary",
+            "rows": 0
+          },
+          {
+            "accn": "0001193125-21-321615",
+            "kind": "primary",
+            "rows": 10
+          }
+        ],
+        "sql_filing_row_counts": {
+          "0001193125-21-321615": 10,
+          "0001193125-21-100318": 10
+        },
+        "sql_primary_filing_preferred": [
+          "0001193125-21-100318",
+          "0001193125-21-171038",
+          "0001193125-21-321615"
+        ],
+        "sql_preferred_metric_keys": [
+          "AccumulatedDeficit",
+          "AssetsCurrent",
+          "Cash",
+          "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+          "LiabilitiesCurrent",
+          "NetIncomeLoss",
+          "StockholdersEquity",
+          "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+          "WorkingCapital"
+        ],
+        "sql_rows_kept": 20,
+        "sql_rows_filtered_out": 0
+      },
+      "node_count_after_merge": 18
+    },
+    "rerank": {
+      "step": "bocha_rerank",
+      "remote_http_called": true,
+      "candidates_in": 24,
+      "candidates_out": 12,
+      "mode": "remote_success",
+      "raw_scored_count": 12
+    },
+    "langfuse": {
+      "langfuse_enabled_flag": true,
+      "langfuse_client_active": true,
+      "export_base_url": "http://localhost:3001",
+      "has_public_key": true,
+      "has_secret_key": true,
+      "otel_sdk_disabled": false,
+      "last_flush_error": null,
+      "trace_id_this_request": "17cb382a04b2407e9256ef77d1c78937",
+      "trace_span_active": true
+    },
+    "langgraph_planner": false,
+    "prompt_context_breakdown": {
+      "sql_context_chars": 4032,
+      "rag_context_chars": 10362,
+      "combined_context_chars": 14394
+    },
+    "notes": [
+      "rerank.mode=remote_success 且 remote_http_called=true 表示已调用 Bocha HTTP；skipped_not_configured 表示未配 URL/Key，仅用融合序截断。",
+      "summary_sparse/leaf_sparse=0：OpenSearch 时多为稀疏索引无文档（切换 SPARSE_BACKEND 后需对该文档重新 ingest）；Postgres 时多为全文分词、level 过滤或 search_vector 无命中。",
+      "Langfuse：数据发往 diagnostics.export_base_url；请在同一部署的 Web UI → Traces 用 trace_id 搜索。若 OTEL_SDK_DISABLED=true 或 flush 报错，UI 中可能仍无记录。",
+      "retrieval_dense_hits / retrieval_sparse_hits：分别是 dense 与 sparse 的原始命中（summary=level 1–2，leaf=level 0）；含 text_preview，长度见 retrieval_compare_meta，与 RRF 融合后的顺序可能不同。",
+      "evidence_plan / evidence_controller / retrieval_passes：用于观察 tri-modal controller 的首轮计划、filling 分布、二轮收敛与 quota 决策。",
+      "second_pass.reasons 包含 filing_divergence 时，表示 SQL 与 RAG 的主导 filing 不一致，系统会对 top accessions 做一轮定向 SQL + dense/sparse 收敛，而不是锁单文档。",
+      "sql_rag_narrowing：hybrid 且 FINANCE_SQL_NARROW_RAG_ENABLED 时，用 SQL 行的 accn / taxonomy.metric_key 与节点 text（及扁平 metadata）做子串匹配。FINANCE_SQL_NARROW_RAG_STRICT=true 时池子长度压到 top_k：先尽数命中（按分），不足再用高分未命中回填；false 时整池命中在前、未命中在后，由后续 [:top_k] 截断。"
+    ]
+  },
+  "product_summary_log": "logs\\ask_product_summary_17cb382a04b2407e9256ef77d1c78937.log",
+  "product_summary_html": "logs\\ask_product_summary_17cb382a04b2407e9256ef77d1c78937.html"
+}

@@ -1,0 +1,164 @@
+version: '3.8'
+
+services:
+  # PostgreSQL数据库服务
+  postgres:
+    image: postgres:14
+    container_name: quiz-postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-235711}
+      POSTGRES_DB: ${DB_NAME:-bento}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis服务，用于缓存和消息队列
+  redis:
+    image: redis:7
+    container_name: quiz-redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # React Agent服务
+  agent-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+    container_name: quiz-agent-service
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-235711}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME:-bento}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PORT=8000
+      - HOST=0.0.0.0
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src
+      - ./pyproject.toml:/app/pyproject.toml
+      - ./poetry.lock:/app/poetry.lock
+
+  # 分析服务
+  analytics-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.analytics
+    container_name: quiz-analytics-service
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-235711}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME:-bento}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - ANALYTICS_PORT=8001
+      - ANALYTICS_HOST=0.0.0.0
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src
+      - ./pyproject.toml:/app/pyproject.toml
+      - ./poetry.lock:/app/poetry.lock
+
+  # Celery Worker for Analytics
+  analytics-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.analytics
+    container_name: quiz-analytics-worker
+    depends_on:
+      - redis
+      - postgres
+      - analytics-service
+    environment:
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-235711}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME:-bento}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    command: python src/analytics/run_celery.py --worker
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src
+      - ./pyproject.toml:/app/pyproject.toml
+      - ./poetry.lock:/app/poetry.lock
+
+  # Celery Beat for Analytics Scheduled Tasks
+  analytics-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.analytics
+    container_name: quiz-analytics-beat
+    depends_on:
+      - redis
+      - postgres
+      - analytics-service
+      - analytics-worker
+    environment:
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-235711}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME:-bento}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    command: python src/analytics/run_celery.py --beat
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src
+      - ./pyproject.toml:/app/pyproject.toml
+      - ./poetry.lock:/app/poetry.lock
+
+  # Nginx API网关
+  nginx:
+    image: nginx:1.23
+    container_name: quiz-api-gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - agent-service
+      - analytics-service
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data: 
