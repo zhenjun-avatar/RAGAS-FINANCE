@@ -170,6 +170,9 @@ cython_debug/
 # LangGraph local checkpoint dumps (should not be in repo)
 remove.langgraph_api/
 
+# Cursor / SpecStory local history (do not publish)
+.specstory/
+
 # Local pipeline workdirs
 src/agent/tools/.aiready_work/
 
