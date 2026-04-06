@@ -21,17 +21,25 @@ from tools.rag_service import answer_question, stream_answer_events
 router = APIRouter(prefix="/api/ask", tags=["Ask Generation"])
 
 
+def _default_ask_top_k() -> int:
+    return max(1, min(50, int(config.ask_default_top_k)))
+
+
+def _default_vector_search_top_k() -> int:
+    return max(1, min(20, int(config.ask_vector_search_default_top_k)))
+
+
 class AskRequest(BaseModel):
     question: str = Field(..., min_length=1, max_length=1000)
-    document_ids: List[int] = Field(..., min_items=1, max_items=50)
-    top_k: int = Field(default=10, ge=1, le=50)
+    document_ids: List[int] = Field(..., min_length=1, max_length=200)
+    top_k: int = Field(default_factory=_default_ask_top_k, ge=1, le=50)
     detail_level: str = Field(default="detailed", pattern="^(brief|detailed|comprehensive)$")
     report_locale: Optional[str] = Field(
         default=None,
         description="产品层报告语言：zh / en / auto（按问题推断，默认 auto）",
     )
     include_pipeline_trace: bool = Field(
-        default=False,
+        default=True,
         description="为 true 时返回 pipeline_trace：检索计数、retrieval_sparse_hits（sparse 各阶段 node_id）、"
         "Bocha rerank、Langfuse 状态等",
     )
@@ -76,8 +84,8 @@ class ParseDocumentsResponse(BaseModel):
 
 class DocumentVectorSearchRequest(BaseModel):
     question: str = Field(..., min_length=1, max_length=1000)
-    document_ids: List[int] = Field(..., min_items=1, max_items=50)
-    top_k: int = Field(default=10, ge=1, le=20)
+    document_ids: List[int] = Field(..., min_length=1, max_length=200)
+    top_k: int = Field(default_factory=_default_vector_search_top_k, ge=1, le=20)
 
 
 class DocumentVectorSearchResult(BaseModel):

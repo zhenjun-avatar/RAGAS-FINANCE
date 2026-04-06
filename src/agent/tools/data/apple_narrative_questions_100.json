@@ -1,0 +1,626 @@
+{
+  "schema_version": "1",
+  "question_mode": "narrative_only",
+  "description": "100 narrative-only evaluation questions for Apple Inc. (CIK 320193). Covers all 70 .htm filings in tools/data: FY2009–FY2026, 10-K annual + 10-Q quarterly. Questions are grouped by topic and designed to evaluate MD&A, Risk Factors, Business Overview, and cross-period narrative retrieval. Answers rely exclusively on filing text; no XBRL/SQL required.",
+  "cik": 320193,
+  "entity": "Apple Inc.",
+  "document_id_range": [9801, 9870],
+  "env_hints": {
+    "FINANCE_SQL_ROUTING_ENABLED": "false",
+    "ASK_DEFAULT_TOP_K": "3"
+  },
+  "groups": {
+    "A": "Liquidity & Capital Resources",
+    "B": "Operating Results & Margins",
+    "C": "Risk Factors — Business & Competition",
+    "D": "Risk Factors — Supply Chain & Manufacturing",
+    "E": "Risk Factors — Legal, Regulatory & Macro",
+    "F": "Segment & Product Revenue",
+    "G": "Foreign Exchange & International Operations",
+    "H": "Capital Allocation — Debt, Buybacks & Dividends",
+    "I": "Business Strategy, Innovation & Outlook",
+    "J": "Specific Period / Filing Scope Lookups"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "group": "A",
+      "tags": ["mda", "liquidity", "capital_resources", "10-K", "fy2024"],
+      "question": "What does the MD&A of Apple's fiscal year 2024 10-K say about liquidity and capital resources? Cite the specific filing narrative and any cash, marketable securities, or debt figures that appear in the retrieved passages."
+    },
+    {
+      "id": 2,
+      "group": "A",
+      "tags": ["mda", "liquidity", "capital_resources", "10-K", "fy2023"],
+      "question": "What did Apple's MD&A say about liquidity as of September 30, 2023? Cite the 10-K covering that period-end date and quote specific dollar amounts for cash equivalents and marketable securities."
+    },
+    {
+      "id": 3,
+      "group": "A",
+      "tags": ["mda", "liquidity", "cash_requirements", "10-K", "fy2022"],
+      "question": "How does the FY2022 10-K MD&A describe Apple's material cash requirements and contractual obligations? Cite specific language and any tabular disclosures in the retrieved filing text."
+    },
+    {
+      "id": 4,
+      "group": "A",
+      "tags": ["mda", "liquidity", "working_capital", "10-Q", "fy2024"],
+      "question": "What does the most recent 10-Q (Q3 FY2024, period ending June 2024) say about Apple's working capital and near-term cash needs? Cite the MD&A narrative and any relevant figures."
+    },
+    {
+      "id": 5,
+      "group": "A",
+      "tags": ["mda", "liquidity", "going_concern", "10-K", "fy2020"],
+      "question": "How does Apple's FY2020 10-K MD&A address the company's liquidity position during the COVID-19 period? Cite specific language about cash balances and access to debt markets from the retrieved filing excerpts."
+    },
+    {
+      "id": 6,
+      "group": "A",
+      "tags": ["mda", "liquidity", "capital_resources", "10-K", "fy2015"],
+      "question": "What does the FY2015 10-K MD&A say about Apple's liquidity and capital resources, including international cash and repatriation considerations? Cite the specific narrative and any dollar amounts in the retrieved excerpts."
+    },
+    {
+      "id": 7,
+      "group": "A",
+      "tags": ["mda", "liquidity", "debt_markets", "10-K", "fy2013"],
+      "question": "How did Apple's FY2013 10-K MD&A discuss the company's access to debt markets and plans for capital structure changes? Quote the relevant passages from the filing."
+    },
+    {
+      "id": 8,
+      "group": "A",
+      "tags": ["mda", "liquidity", "10-Q", "fy2023", "period_end"],
+      "question": "What did MD&A say about liquidity in Apple's 10-Q for the quarter ended July 1, 2023? Cite that specific filing accession and quote any cash or working capital amounts mentioned."
+    },
+    {
+      "id": 9,
+      "group": "A",
+      "tags": ["mda", "liquidity", "cash_flow", "10-K", "fy2021"],
+      "question": "According to the FY2021 10-K MD&A, how did Apple's free cash flow and operating cash generation support its liquidity requirements? Cite the filing narrative and any cash flow figures in the retrieved text."
+    },
+    {
+      "id": 10,
+      "group": "A",
+      "tags": ["mda", "liquidity", "commercial_paper", "term_debt", "10-K"],
+      "question": "In Apple's most recent 10-K, how does MD&A describe the role of commercial paper programs and term debt in meeting liquidity needs? Cite the narrative and any program limits or outstanding balances quoted in the filing."
+    },
+    {
+      "id": 11,
+      "group": "B",
+      "tags": ["mda", "operating_results", "revenue", "10-K", "fy2024"],
+      "question": "How does the FY2024 10-K MD&A explain the year-over-year change in total net sales? Cite the narrative explanation, any revenue breakdown by category (Products vs Services), and percentage changes in the retrieved passages."
+    },
+    {
+      "id": 12,
+      "group": "B",
+      "tags": ["mda", "gross_margin", "operating_margin", "10-K", "fy2023"],
+      "question": "What does Apple's FY2023 10-K MD&A say about changes in gross margin percentage? Cite the specific explanation (e.g., product mix, services leverage, cost pressures) and any gross margin figures from the retrieved filing excerpts."
+    },
+    {
+      "id": 13,
+      "group": "B",
+      "tags": ["mda", "operating_expenses", "r&d", "10-K", "fy2022"],
+      "question": "How does the FY2022 10-K MD&A explain changes in research and development expenses and selling, general and administrative expenses? Quote the MD&A language and cite any dollar amounts that appear in the retrieved text."
+    },
+    {
+      "id": 14,
+      "group": "B",
+      "tags": ["mda", "operating_results", "10-Q", "fy2024", "qoq"],
+      "question": "From the 10-Q for Q1 FY2024 (period ending December 30, 2023), what drove the quarter-over-quarter change in gross margin? Cite the MD&A narrative and any numeric amounts in the retrieved filing text."
+    },
+    {
+      "id": 15,
+      "group": "B",
+      "tags": ["mda", "operating_results", "yoy", "10-K", "fy2021"],
+      "question": "According to the FY2021 10-K MD&A, what factors drove the year-over-year increase in net sales and operating income? Cite the specific explanations and any figures in the retrieved passages."
+    },
+    {
+      "id": 16,
+      "group": "B",
+      "tags": ["mda", "operating_results", "services", "products", "10-K", "fy2020"],
+      "question": "How does the FY2020 10-K MD&A describe the relative performance of the Products segment versus Services? Cite narrative language about revenue trends and profitability, including any gross margin percentages for each category."
+    },
+    {
+      "id": 17,
+      "group": "B",
+      "tags": ["mda", "operating_results", "cost_of_sales", "10-K", "fy2019"],
+      "question": "What does the FY2019 10-K MD&A say about changes in cost of sales and their impact on gross margin? Cite the specific explanations and quote any cost or margin figures in the retrieved filing excerpts."
+    },
+    {
+      "id": 18,
+      "group": "B",
+      "tags": ["mda", "operating_results", "10-Q", "fy2023", "qoq"],
+      "question": "In the Q2 FY2023 10-Q (period ending April 1, 2023), how does MD&A explain the quarterly change in operating expenses compared to the same period of the prior year? Cite the filing narrative."
+    },
+    {
+      "id": 19,
+      "group": "B",
+      "tags": ["mda", "operating_results", "10-K", "fy2012"],
+      "question": "How does the FY2012 10-K MD&A explain the year-over-year change in net sales and net income? Cite the specific narrative and any headline figures in the retrieved filing text."
+    },
+    {
+      "id": 20,
+      "group": "B",
+      "tags": ["mda", "critical_accounting_estimates", "10-K", "fy2024"],
+      "question": "What critical accounting estimates does Apple's FY2024 10-K MD&A describe? Cite the specific estimates named, the judgments involved, and any sensitivity commentary in the retrieved passages."
+    },
+    {
+      "id": 21,
+      "group": "C",
+      "tags": ["risk_factors", "competition", "market_disruption", "10-K", "fy2024"],
+      "question": "What does the FY2024 10-K Risk Factors section say about competitive threats and market disruption risks in Apple's core product categories? Quote specific language from the filing."
+    },
+    {
+      "id": 22,
+      "group": "C",
+      "tags": ["risk_factors", "customer_concentration", "revenue", "10-K"],
+      "question": "What does the Risk Factors section of Apple's most recent 10-K disclose about customer concentration or reliance on a single customer or distribution channel? Cite specific language and any percentages or thresholds mentioned."
+    },
+    {
+      "id": 23,
+      "group": "C",
+      "tags": ["risk_factors", "technology_disruption", "platform", "10-K", "fy2022"],
+      "question": "How does the FY2022 10-K Risk Factors section address risks related to rapid technology changes or platform disruption? Quote the relevant passages."
+    },
+    {
+      "id": 24,
+      "group": "C",
+      "tags": ["risk_factors", "developer_ecosystem", "app_store", "10-K", "fy2021"],
+      "question": "What does the FY2021 10-K Risk Factors say about the developer ecosystem, App Store policies, and potential regulatory or legal challenges to Apple's platform control? Cite specific language."
+    },
+    {
+      "id": 25,
+      "group": "C",
+      "tags": ["risk_factors", "privacy", "data_security", "cybersecurity", "10-K", "fy2020"],
+      "question": "What risk disclosures does the FY2020 10-K make about data privacy, cybersecurity breaches, or user data protection failures? Cite the specific Risk Factors language from the retrieved filing excerpts."
+    },
+    {
+      "id": 26,
+      "group": "C",
+      "tags": ["risk_factors", "talent", "key_personnel", "10-K", "fy2019"],
+      "question": "How does the FY2019 10-K Risk Factors section address the risk of losing key personnel or failing to attract qualified talent? Cite specific language from the filing."
+    },
+    {
+      "id": 27,
+      "group": "C",
+      "tags": ["risk_factors", "brand_reputation", "10-K", "fy2018"],
+      "question": "What does the FY2018 10-K Risk Factors say about risks to Apple's brand reputation and the potential negative impact of product or service quality issues? Cite the narrative language."
+    },
+    {
+      "id": 28,
+      "group": "C",
+      "tags": ["risk_factors", "ai_ml", "technology", "10-K", "fy2024"],
+      "question": "What does the latest 10-K Risk Factors section say about risks related to artificial intelligence or machine learning capabilities and the potential for errors or unintended outputs? Cite specific language."
+    },
+    {
+      "id": 29,
+      "group": "D",
+      "tags": ["risk_factors", "supply_chain", "single_source", "10-K", "fy2024"],
+      "question": "What does the FY2024 10-K Risk Factors section say about single-source suppliers or concentration of manufacturing? Quote specific language, including any mention of components or contract manufacturers named in the text."
+    },
+    {
+      "id": 30,
+      "group": "D",
+      "tags": ["risk_factors", "supply_chain", "outsourcing", "10-K", "fy2022"],
+      "question": "How does the FY2022 10-K Risk Factors address risks associated with manufacturing outsourcing and the potential for supply disruptions? Cite specific language from the retrieved excerpts."
+    },
+    {
+      "id": 31,
+      "group": "D",
+      "tags": ["risk_factors", "component_shortages", "inventory", "10-K", "fy2021"],
+      "question": "What does the FY2021 10-K disclose about component shortages and their impact on Apple's ability to fulfill product demand? Cite both Risk Factors and MD&A language if available in the retrieved passages."
+    },
+    {
+      "id": 32,
+      "group": "D",
+      "tags": ["risk_factors", "supply_chain", "geopolitical", "china", "10-K", "fy2020"],
+      "question": "How does the FY2020 10-K Risk Factors section address geographic concentration of manufacturing in China and associated geopolitical risks? Quote specific language from the filing."
+    },
+    {
+      "id": 33,
+      "group": "D",
+      "tags": ["risk_factors", "supply_chain", "natural_disaster", "10-K", "fy2019"],
+      "question": "What risk disclosures does the FY2019 10-K make about natural disasters, epidemics, or other force majeure events that could disrupt Apple's supply chain? Cite specific language from the filing."
+    },
+    {
+      "id": 34,
+      "group": "D",
+      "tags": ["risk_factors", "purchase_obligations", "supply_chain", "10-K", "fy2023"],
+      "question": "What does the FY2023 10-K say about Apple's purchase obligations or non-cancellable commitments to suppliers? Cite the relevant section and any dollar amounts in the retrieved filing text."
+    },
+    {
+      "id": 35,
+      "group": "E",
+      "tags": ["risk_factors", "legal", "litigation", "patents", "10-K", "fy2024"],
+      "question": "What does the FY2024 10-K Risk Factors section say about patent litigation, intellectual property disputes, or antitrust investigations? Cite specific language and any accrual or contingency amounts mentioned in the text."
+    },
+    {
+      "id": 36,
+      "group": "E",
+      "tags": ["risk_factors", "regulatory", "antitrust", "app_store", "10-K", "fy2023"],
+      "question": "How does the FY2023 10-K Risk Factors address antitrust scrutiny of Apple's App Store practices? Quote the specific language and cite any regulatory jurisdictions or proceedings named in the filing."
+    },
+    {
+      "id": 37,
+      "group": "E",
+      "tags": ["risk_factors", "tax", "international", "10-K", "fy2022"],
+      "question": "What tax-related risks does the FY2022 10-K disclose, including exposure to international tax audits or changes in tax regulations? Cite the Risk Factors and any specific jurisdictions or amounts mentioned."
+    },
+    {
+      "id": 38,
+      "group": "E",
+      "tags": ["risk_factors", "macro", "interest_rate", "fx", "inflation", "10-K", "fy2023"],
+      "question": "How does the FY2023 10-K Risk Factors section describe risks from macroeconomic conditions including inflation, rising interest rates, and foreign currency fluctuations? Cite the narrative language."
+    },
+    {
+      "id": 39,
+      "group": "E",
+      "tags": ["risk_factors", "trade_policy", "tariffs", "export_controls", "10-K", "fy2019"],
+      "question": "What does the FY2019 10-K Risk Factors say about trade policy, tariffs, and export control regulations affecting Apple's products or supply chain? Quote specific language."
+    },
+    {
+      "id": 40,
+      "group": "E",
+      "tags": ["risk_factors", "climate", "esg", "regulation", "10-K", "fy2024"],
+      "question": "Does the FY2024 10-K Risk Factors section disclose risks related to climate change regulations or ESG-related obligations? Cite specific language if present, or note what the filing states about environmental risks."
+    },
+    {
+      "id": 41,
+      "group": "F",
+      "tags": ["mda", "segment", "iphone", "revenue", "10-K", "fy2024"],
+      "question": "How does the FY2024 10-K MD&A describe iPhone net sales performance year-over-year? Cite the segment narrative and any dollar amounts or percentage changes in the retrieved filing excerpts."
+    },
+    {
+      "id": 42,
+      "group": "F",
+      "tags": ["mda", "segment", "services", "revenue", "10-K", "fy2023"],
+      "question": "What does the FY2023 10-K MD&A say about growth in the Services segment? Cite the specific narrative, revenue figures, and any discussion of gross margin for Services in the retrieved passages."
+    },
+    {
+      "id": 43,
+      "group": "F",
+      "tags": ["mda", "segment", "mac", "revenue", "10-K", "fy2022"],
+      "question": "How does the FY2022 10-K MD&A describe Mac net sales compared to the prior year? Cite the narrative explanation, including any chip transition or product launch factors, and quote relevant figures."
+    },
+    {
+      "id": 44,
+      "group": "F",
+      "tags": ["mda", "segment", "ipad", "wearables", "10-K", "fy2021"],
+      "question": "According to the FY2021 10-K MD&A, how did iPad and Wearables, Home and Accessories net sales perform? Cite the segment narrative and any figures in the retrieved filing text."
+    },
+    {
+      "id": 45,
+      "group": "F",
+      "tags": ["mda", "segment", "geographic", "americas", "europe", "china", "10-K", "fy2024"],
+      "question": "How does the FY2024 10-K MD&A describe net sales performance by geographic segment (Americas, Europe, Greater China, Japan, Rest of Asia Pacific)? Cite the narrative and any regional figures."
+    },
+    {
+      "id": 46,
+      "group": "F",
+      "tags": ["mda", "segment", "china", "revenue", "10-K", "fy2023"],
+      "question": "What does the FY2023 10-K MD&A say about Apple's Greater China net sales? Cite the specific commentary and any year-over-year comparison figures in the retrieved passages."
+    },
+    {
+      "id": 47,
+      "group": "F",
+      "tags": ["mda", "segment", "wearables", "revenue", "10-K", "fy2020"],
+      "question": "How does the FY2020 10-K MD&A describe the Wearables, Home and Accessories segment performance? Cite the narrative and any product-level commentary or figures in the retrieved filing excerpts."
+    },
+    {
+      "id": 48,
+      "group": "F",
+      "tags": ["mda", "segment", "services", "gross_margin", "10-K", "fy2020"],
+      "question": "What does Apple's FY2020 10-K MD&A say about the gross margin characteristics of the Services segment versus the Products segment? Cite specific language and any margin percentages in the retrieved text."
+    },
+    {
+      "id": 49,
+      "group": "F",
+      "tags": ["mda", "segment", "iphone", "revenue", "10-Q", "fy2024"],
+      "question": "In the Q2 FY2024 10-Q (period ending March 30, 2024), how does MD&A describe iPhone revenue compared to the same quarter of the prior year? Cite the filing narrative and any relevant figures."
+    },
+    {
+      "id": 50,
+      "group": "F",
+      "tags": ["mda", "segment", "product_mix", "10-K", "fy2016"],
+      "question": "According to the FY2016 10-K MD&A, how did the product mix shift between iPhone and other product categories affect gross margin? Cite specific language and figures from the retrieved filing passages."
+    },
+    {
+      "id": 51,
+      "group": "G",
+      "tags": ["mda", "fx", "currency", "hedging", "10-K", "fy2024"],
+      "question": "How does the FY2024 10-K MD&A describe the impact of foreign currency exchange rate movements on Apple's net sales? Cite the narrative and any quantified currency headwind or tailwind in the retrieved text."
+    },
+    {
+      "id": 52,
+      "group": "G",
+      "tags": ["mda", "fx", "hedging_program", "10-K", "fy2023"],
+      "question": "What does the FY2023 10-K disclose about Apple's foreign currency hedging program? Cite the MD&A or notes language describing hedged exposures and the types of instruments used."
+    },
+    {
+      "id": 53,
+      "group": "G",
+      "tags": ["mda", "fx", "international", "10-K", "fy2015"],
+      "question": "How did foreign exchange rate fluctuations affect Apple's international revenue as described in the FY2015 10-K MD&A? Cite specific language and any constant-currency comparisons in the retrieved filing excerpts."
+    },
+    {
+      "id": 54,
+      "group": "G",
+      "tags": ["mda", "fx", "10-Q", "fy2024"],
+      "question": "What does the Q3 FY2024 10-Q (period ending June 29, 2024) MD&A say about the year-over-year foreign currency impact on net sales? Cite specific language and any figures in the retrieved passages."
+    },
+    {
+      "id": 55,
+      "group": "G",
+      "tags": ["risk_factors", "fx", "emerging_markets", "10-K", "fy2022"],
+      "question": "How does the FY2022 10-K Risk Factors section address risks from currency volatility in emerging markets or from restrictions on repatriation of foreign earnings? Cite specific language."
+    },
+    {
+      "id": 56,
+      "group": "G",
+      "tags": ["mda", "tariffs", "trade", "international", "10-K", "fy2019"],
+      "question": "How does the FY2019 10-K MD&A discuss the impact of US-China trade tensions and tariffs on Apple's results of operations? Cite specific narrative language and any quantified impacts in the retrieved text."
+    },
+    {
+      "id": 57,
+      "group": "G",
+      "tags": ["risk_factors", "export_controls", "sanctions", "10-K", "fy2023"],
+      "question": "What does the FY2023 10-K Risk Factors say about export control regulations, trade sanctions, or restrictions on technology transfers that could affect Apple's international business? Cite specific language."
+    },
+    {
+      "id": 58,
+      "group": "H",
+      "tags": ["mda", "buybacks", "share_repurchase", "10-K", "fy2024"],
+      "question": "What does the FY2024 10-K MD&A or Capital Return section say about Apple's share repurchase program? Cite the narrative and any authorization amounts, shares repurchased, or remaining capacity figures in the retrieved text."
+    },
+    {
+      "id": 59,
+      "group": "H",
+      "tags": ["mda", "dividends", "capital_return", "10-K", "fy2023"],
+      "question": "How does the FY2023 10-K describe Apple's dividend policy and capital return program? Cite the specific language and any per-share dividend amounts or total payout figures in the retrieved filing excerpts."
+    },
+    {
+      "id": 60,
+      "group": "H",
+      "tags": ["mda", "term_debt", "issuance", "10-K", "fy2022"],
+      "question": "What does the FY2022 10-K MD&A say about Apple's term debt issuances or outstanding long-term debt? Cite the narrative and any principal amounts, maturities, or interest rate information in the retrieved text."
+    },
+    {
+      "id": 61,
+      "group": "H",
+      "tags": ["mda", "capital_return", "buyback", "10-K", "fy2020"],
+      "question": "According to the FY2020 10-K MD&A, how much did Apple return to shareholders through buybacks and dividends during the fiscal year? Cite specific language and the dollar amounts stated in the filing."
+    },
+    {
+      "id": 62,
+      "group": "H",
+      "tags": ["mda", "debt_covenants", "credit_facility", "10-K", "fy2019"],
+      "question": "Does the FY2019 10-K MD&A describe any debt covenants or credit facility terms? Cite the relevant narrative language and any compliance or borrowing capacity statements in the retrieved passages."
+    },
+    {
+      "id": 63,
+      "group": "H",
+      "tags": ["mda", "capital_return", "first_dividend", "10-K", "fy2013"],
+      "question": "What does the FY2013 10-K say about Apple's capital allocation strategy, including the initiation of dividends and share repurchases? Cite the MD&A or shareholder letter language in the retrieved excerpts."
+    },
+    {
+      "id": 64,
+      "group": "H",
+      "tags": ["mda", "buybacks", "10-Q", "fy2024"],
+      "question": "In the Q1 FY2024 10-Q (period ending December 30, 2023), what does management disclose about share repurchase activity during the quarter? Cite specific language and any amounts in the retrieved filing text."
+    },
+    {
+      "id": 65,
+      "group": "I",
+      "tags": ["business", "overview", "strategy", "10-K", "fy2024"],
+      "question": "How does Apple's FY2024 10-K Business section describe the company's core strategy and competitive advantages? Cite specific language about product ecosystem, services integration, or innovation focus."
+    },
+    {
+      "id": 66,
+      "group": "I",
+      "tags": ["business", "r&d", "innovation", "10-K", "fy2023"],
+      "question": "What does the FY2023 10-K say about Apple's research and development priorities and areas of focus? Cite the Business section or MD&A language describing R&D investment rationale."
+    },
+    {
+      "id": 67,
+      "group": "I",
+      "tags": ["business", "services_strategy", "subscription", "10-K", "fy2022"],
+      "question": "How does the FY2022 10-K Business section describe Apple's Services strategy, including the types of services offered and their role in the company's long-term growth? Cite specific language."
+    },
+    {
+      "id": 68,
+      "group": "I",
+      "tags": ["business", "sustainability", "environment", "10-K", "fy2021"],
+      "question": "What does the FY2021 10-K say about Apple's environmental and sustainability commitments? Cite specific language from the Business section or any dedicated ESG disclosures in the filing."
+    },
+    {
+      "id": 69,
+      "group": "I",
+      "tags": ["business", "new_products", "m1_chip", "silicon", "10-K", "fy2021"],
+      "question": "How does the FY2021 10-K describe Apple's transition to Apple Silicon and the strategic importance of designing its own chips? Cite specific language from the Business or MD&A sections."
+    },
+    {
+      "id": 70,
+      "group": "I",
+      "tags": ["business", "privacy", "platform", "differentiation", "10-K", "fy2020"],
+      "question": "What does the FY2020 10-K Business section say about privacy as a competitive differentiator or core value? Cite specific language from the filing."
+    },
+    {
+      "id": 71,
+      "group": "I",
+      "tags": ["business", "retail", "distribution", "10-K", "fy2019"],
+      "question": "How does the FY2019 10-K describe Apple's distribution strategy, including direct retail and third-party channel relationships? Cite specific language from the Business section."
+    },
+    {
+      "id": 72,
+      "group": "I",
+      "tags": ["business", "market_position", "iphone", "10-K", "fy2012"],
+      "question": "How does Apple's FY2012 10-K describe the competitive positioning of iPhone in the smartphone market? Cite specific language from the Business section."
+    },
+    {
+      "id": 73,
+      "group": "I",
+      "tags": ["business", "overview", "10-K", "fy2009"],
+      "question": "How does Apple's FY2009 10-K describe the company's business model and the products it offers? Cite specific language from the Business section to show the strategic priorities of that era."
+    },
+    {
+      "id": 74,
+      "group": "I",
+      "tags": ["business", "macroeconomic_outlook", "forward_looking", "10-K", "fy2023"],
+      "question": "What cautionary or forward-looking statements does Apple's FY2023 10-K make about macroeconomic headwinds and their potential impact on future results? Cite specific language from MD&A or the forward-looking statements section."
+    },
+    {
+      "id": 75,
+      "group": "J",
+      "tags": ["planner", "period_end", "mda", "liquidity", "10-K", "fy2024"],
+      "question": "What did MD&A say about liquidity as of September 28, 2024? Cite the filing that covers that period-end date and quote specific cash and debt figures."
+    },
+    {
+      "id": 76,
+      "group": "J",
+      "tags": ["planner", "period_end", "mda", "operating_results", "10-Q", "fy2024"],
+      "question": "What does the filing covering period-end December 30, 2023 say about Apple's operating results and gross margin? Cite the accession and the MD&A narrative."
+    },
+    {
+      "id": 77,
+      "group": "J",
+      "tags": ["planner", "period_end", "10-Q", "fy2023"],
+      "question": "What did Apple's MD&A discuss about iPhone revenue as of the filing covering the period ended April 1, 2023? Cite the accession and relevant narrative."
+    },
+    {
+      "id": 78,
+      "group": "J",
+      "tags": ["planner", "period_end", "10-Q", "fy2025"],
+      "question": "What does the most recent 10-Q for period ending December 28, 2024 say about Apple's Services revenue and operating results? Cite the filing accession and quote the MD&A narrative."
+    },
+    {
+      "id": 79,
+      "group": "J",
+      "tags": ["planner", "form", "10-K", "latest", "mda", "liquidity"],
+      "question": "In Apple's latest 10-K MD&A, what does management say about liquidity and capital resources? Cite that specific filing only."
+    },
+    {
+      "id": 80,
+      "group": "J",
+      "tags": ["planner", "form", "10-K", "fy2021", "mda", "operating_results"],
+      "question": "Using only the FY2021 Form 10-K, summarize the MD&A discussion of operating results. Cite the accession number."
+    },
+    {
+      "id": 81,
+      "group": "J",
+      "tags": ["planner", "form", "10-Q", "latest", "mda", "margin"],
+      "question": "From Apple's most recent 10-Q, what drove the quarter-over-quarter change in gross margin? Cite the filing narrative and any numeric amounts or tables in the retrieved passages."
+    },
+    {
+      "id": 82,
+      "group": "J",
+      "tags": ["planner", "period_end", "risk_factors", "10-K", "fy2020"],
+      "question": "What risk factors does the filing covering period-end September 26, 2020 disclose about the COVID-19 pandemic's impact on Apple's business? Cite specific language."
+    },
+    {
+      "id": 83,
+      "group": "J",
+      "tags": ["planner", "period_end", "mda", "fx", "10-Q", "fy2019"],
+      "question": "What does the filing covering the period ending June 29, 2019 say about foreign exchange headwinds to Apple's international revenue? Cite the accession and MD&A narrative."
+    },
+    {
+      "id": 84,
+      "group": "J",
+      "tags": ["planner", "form", "10-K", "fy2014", "mda", "liquidity"],
+      "question": "Using only the FY2014 Form 10-K, what does MD&A say about Apple's cash, investments, and capital return program? Cite specific language and dollar amounts from the filing."
+    },
+    {
+      "id": 85,
+      "group": "J",
+      "tags": ["planner", "period_end", "mda", "operating_results", "10-K", "fy2022"],
+      "question": "What does the filing covering period-end September 24, 2022 say about year-over-year changes in net sales by product category? Cite the accession and MD&A narrative."
+    },
+    {
+      "id": 86,
+      "group": "J",
+      "tags": ["planner", "period_end", "mda", "segment", "10-Q", "fy2026"],
+      "question": "What did MD&A say about iPhone and Services revenue in the filing covering the period ended December 27, 2025? Cite the accession and the specific narrative."
+    },
+    {
+      "id": 87,
+      "group": "J",
+      "tags": ["planner", "period_end", "liquidity", "10-Q", "fy2022"],
+      "question": "What does the 10-Q covering the period ended July 2, 2022 say about Apple's liquidity and cash position? Cite the accession and relevant MD&A language."
+    },
+    {
+      "id": 88,
+      "group": "J",
+      "tags": ["planner", "form", "10-K", "fy2010", "business", "overview"],
+      "question": "Using only the FY2010 Form 10-K, how does Apple describe its business and product offerings? Cite the Business section and any strategic commentary."
+    },
+    {
+      "id": 89,
+      "group": "J",
+      "tags": ["planner", "period_end", "mda", "cost_structure", "10-K", "fy2018"],
+      "question": "What does the filing covering period-end September 29, 2018 say about changes in cost of sales and gross margin? Cite the accession and the MD&A narrative."
+    },
+    {
+      "id": 90,
+      "group": "J",
+      "tags": ["planner", "form", "10-Q", "qoq", "fy2025", "mda"],
+      "question": "From the most recent available 10-Q (Q3 FY2025, period ending June 28, 2025), what drove the quarter-over-quarter change in operating income? Cite the filing narrative and any numeric amounts."
+    },
+    {
+      "id": 91,
+      "group": "B",
+      "tags": ["mda", "operating_results", "services_margin", "10-K", "fy2024"],
+      "question": "How does the FY2024 10-K MD&A describe the margin difference between Services and Products, and what factors explain any changes in that gap? Cite specific language and any margin percentages in the retrieved text."
+    },
+    {
+      "id": 92,
+      "group": "A",
+      "tags": ["mda", "liquidity", "capital_resources", "10-Q", "fy2025"],
+      "question": "What does the Q2 FY2025 10-Q (period ending March 29, 2025) say about Apple's liquidity and capital resources? Cite the MD&A narrative and any specific figures in the retrieved passages."
+    },
+    {
+      "id": 93,
+      "group": "H",
+      "tags": ["mda", "capital_return", "buybacks", "10-K", "fy2024"],
+      "question": "How much did Apple return to shareholders through buybacks and dividends in FY2024 as described in the 10-K MD&A? Cite the specific narrative and dollar amounts."
+    },
+    {
+      "id": 94,
+      "group": "F",
+      "tags": ["mda", "segment", "geographic", "europe", "10-Q", "fy2025"],
+      "question": "How does the Q3 FY2025 10-Q MD&A describe Apple's Europe segment performance? Cite narrative language and any revenue figures in the retrieved filing text."
+    },
+    {
+      "id": 95,
+      "group": "E",
+      "tags": ["risk_factors", "legal", "eu_dma", "regulatory", "10-K", "fy2024"],
+      "question": "What does the FY2024 10-K Risk Factors say about the European Union Digital Markets Act (DMA) and its implications for Apple's App Store and platform business? Cite specific language."
+    },
+    {
+      "id": 96,
+      "group": "C",
+      "tags": ["risk_factors", "competition", "generative_ai", "10-K", "fy2024"],
+      "question": "How does Apple's FY2024 10-K Risk Factors address competition from generative AI or other emerging technologies? Cite specific language disclosing risks from new entrants or technology substitution."
+    },
+    {
+      "id": 97,
+      "group": "I",
+      "tags": ["business", "apple_intelligence", "ai", "10-K", "fy2024"],
+      "question": "How does Apple's FY2024 10-K Business section describe Apple Intelligence or AI-related product features? Cite specific language about new capabilities or their strategic significance."
+    },
+    {
+      "id": 98,
+      "group": "D",
+      "tags": ["risk_factors", "supply_chain", "india", "diversification", "10-K", "fy2023"],
+      "question": "Does the FY2023 10-K mention supply chain diversification efforts, including manufacturing in India or Vietnam? Cite specific Risk Factors or Business section language from the retrieved excerpts."
+    },
+    {
+      "id": 99,
+      "group": "G",
+      "tags": ["mda", "fx", "yen", "euro", "10-K", "fy2022"],
+      "question": "What specific currencies are called out in the FY2022 10-K MD&A as having the largest impact on Apple's reported net sales? Cite the narrative and any currency-level commentary in the retrieved text."
+    },
+    {
+      "id": 100,
+      "group": "J",
+      "tags": ["planner", "period_end", "mda", "liquidity", "10-Q", "fy2021"],
+      "question": "What did Apple's MD&A say about liquidity and capital resources as of the period ending June 26, 2021? Cite the 10-Q that covers that period-end date and quote specific figures."
+    }
+  ]
+}

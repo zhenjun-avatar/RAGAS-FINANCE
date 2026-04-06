@@ -39,6 +39,10 @@ _PLANNER_SYSTEM = """You map a user question to SEC XBRL company-facts query fie
 
 metric_* values are the LOCAL tag name only (e.g. Cash, Revenues), not us-gaap.Cash.
 Use empty arrays when unknown. prefer_recent=true when user wants latest filing or most recent period.
+Infer form_filters when the question implies annual vs quarterly scope, even if "10-K" / "10-Q" is not written literally.
+Examples: "annual", "full year", "FY", "year-end" => 10-K; "quarterly", "quarter", "Q1/Q2/Q3", "QoQ" => 10-Q.
+For YoY questions, keep form_filters null unless the question clearly implies annual-only or quarter-only comparison.
+Only emit period_end_dates when the user provides an exact date. Do not guess quarter-end dates for non-calendar fiscal years.
 """
 
 

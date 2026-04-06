@@ -58,6 +58,25 @@ _FORM_SPECS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("8-K", re.compile(r"8\s*[-.]?\s*K\b", re.I)),
 )
 
+_ANNUAL_FORM_HINTS: tuple[str, ...] = (
+    "annual",
+    "full year",
+    "fiscal year",
+    "year-end",
+    "year end",
+    "fy",
+    "全年",
+    "年度",
+    "年报",
+)
+_QUARTERLY_FORM_HINTS: tuple[str, ...] = (
+    "quarterly",
+    "quarter",
+    "qoq",
+    "季度",
+    "季报",
+)
+
 _NARRATIVE_TARGET_RULES: tuple[tuple[str, tuple[str, ...]], ...] = (
     (
         "management_discussion",
@@ -66,9 +85,24 @@ _NARRATIVE_TARGET_RULES: tuple[tuple[str, tuple[str, ...]], ...] = (
             "management discussion",
             "management's discussion",
             "management discussion and analysis",
+            "operating results",
+            "results of operation",
             "results of operations",
             "讨论与分析",
             "管理层讨论",
+        ),
+    ),
+    (
+        "margin_cost_structure",
+        (
+            "cost structure",
+            "cost of revenue",
+            "gross margin",
+            "operating margin",
+            "成本结构",
+            "毛利率",
+            "营业利润率",
+            "营业成本",
         ),
     ),
     (
@@ -149,7 +183,7 @@ class FinanceQueryPlan:
         if self.period_end_dates:
             filters["finance_period_end_dates"] = [str(v) for v in self.period_end_dates if str(v).strip()]
         if self.period_years:
-            filters["finance_period_years"] = [str(v) for v in self.period_years]
+            filters["finance_period"] = [str(v) for v in self.period_years]
         return {k: v for k, v in filters.items() if v}
 
 
@@ -208,6 +242,7 @@ class EvidencePlan:
     term_targets: tuple[str, ...]
     retrieval_budget: RetrievalBudget
     evidence_requirements: EvidenceRequirements
+    narrative_retrieval_query: str
 
     @property
     def retrieval_query(self) -> str:
@@ -225,6 +260,7 @@ class EvidencePlan:
             "term_targets": list(self.term_targets),
             "retrieval_budget": self.retrieval_budget.to_debug_dict(),
             "evidence_requirements": self.evidence_requirements.to_debug_dict(),
+            "narrative_retrieval_query": self.narrative_retrieval_query,
         }
 
 
@@ -263,6 +299,19 @@ def _extract_form_filters(question: str) -> tuple[str, ...] | None:
     for canonical, rx in _FORM_SPECS:
         if rx.search(q) and canonical not in seen:
             seen[canonical] = None
+    if seen:
+        return tuple(seen.keys())
+    lowered = q.lower()
+    annual = any(token in lowered for token in _ANNUAL_FORM_HINTS) or bool(re.search(r"\bfy\s*20\d{2}\b", lowered))
+    quarterly = (
+        any(token in lowered for token in _QUARTERLY_FORM_HINTS)
+        or bool(re.search(r"\bq[1-3]\b", lowered))
+        or "环比" in lowered
+    )
+    if annual and not quarterly:
+        return ("10-K",)
+    if quarterly and not annual:
+        return ("10-Q",)
     return tuple(seen.keys()) if seen else None
 
 
@@ -323,6 +372,39 @@ def _build_retrieval_query(question: str, metric_sql_hints: tuple[str, ...]) -> 
     return f"{base}\n\nXBRL metrics: {tail}"
 
 
+_NARRATIVE_TARGET_RETRIEVAL_HINTS: dict[str, str] = {
+    "risk_factors": (
+        "Item 1A Risk Factors; concentration of revenue; customer dependence; major customers; single-customer risk"
+    ),
+    "management_discussion": "Item 7 MD&A; management discussion and analysis; results of operations",
+    "margin_cost_structure": "gross margin; cost of revenue; operating expenses; cost structure",
+    "liquidity": "liquidity and capital resources; working capital; cash requirements",
+    "going_concern": "going concern; substantial doubt about ability to continue",
+}
+
+
+def _build_narrative_retrieval_query(
+    question: str,
+    *,
+    narrative_targets: tuple[str, ...],
+    need_narrative: bool,
+) -> str:
+    """Dense/sparse + rerank base string for narrative leg: user question + section-aligned hints (no XBRL metric tail)."""
+    base = (question or "").strip()
+    if not need_narrative or not base:
+        return ""
+    hints: list[str] = []
+    seen: set[str] = set()
+    for key in narrative_targets:
+        frag = _NARRATIVE_TARGET_RETRIEVAL_HINTS.get(str(key).strip())
+        if frag and frag not in seen:
+            seen.add(frag)
+            hints.append(frag)
+    if not hints:
+        return base
+    return f"{base}\n\nNarrative focus: {'; '.join(hints[:4])}"
+
+
 def _detect_narrative_targets(question: str) -> tuple[str, ...]:
     lowered = (question or "").lower()
     matched: list[str] = []
@@ -357,6 +439,11 @@ def _derive_question_mode(
         return "facts_only"
     if question_kind == "narrative":
         return "narrative_only"
+    if narrative_targets and any(
+        t in narrative_targets
+        for t in ("management_discussion", "margin_cost_structure", "risk_factors", "going_concern", "liquidity")
+    ):
+        return "mixed_narrative_first"
     if narrative_targets and not plan.metric_exact_keys:
         return "mixed_narrative_first"
     if plan.metric_exact_keys or plan.period_end_dates:
@@ -402,24 +489,24 @@ def _derive_retrieval_budget(question_mode: str) -> RetrievalBudget:
     if question_mode == "narrative_only":
         return RetrievalBudget(
             sql_row_budget=32,
-            summary_candidates=10,
-            leaf_candidates=14,
-            per_filing_cap=5,
+            summary_candidates=12,
+            leaf_candidates=30,
+            per_filing_cap=8,
             max_second_pass_accns=3,
         )
     if question_mode == "cross_filing_compare":
         return RetrievalBudget(
             sql_row_budget=96,
-            summary_candidates=10,
-            leaf_candidates=14,
-            per_filing_cap=4,
+            summary_candidates=12,
+            leaf_candidates=30,
+            per_filing_cap=8,
             max_second_pass_accns=4,
         )
     return RetrievalBudget(
         sql_row_budget=56,
-        summary_candidates=8,
-        leaf_candidates=12,
-        per_filing_cap=4,
+        summary_candidates=10,
+        leaf_candidates=24,
+        per_filing_cap=6,
         max_second_pass_accns=3,
     )
 
@@ -447,6 +534,11 @@ def build_finance_evidence_plan(
     terms.extend(str(year) for year in plan.period_years[:4])
     terms.extend(plan.period_end_dates[:4])
     deduped_terms = tuple(list(dict.fromkeys(str(item).strip() for item in terms if str(item).strip()))[:16])
+    narrative_retrieval_query = _build_narrative_retrieval_query(
+        question,
+        narrative_targets=narrative_targets,
+        need_narrative=requirements.need_narrative,
+    )
     return EvidencePlan(
         question_mode=question_mode,
         sql_plan=plan,
@@ -455,6 +547,7 @@ def build_finance_evidence_plan(
         term_targets=deduped_terms,
         retrieval_budget=budget,
         evidence_requirements=requirements,
+        narrative_retrieval_query=narrative_retrieval_query,
     )
 
 

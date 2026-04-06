@@ -191,7 +191,7 @@ def build_chunk_filter_metadata(rows: list[dict[str, Any]]) -> dict[str, Any]:
     if accns:
         out["finance_accns"] = accns[:24]
     if period_years:
-        out["finance_period_years"] = period_years[:12]
+        out["finance_period"] = period_years[:12]
     if period_end_dates:
         out["finance_period_end_dates"] = period_end_dates[:24]
     return out

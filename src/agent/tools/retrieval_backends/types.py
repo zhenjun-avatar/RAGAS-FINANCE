@@ -20,6 +20,7 @@ class DenseBackend(Protocol):
         document_ids: list[int],
         limit: int,
         levels: Optional[list[int]] = None,
+        parent_ids: Optional[list[str]] = None,
         metadata_filters: Optional[MetadataFilters] = None,
         log_stage: Optional[str] = None,
     ) -> list[NodeHit]: ...
@@ -35,6 +36,7 @@ class SparseBackend(Protocol):
         *,
         limit: int,
         levels: Optional[list[int]] = None,
+        parent_ids: Optional[list[str]] = None,
         metadata_filters: Optional[MetadataFilters] = None,
         query_plan: Optional[SparseQueryPlan] = None,
         log_stage: Optional[str] = None,

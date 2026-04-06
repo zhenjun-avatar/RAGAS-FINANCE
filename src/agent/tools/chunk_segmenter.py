@@ -223,8 +223,8 @@ def _build_chunk(blocks: list[_Block]) -> ChunkPayload:
     texts = [block.text for block in blocks if block.text.strip()]
     pages = [block.page_number for block in blocks if block.page_number is not None]
     heading_paths = [block.heading_path for block in blocks if block.heading_path]
-    active_heading_path = heading_paths[-1] if heading_paths else []
-    section_title = active_heading_path[-1] if active_heading_path else None
+    section_path = heading_paths[-1] if heading_paths else []
+    section_title = section_path[-1] if section_path else None
     title = section_title or (f"Page {pages[0]}" if pages else None)
     metadata: dict[str, Any] = {
         "block_count": len(blocks),
@@ -233,10 +233,11 @@ def _build_chunk(blocks: list[_Block]) -> ChunkPayload:
     if pages:
         metadata["page_start"] = min(pages)
         metadata["page_end"] = max(pages)
-    if active_heading_path:
-        metadata["heading_path"] = active_heading_path
+    if section_path:
+        metadata["section_path"] = section_path
+        metadata["heading_path"] = section_path
         metadata["section_title"] = section_title
-        metadata["section_depth"] = len(active_heading_path)
+        metadata["section_depth"] = len(section_path)
     return ChunkPayload(text="\n\n".join(texts).strip(), title=title, metadata=metadata)
 
 

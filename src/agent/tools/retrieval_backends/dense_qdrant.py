@@ -16,6 +16,7 @@ class QdrantDenseBackend:
         document_ids: list[int],
         limit: int,
         levels: Optional[list[int]] = None,
+        parent_ids: Optional[list[str]] = None,
         metadata_filters: Optional[dict[str, list[str]]] = None,
         log_stage: Optional[str] = None,
     ) -> list[NodeHit]:
@@ -24,6 +25,7 @@ class QdrantDenseBackend:
             document_ids=document_ids,
             limit=limit,
             levels=levels,
+            parent_ids=parent_ids,
             metadata_filters=metadata_filters,
             log_stage=log_stage,
         )

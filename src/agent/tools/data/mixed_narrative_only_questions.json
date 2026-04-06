@@ -1,0 +1,98 @@
+{
+  "schema_version": "1",
+  "question_mode": "narrative_only_subtask",
+  "paired_with": "mixed_narrative_first_questions.json",
+  "document_id_range": [9500, 9570],
+  "description": "Narrative-only evaluation set. (1) ids 1–10: counterparts to mixed_narrative_first_questions.json (paired_id). (2) ids 11–14: planner / filing-scope stress tests (form, latest, year, 10-Q QoQ, period-end date)—merged from former rag_only_planner_questions.json. Answers use retrieved filing text only; no separate XBRL/SQL tables. Recommend FINANCE_SQL_ROUTING_ENABLED=false; optionally RAG_ASK_EXCLUDED_DOCUMENT_IDS=9500 to drop companyfacts-only doc.",
+  "env_hints": {
+    "FINANCE_SQL_ROUTING_ENABLED": "false",
+    "RAG_ASK_EXCLUDED_DOCUMENT_IDS": "9500",
+    "ASK_DEFAULT_TOP_K": "3"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "paired_id": 1,
+      "tags": ["risk_factors", "revenue", "customer_concentration", "narrative_only"],
+      "question": "What does the Risk Factors section disclose about concentration of revenue, customer dependence, or single-customer risk? Quote or closely paraphrase specific language from the filing and cite the source passage."
+    },
+    {
+      "id": 2,
+      "paired_id": 2,
+      "tags": ["mda", "operating_results", "cost_structure", "margin", "narrative_only"],
+      "question": "How does Management's Discussion and Analysis explain changes in operating results or cost structure (for example cost of revenue, gross margin, or operating margin)? Cite the MD&A wording and any dollar amounts, percentages, or tables that appear in the same retrieved excerpts."
+    },
+    {
+      "id": 3,
+      "paired_id": 3,
+      "tags": ["mda", "liquidity", "capital_resources", "going_concern", "narrative_only"],
+      "question": "What does Management's Discussion and Analysis say about the company's liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and any specific numbers or tabular disclosures quoted in the retrieved passages."
+    },
+    {
+      "id": 4,
+      "paired_id": 4,
+      "tags": ["mda", "segment_revenue", "narrative_only"],
+      "question": "How does MD&A describe segment-level net sales performance (for example by reportable segment or product line)? Cite the narrative and any segment tables or figures that appear in the retrieved filing text (cite accession where possible)."
+    },
+    {
+      "id": 5,
+      "paired_id": 5,
+      "tags": ["risk_factors", "supply_chain", "inventory", "narrative_only"],
+      "question": "What does Item 1A Risk Factors say about supply chain concentration, single-source suppliers, or manufacturing outsourcing? Cite specific language. If the same excerpts discuss inventory, purchase obligations, or cost of sales, quote those amounts or sentences only if they appear in the retrieved text."
+    },
+    {
+      "id": 6,
+      "paired_id": 6,
+      "tags": ["mda", "margin", "operating_income", "narrative_only"],
+      "question": "How does MD&A explain changes in gross margin or operating margin year-over-year or quarter-over-quarter? Cite the explanation and any gross profit, operating income, or margin-related numbers that appear in the same filing excerpts (cite accession)."
+    },
+    {
+      "id": 7,
+      "paired_id": 7,
+      "tags": ["mda", "liquidity", "debt", "capital_markets", "narrative_only"],
+      "question": "What does MD&A disclose about liquidity risk, access to capital markets, or debt covenants? Cite the narrative and any cash, debt, or current assets/liabilities figures that appear in the retrieved passages."
+    },
+    {
+      "id": 8,
+      "paired_id": 8,
+      "tags": ["mda", "fx", "tariffs", "trade", "narrative_only"],
+      "question": "How does the filing narrative address foreign exchange, tariffs, or international trade restrictions affecting results of operations? Cite MD&A or Risk Factors language; if revenue, operating income, or expense amounts related to that discussion appear in the same excerpts, quote them."
+    },
+    {
+      "id": 9,
+      "paired_id": 9,
+      "tags": ["risk_factors", "legal", "contingencies", "narrative_only"],
+      "question": "What does Risk Factors say about legal proceedings, regulatory investigations, or contingent liabilities? Cite specific language. If accrual, loss contingency, or legal-related amounts appear in the retrieved text, quote them; if not present in context, state that limitation."
+    },
+    {
+      "id": 10,
+      "paired_id": 10,
+      "tags": ["mda", "services", "products", "revenue", "narrative_only"],
+      "question": "How does MD&A describe trends in Services versus Products revenue and profitability? Cite the narrative and any Services- or Products-related revenue or margin numbers that appear in the retrieved filing excerpts (cite metric labels or table headings as given in text)."
+    },
+    {
+      "id": 11,
+      "paired_id": null,
+      "tags": ["planner", "form", "10-K", "latest", "prefer_recent", "mda", "liquidity", "narrative_only"],
+      "question": "In Apple's latest 10-K MD&A, what does management say about liquidity and capital resources? Cite that filing only."
+    },
+    {
+      "id": 12,
+      "paired_id": null,
+      "tags": ["planner", "form", "10-K", "year", "mda", "liquidity", "going_concern", "narrative_only"],
+      "question": "Using only the 2024 Form 10-K, summarize MD&A discussion of liquidity and going concern. Cite accession numbers."
+    },
+    {
+      "id": 13,
+      "paired_id": null,
+      "tags": ["planner", "form", "10-Q", "qoq", "margin", "mda", "narrative_only"],
+      "question": "From the most recent 10-Q, what drove the quarter-over-quarter change in operating margin? Cite the filing narrative and any numeric amounts or tables in the retrieved passages that support your answer."
+    },
+    {
+      "id": 14,
+      "paired_id": null,
+      "tags": ["planner", "period_end", "mda", "liquidity", "narrative_only"],
+      "question": "What did MD&A say about liquidity as of 2023-09-30? Cite the filing that covers that period-end date."
+    }
+  ]
+}

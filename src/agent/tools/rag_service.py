@@ -8,7 +8,7 @@ import time
 import uuid
 from collections import defaultdict
 from dataclasses import replace
-from typing import Any, AsyncGenerator, Optional
+from typing import Any, AsyncGenerator, Optional, Sequence
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
@@ -18,6 +18,7 @@ from .llamaindex_retrieval import retrieval_service
 from .llm import get_llm
 from .node_repository import enqueue_evaluation_job, ensure_schema
 from .rag_stage_log import log_rag, rag_request_scope
+from .report_store import save_langfuse_observability_report
 
 
 def _norm_accn(value: Any) -> str | None:
@@ -68,11 +69,37 @@ def _node_signal_score(node: dict[str, Any]) -> float:
     return 0.0
 
 
+def _first_accession_per_document(nodes: list[dict[str, Any]]) -> dict[int, str]:
+    """Map document_id -> first SEC accession seen on any node (fills gaps when per-node metadata is missing)."""
+    doc_to_accn: dict[int, str] = {}
+    for node in nodes:
+        doc_id = node.get("document_id")
+        if doc_id is None:
+            continue
+        did = int(doc_id)
+        if did in doc_to_accn:
+            continue
+        accns = _node_accessions(node)
+        if accns:
+            doc_to_accn[did] = accns[0]
+    return doc_to_accn
+
+
 def _ranked_filing_distribution(nodes: list[dict[str, Any]], *, limit: int = 8) -> list[dict[str, Any]]:
+    doc_accn = _first_accession_per_document(nodes)
     totals: dict[str, float] = defaultdict(float)
     counts: dict[str, int] = defaultdict(int)
     for node in nodes:
-        filing = _node_filing_key(node)
+        accns = _node_accessions(node)
+        if accns:
+            filing = accns[0]
+        else:
+            did = node.get("document_id")
+            if did is not None:
+                di = int(did)
+                filing = doc_accn.get(di, f"document:{di}")
+            else:
+                filing = "unknown"
         totals[filing] += max(0.25, _node_signal_score(node))
         counts[filing] += 1
     ranked = sorted(totals.items(), key=lambda pair: (-pair[1], pair[0]))
@@ -636,6 +663,7 @@ def _reconcile_evidence_plan(
     *,
     sql_rows: list[dict[str, Any]],
     retrieval: dict[str, Any],
+    question: str = "",
 ) -> tuple[Any, dict[str, Any]]:
     dbg = retrieval.get("debug") or {}
     ranked_hits = dbg.get("reranked") or dbg.get("pre_rerank") or []
@@ -683,11 +711,22 @@ def _reconcile_evidence_plan(
             ]
         )
     )
+    from tools.finance.finance_query_plan import _build_narrative_retrieval_query
+
+    req = getattr(evidence_plan, "evidence_requirements", None)
+    need_narrative = bool(getattr(req, "need_narrative", False)) if req is not None else False
+    narrative_retrieval_query = _build_narrative_retrieval_query(
+        question,
+        narrative_targets=narrative_targets[:8],
+        need_narrative=need_narrative,
+    )
     refined_plan = replace(
         evidence_plan,
         filing_hypotheses=filing_hypotheses,
         narrative_targets=narrative_targets[:8],
         term_targets=term_targets[:16],
+        narrative_retrieval_query=narrative_retrieval_query
+        or str(getattr(evidence_plan, "narrative_retrieval_query", "") or ""),
     )
     coverage = _evidence_coverage(refined_plan, sql_rows, retrieval)
     needs_second_pass, second_pass_reasons = _should_run_second_pass(
@@ -716,13 +755,48 @@ async def _finance_sql_bundle(
 ) -> tuple[Any, str, list[dict[str, Any]], dict[str, Any], Any | None]:
     """Rule-first (+ optional LLM) routing; fetch SEC observations when need_sql."""
     from tools.finance.financial_facts_repository import document_ids_with_sec_observations
+    from tools.finance.finance_filing_resolver import attach_filing_hypotheses
     from tools.finance.finance_query_plan import build_finance_evidence_plan
     from tools.finance.finance_intent import resolve_finance_intent
     from tools.finance.finance_query_plan_llm import build_finance_evidence_plan_llm
     from tools.finance.question_router import FinanceRoute, format_sql_observations_for_prompt
 
     if not config.finance_sql_routing_enabled:
-        return FinanceRoute(False, True, "default", "routing_disabled"), "", [], {}, None
+        plan_source = "heuristic"
+        evidence_plan = build_finance_evidence_plan(question, question_kind=None)
+        if config.finance_llm_sql_planner_enabled:
+            try:
+                plan_llm = await build_finance_evidence_plan_llm(question, question_kind=None)
+                if plan_llm is not None:
+                    evidence_plan = plan_llm
+                    plan_source = "llm"
+            except Exception:
+                plan_source = "heuristic"
+        filing_scope_debug: dict[str, Any] | None = None
+        try:
+            evidence_plan, filing_scope_debug = await attach_filing_hypotheses(
+                evidence_plan,
+                document_ids=sorted(set(document_ids)),
+            )
+        except Exception as exc:
+            filing_scope_debug = {"error": str(exc)}
+        # No SQL rows will exist when routing is off; do not require structured facts for second-pass.
+        _req = evidence_plan.evidence_requirements
+        evidence_plan = replace(
+            evidence_plan,
+            evidence_requirements=replace(_req, need_numeric_fact=False),
+        )
+        meta = {
+            "finance_query_plan": evidence_plan.sql_plan.to_debug_dict(),
+            "evidence_plan": evidence_plan.to_debug_dict(),
+            "retrieval_metadata_filters": evidence_plan.to_retrieval_filters(),
+            "retrieval_query": evidence_plan.retrieval_query,
+            "narrative_retrieval_query": getattr(evidence_plan, "narrative_retrieval_query", "") or "",
+            "sql_plan_source": plan_source,
+            "filing_scope_resolver": filing_scope_debug,
+            "finance_sql_routing": "disabled",
+        }
+        return FinanceRoute(False, True, "default", "routing_disabled"), "", [], meta, evidence_plan
 
     with_sec = await document_ids_with_sec_observations(document_ids)
     if not with_sec:
@@ -738,10 +812,6 @@ async def _finance_sql_bundle(
         "intent_detail": intent.intent_detail,
     }
 
-    if not route.need_sql:
-        evidence_plan = build_finance_evidence_plan(question, question_kind=intent.question_kind)
-        return route, "", [], {"finance_intent": intent_debug, "evidence_plan": evidence_plan.to_debug_dict()}, evidence_plan
-
     plan_source = "heuristic"
     evidence_plan = build_finance_evidence_plan(question, question_kind=intent.question_kind)
     if config.finance_llm_sql_planner_enabled:
@@ -756,12 +826,62 @@ async def _finance_sql_bundle(
                 plan_source = "llm"
         except Exception:
             plan_source = "heuristic"
+    filing_scope_debug: dict[str, Any] | None = None
+    try:
+        # Resolve filings from rag_documents for the *request* corpus. ``with_sec`` is only
+        # documents that have sec_financial_observations rows — often a subset or different ids
+        # than EDGAR HTML ingest document_ids, which would yield candidate_count=0 incorrectly.
+        evidence_plan, filing_scope_debug = await attach_filing_hypotheses(
+            evidence_plan,
+            document_ids=sorted(set(document_ids)),
+        )
+    except Exception as exc:
+        filing_scope_debug = {"error": str(exc)}
+    if not route.need_sql:
+        return (
+            route,
+            "",
+            [],
+            {
+                "finance_intent": intent_debug,
+                "finance_query_plan": evidence_plan.sql_plan.to_debug_dict(),
+                "evidence_plan": evidence_plan.to_debug_dict(),
+                "retrieval_metadata_filters": evidence_plan.to_retrieval_filters(),
+                "retrieval_query": evidence_plan.retrieval_query,
+                "narrative_retrieval_query": getattr(evidence_plan, "narrative_retrieval_query", "") or "",
+                "sql_plan_source": plan_source,
+                "filing_scope_resolver": filing_scope_debug,
+            },
+            evidence_plan,
+        )
+    if _should_defer_sql_for_rag_first(evidence_plan, route):
+        meta = {
+            "finance_query_plan": evidence_plan.sql_plan.to_debug_dict(),
+            "evidence_plan": evidence_plan.to_debug_dict(),
+            "retrieval_metadata_filters": evidence_plan.to_retrieval_filters(),
+            "retrieval_query": evidence_plan.retrieval_query,
+            "narrative_retrieval_query": getattr(evidence_plan, "narrative_retrieval_query", "") or "",
+            "finance_intent": intent_debug,
+            "sql_plan_source": plan_source,
+            "filing_scope_resolver": filing_scope_debug,
+            "sql_execution_deferred": True,
+            "mixed_narrative_evidence_order": "rag_before_sql",
+        }
+        return (
+            route,
+            "",
+            [],
+            meta,
+            evidence_plan,
+        )
     merged, sql_exec_meta = await _execute_finance_sql_plan(
         document_ids=sorted(with_sec),
         evidence_plan=evidence_plan,
     )
     row_cap = intent.effective_sql_prompt_max_rows()
     row_cap = min(row_cap, int(getattr(evidence_plan.retrieval_budget, "sql_row_budget", row_cap)))
+    if bool(getattr(getattr(evidence_plan, "evidence_requirements", None), "need_narrative", False)):
+        row_cap = min(row_cap, 12)
     prompt_rows = min(len(merged), row_cap)
     meta = {
         **sql_exec_meta,
@@ -769,8 +889,10 @@ async def _finance_sql_bundle(
         "evidence_plan": evidence_plan.to_debug_dict(),
         "retrieval_metadata_filters": evidence_plan.to_retrieval_filters(),
         "retrieval_query": evidence_plan.retrieval_query,
+        "narrative_retrieval_query": getattr(evidence_plan, "narrative_retrieval_query", "") or "",
         "finance_intent": intent_debug,
         "sql_plan_source": plan_source,
+        "filing_scope_resolver": filing_scope_debug,
     }
     return (
         route,
@@ -781,26 +903,470 @@ async def _finance_sql_bundle(
     )
 
 
-def _merge_sql_and_rag_context(sql_block: str, rag_block: str) -> str:
+def _rag_metadata_filters(
+    evidence_plan: Any | None,
+    filters: dict[str, Any] | None,
+    *,
+    sql_rows: list[dict[str, Any]] | None = None,
+) -> dict[str, Any] | None:
+    """Narrative passages usually lack finance_metric_* metadata; drop those filters when MD&A text is required.
+
+    When SQL rows are available, extract their top accession numbers and inject
+    as ``finance_accns`` so the retrieval layer can run a filing-scoped leaf
+    search even in the first pass (before ``_reconcile_evidence_plan``).
+    """
+    if not isinstance(filters, dict) or not filters:
+        return filters if filters is None or isinstance(filters, dict) else None
+    if evidence_plan is None:
+        return dict(filters)
+    req = getattr(evidence_plan, "evidence_requirements", None)
+    need_narrative = req is not None and bool(getattr(req, "need_narrative", False))
+    drop = frozenset({"finance_metric_exact_keys", "finance_metric_keys"}) if need_narrative else frozenset()
+    out = {k: v for k, v in filters.items() if k not in drop}
+    if "finance_accns" not in out and need_narrative:
+        accns = _top_accessions_from_sql_rows(sql_rows, limit=6)
+        if not accns and evidence_plan is not None:
+            accns = _top_accessions_from_filing_hypotheses(evidence_plan, limit=6, min_weight=0.40)
+        if accns:
+            out["finance_accns"] = accns
+    return out if out else None
+
+
+_HARD_FILTER_KEYS_BASE = frozenset(
+    {
+        "finance_accns",
+        "finance_form_base",
+        "finance_period",
+        "finance_metric_exact_keys",
+    }
+)
+_SOFT_FILTER_KEYS = frozenset(
+    {
+        "section_role",
+        "leaf_role",
+        "topic_tags",
+        "section_path",
+        "finance_statement",
+        "finance_metric_keys",
+        "content_type",
+    }
+)
+_NARRATIVE_TARGET_SOFT_HINTS: dict[str, dict[str, list[str]]] = {
+    "liquidity": {
+        "section_role": ["liquidity"],
+        "leaf_role": ["liquidity_driver"],
+        "topic_tags": ["liquidity"],
+        "rerank_terms": ["liquidity", "capital resources", "working capital"],
+    },
+    "margin_cost_structure": {
+        "section_role": ["results_of_operations"],
+        "leaf_role": ["results_driver"],
+        "topic_tags": ["gross_margin", "cost_of_revenue", "operating_expense"],
+        "rerank_terms": ["gross margin", "cost of revenue", "operating expenses"],
+    },
+    "going_concern": {
+        "section_role": ["liquidity"],
+        "leaf_role": ["liquidity_driver"],
+        "topic_tags": ["liquidity"],
+        "rerank_terms": ["going concern", "substantial doubt"],
+    },
+    "management_discussion": {
+        "section_role": ["mda", "results_of_operations"],
+        "leaf_role": ["results_driver"],
+        "topic_tags": ["revenue", "operating_income"],
+        "rerank_terms": ["management discussion and analysis", "results of operations"],
+    },
+    "risk_factors": {
+        "section_role": ["risk_factors"],
+        "leaf_role": ["risk_factor_item"],
+        "topic_tags": [],
+        "rerank_terms": ["risk factors"],
+    },
+}
+
+
+def _retrieval_soft_hints(evidence_plan: Any | None) -> dict[str, list[str]]:
+    if evidence_plan is None:
+        return {}
+    raw_targets = getattr(evidence_plan, "narrative_targets", ()) or ()
+    out: dict[str, list[str]] = {
+        "section_role": [],
+        "leaf_role": [],
+        "topic_tags": [],
+        "rerank_terms": [],
+    }
+    for target in raw_targets:
+        hints = _NARRATIVE_TARGET_SOFT_HINTS.get(str(target or "").strip())
+        if not hints:
+            continue
+        for key, values in hints.items():
+            bucket = out.setdefault(key, [])
+            for value in values:
+                text = str(value or "").strip()
+                if text and text not in bucket:
+                    bucket.append(text)
+    return {k: v for k, v in out.items() if v}
+
+
+def _normalize_hard_metadata_filters(
+    filters: dict[str, Any] | None,
+    *,
+    need_narrative: bool,
+) -> dict[str, list[str]] | None:
+    if not isinstance(filters, dict) or not filters:
+        return None
+    allowed_keys = set(_HARD_FILTER_KEYS_BASE)
+    if need_narrative:
+        allowed_keys.discard("finance_metric_exact_keys")
+    out: dict[str, list[str]] = {}
+    for key, raw_values in filters.items():
+        if key not in allowed_keys:
+            continue
+        values = raw_values if isinstance(raw_values, list) else [raw_values]
+        clean = [str(v).strip() for v in values if str(v).strip()]
+        if clean:
+            out[key] = list(dict.fromkeys(clean))
+    return out if out else None
+
+
+def _build_retrieval_filter_policy(
+    evidence_plan: Any | None,
+    filters: dict[str, Any] | None,
+    *,
+    sql_rows: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    req = getattr(evidence_plan, "evidence_requirements", None)
+    need_narrative = req is not None and bool(getattr(req, "need_narrative", False))
+    rewritten = _rag_metadata_filters(evidence_plan, filters, sql_rows=sql_rows)
+    hard_filters = _normalize_hard_metadata_filters(rewritten, need_narrative=need_narrative)
+    soft_hints = _retrieval_soft_hints(evidence_plan)
+    raw_keys = sorted((filters or {}).keys()) if isinstance(filters, dict) else []
+    rewritten_keys = sorted((rewritten or {}).keys()) if isinstance(rewritten, dict) else []
+    hard_keys = sorted((hard_filters or {}).keys()) if isinstance(hard_filters, dict) else []
+    dropped_after_rewrite = [key for key in raw_keys if key not in rewritten_keys]
+    soft_candidate_keys = [key for key in rewritten_keys if key in _SOFT_FILTER_KEYS]
+    accn_source: str | None = None
+    if hard_filters and hard_filters.get("finance_accns"):
+        if sql_rows and _top_accessions_from_sql_rows(sql_rows, limit=6):
+            accn_source = "sql_rows"
+        elif evidence_plan is not None and _top_accessions_from_filing_hypotheses(evidence_plan, limit=6):
+            accn_source = "filing_hypotheses"
+        else:
+            accn_source = "input_filters"
+    return {
+        "hard_filters": hard_filters,
+        "soft_hints": soft_hints,
+        "debug": {
+            "need_narrative": need_narrative,
+            "raw_filters": dict(filters or {}) if isinstance(filters, dict) else None,
+            "rewritten_filters": dict(rewritten or {}) if isinstance(rewritten, dict) else None,
+            "hard_filters": dict(hard_filters or {}) if isinstance(hard_filters, dict) else None,
+            "soft_hints": dict(soft_hints or {}),
+            "raw_filter_keys": raw_keys,
+            "rewritten_filter_keys": rewritten_keys,
+            "hard_filter_keys": hard_keys,
+            "dropped_filter_keys": dropped_after_rewrite,
+            "soft_candidate_keys": soft_candidate_keys,
+            "finance_accns_source": accn_source,
+        },
+    }
+
+
+def _top_accessions_from_sql_rows(rows: list[dict[str, Any]] | None, *, limit: int = 6) -> list[str]:
+    """Extract the most frequent accession numbers from SQL observation rows."""
+    if not rows:
+        return []
+    counts: dict[str, int] = defaultdict(int)
+    for row in rows:
+        accn = _norm_accn(row.get("accn"))
+        if accn:
+            counts[accn] += 1
+    ranked = sorted(counts.items(), key=lambda pair: (-pair[1], pair[0]))
+    return [accn for accn, _ in ranked[:limit]]
+
+
+def _top_accessions_from_filing_hypotheses(
+    evidence_plan: Any,
+    *,
+    limit: int = 6,
+    min_weight: float = 0.0,
+) -> list[str]:
+    hyps = getattr(evidence_plan, "filing_hypotheses", ()) or ()
+    ranked = sorted(
+        hyps,
+        key=lambda h: (
+            -float(getattr(h, "weight", 0) or 0.0),
+            str(getattr(h, "accession", "") or ""),
+        ),
+    )
+    out: list[str] = []
+    for h in ranked:
+        weight = float(getattr(h, "weight", 0) or 0.0)
+        if weight < float(min_weight):
+            continue
+        a = _norm_accn(getattr(h, "accession", None))
+        if a and a not in out:
+            out.append(a)
+        if len(out) >= limit:
+            break
+    return out
+
+
+def _top_accessions_from_rag_hits(retrieval: dict[str, Any], *, limit: int = 8) -> list[str]:
+    dbg = retrieval.get("debug") or {}
+    ranked = dbg.get("reranked") or dbg.get("pre_rerank") or retrieval.get("nodes") or []
+    weights: dict[str, float] = defaultdict(float)
+    for idx, node in enumerate(ranked):
+        for accn in _node_accessions(node):
+            weights[accn] += max(0.01, _node_signal_score(node) / (1.0 + idx * 0.05))
+    ordered = sorted(weights.items(), key=lambda pair: (-pair[1], pair[0]))
+    return [accn for accn, _ in ordered[:limit]]
+
+
+def _should_defer_sql_for_rag_first(evidence_plan: Any | None, route: Any) -> bool:
+    if evidence_plan is None:
+        return False
+    if str(getattr(evidence_plan, "question_mode", "") or "") != "mixed_narrative_first":
+        return False
+    if not getattr(route, "need_sql", False) or not getattr(route, "need_rag", False):
+        return False
+    return str(getattr(config, "mixed_narrative_evidence_order", "sql_before_rag")) == "rag_before_sql"
+
+
+def _sql_prompt_row_cap(evidence_plan: Any, sql_bundle_meta: dict[str, Any]) -> int:
+    intent = sql_bundle_meta.get("finance_intent") or {}
+    row_cap = int(intent.get("effective_sql_prompt_max_rows") or 20)
+    row_cap = min(row_cap, int(getattr(evidence_plan.retrieval_budget, "sql_row_budget", row_cap)))
+    if bool(getattr(getattr(evidence_plan, "evidence_requirements", None), "need_narrative", False)):
+        row_cap = min(row_cap, 12)
+    return max(1, row_cap)
+
+
+def _mixed_evidence_merge_instruction(evidence_plan: Any | None) -> str | None:
+    if evidence_plan is None:
+        return None
+    req = getattr(evidence_plan, "evidence_requirements", None)
+    if req is None or not (
+        bool(getattr(req, "need_narrative", False)) and bool(getattr(req, "need_numeric_fact", False))
+    ):
+        return None
+    targets = getattr(evidence_plan, "narrative_targets", ()) or ()
+    if "risk_factors" in targets:
+        return (
+            "Mixed task: use narrative passages for Item 1A / Risk Factors wording and qualitative claims; "
+            "use structured XBRL rows for metrics, units, periods, and accession. Prefer pairing by filing "
+            "(accession) when both appear under the same header below."
+        )
+    return (
+        "Mixed task: pair narrative passages with structured facts by filing (accession). "
+        "Use passages for qualitative discussion; use structured rows for numbers, dates, and forms."
+    )
+
+
+def _merge_sql_and_rag_context(
+    sql_block: str,
+    rag_block: str,
+    *,
+    sql_rows: list[dict[str, Any]] | None = None,
+    rag_nodes: list[dict[str, Any]] | None = None,
+    merge_instruction: str | None = None,
+) -> str:
     sql_block = (sql_block or "").strip()
     rag_block = (rag_block or "").strip()
+    note = (merge_instruction or "").strip()
+    if sql_rows and rag_nodes and sql_block and rag_block:
+        aligned = _build_accession_aligned_context(sql_rows, rag_nodes)
+        if aligned:
+            body = aligned if not note else f"{note}\n\n{aligned}"
+            return body
     if sql_block and rag_block:
-        return (
+        body = (
             "[Structured facts from SEC filings (database; prefer for numbers and dates)]\n"
             f"{sql_block}\n\n"
             "[Retrieved passages]\n"
             f"{rag_block}"
         )
+        return body if not note else f"{note}\n\n{body}"
     if sql_block:
-        return (
-            "[Structured facts from SEC filings (database; prefer for numbers and dates)]\n" + sql_block
+        body = "[Structured facts from SEC filings (database; prefer for numbers and dates)]\n" + sql_block
+        return body if not note else f"{note}\n\n{body}"
+    return rag_block if not note else f"{note}\n\n{rag_block}"
+
+
+def _build_accession_aligned_context(
+    sql_rows: list[dict[str, Any]],
+    rag_nodes: list[dict[str, Any]],
+) -> str | None:
+    """Group SQL facts and narrative passages by accession for easier LLM alignment."""
+    from tools.finance.question_router import format_sql_observations_for_prompt
+
+    accn_sql: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    other_sql: list[dict[str, Any]] = []
+    for row in sql_rows:
+        accn = _norm_accn(row.get("accn"))
+        if accn:
+            accn_sql[accn].append(row)
+        else:
+            other_sql.append(row)
+
+    accn_rag: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    other_rag: list[dict[str, Any]] = []
+    for node in rag_nodes:
+        node_accns = _node_accessions(node)
+        if node_accns:
+            accn_rag[node_accns[0]].append(node)
+        else:
+            other_rag.append(node)
+
+    all_accns = list(dict.fromkeys([*accn_sql.keys(), *accn_rag.keys()]))
+    paired_accns = [a for a in all_accns if a in accn_sql and a in accn_rag]
+    if not paired_accns:
+        return None
+
+    sections: list[str] = []
+    for accn in all_accns:
+        sql_group = accn_sql.get(accn, [])
+        rag_group = accn_rag.get(accn, [])
+        if not sql_group and not rag_group:
+            continue
+        form = ""
+        period = ""
+        if sql_group:
+            form = str(sql_group[0].get("form") or "").strip()
+            period = str(sql_group[0].get("period_end") or "").strip()
+        header = f"== Filing {accn}"
+        if form:
+            header += f" ({form}"
+            if period:
+                header += f", period ending {period}"
+            header += ")"
+        header += " =="
+        parts = [header]
+        if rag_group:
+            parts.append("[Narrative passages]")
+            for idx, node in enumerate(rag_group, 1):
+                text = (node.get("text") or "").strip()
+                if text:
+                    parts.append(f"  Passage {idx}: {text}")
+        if sql_group:
+            parts.append("[Structured XBRL facts]")
+            parts.append(format_sql_observations_for_prompt(sql_group, max_rows=len(sql_group)))
+        sections.append("\n".join(parts))
+
+    if other_sql:
+        sections.append(
+            "[Other structured facts]\n"
+            + format_sql_observations_for_prompt(other_sql, max_rows=len(other_sql))
         )
-    return rag_block
+    if other_rag:
+        parts = ["[Other retrieved passages]"]
+        for idx, node in enumerate(other_rag, 1):
+            text = (node.get("text") or "").strip()
+            if text:
+                parts.append(f"  Passage {idx}: {text}")
+        sections.append("\n".join(parts))
+
+    return "\n\n".join(sections)
+
+
+def _rag_node_relevance_key(item: dict[str, Any]) -> float:
+    # rerank_score is the primary signal (query-aligned); fall back to evidence score.
+    r = item.get("rerank_score")
+    if r is not None:
+        return float(r)
+    return float(item.get("score") or 0.0)
+
+
+# Maps narrative_target values → substrings that identify nodes by title.
+# Used to guarantee that nodes relevant to the query intent always enter the context window.
+_NARRATIVE_TITLE_HINTS: dict[str, tuple[str, ...]] = {
+    "liquidity": ("liquidity", "capital resource"),
+    "results_of_operations": ("results of operations",),
+    "management_discussion": ("management's discussion", "management discussion"),
+    "risk_factors": ("risk factor",),
+    "segment": ("segment",),
+    "revenue": ("revenue", "net sales"),
+    "operating": ("operating income", "operating expense"),
+}
+
+
+def _mandatory_ids_for_targets(
+    nodes: list[dict[str, Any]],
+    narrative_targets: Sequence[str],
+) -> set[str]:
+    """Return node_ids whose title matches any narrative_target keyword."""
+    keywords = [
+        kw.lower()
+        for t in narrative_targets
+        for kw in _NARRATIVE_TITLE_HINTS.get(t, (t.replace("_", " "),))
+    ]
+    if not keywords:
+        return set()
+    result: set[str] = set()
+    for node in nodes:
+        title = (node.get("title") or "").lower()
+        if any(kw in title for kw in keywords):
+            nid = str(node.get("node_id") or "")
+            if nid:
+                result.add(nid)
+    return result
+
+
+def _take_by_budget(
+    nodes: list[dict[str, Any]],
+    k: int,
+    char_budget: int = 0,
+    mandatory_ids: set[str] | None = None,
+) -> list[dict[str, Any]]:
+    """Select context nodes by character budget with mandatory slot guarantee.
+
+    When char_budget > 0:
+      1. Mandatory nodes (matching narrative_targets titles) are inserted first.
+      2. Remaining budget is filled greedily by descending rerank_score.
+    When char_budget == 0: falls back to fixed top-k by score.
+    Always returns at least 1 node.
+    """
+    ranked = sorted(nodes, key=_rag_node_relevance_key, reverse=True)
+    if char_budget <= 0:
+        return ranked[: max(1, k)]
+
+    mandatory_ids = mandatory_ids or set()
+    selected: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    chars = 0
+
+    # Pass 1: mandatory slots (preserving rerank order among them)
+    for node in ranked:
+        nid = str(node.get("node_id") or "")
+        if nid not in mandatory_ids or nid in seen:
+            continue
+        node_chars = len(node.get("text") or "")
+        if chars + node_chars <= char_budget or not selected:
+            selected.append(node)
+            seen.add(nid)
+            chars += node_chars
+
+    # Pass 2: fill remaining budget by score
+    for node in ranked:
+        nid = str(node.get("node_id") or "")
+        if nid in seen:
+            continue
+        node_chars = len(node.get("text") or "")
+        if chars + node_chars > char_budget:
+            break
+        selected.append(node)
+        seen.add(nid)
+        chars += node_chars
+
+    return selected or ranked[:1]
 
 
 def _build_context(nodes: list[dict[str, Any]], limit: int = 10) -> str:
     parts = []
-    for idx, node in enumerate(sorted(nodes, key=lambda item: item.get("score", 0.0), reverse=True)[:limit], start=1):
+    for idx, node in enumerate(
+        sorted(nodes, key=_rag_node_relevance_key, reverse=True)[:limit],
+        start=1,
+    ):
         parts.append(
             "\n".join(
                 [
@@ -825,21 +1391,26 @@ def _relevance_level(score: float) -> str:
 
 
 def _build_citations(nodes: list[dict[str, Any]], limit: int = 6) -> list[dict[str, Any]]:
-    ranked = sorted(nodes, key=lambda item: item.get("score", 0.0), reverse=True)[:limit]
+    ranked = sorted(nodes, key=_rag_node_relevance_key, reverse=True)[:limit]
+    doc_accn = _first_accession_per_document(ranked)
     citations = []
     for item in ranked:
-        sc = float(item.get("score") or 0.0)
+        sc = _rag_node_relevance_key(item)
         doc_id = item.get("document_id")
         if doc_id is None:
             continue
+        int_doc = int(doc_id)
+        accns = _node_accessions(item)
+        accn = accns[0] if accns else doc_accn.get(int_doc)
         citations.append(
             {
-                "document_id": int(doc_id),
+                "document_id": int_doc,
                 "section_number": int(item.get("order_index") or 0) + 1,
                 "quote": (item.get("text") or "")[:280],
                 "relevance_score": sc,
                 "relevance_level": _relevance_level(sc),
                 "node_id": item.get("node_id"),
+                **({"accn": accn} if accn else {}),
             }
         )
     return citations
@@ -935,6 +1506,7 @@ def _build_pipeline_trace(
 
     out: dict[str, Any] = {
         "retrieval_counts": dbg.get("retrieval_counts"),
+        "scoped_leaf_fused_debug": dbg.get("scoped_leaf_fused_debug"),
         "finance_route": dbg.get("finance_route"),
         "evidence_plan": dbg.get("evidence_plan"),
         "evidence_controller": dbg.get("evidence_controller"),
@@ -982,11 +1554,22 @@ def _build_pipeline_trace(
             "added_from_summary_ids": added_from_summary_ids,
             "dropped_by_rerank_ids": dropped_by_rerank_ids,
         },
+        "rerank_stage_pre_rerank": dbg.get("rerank_stage_pre_rerank"),
+        "rerank_stage_rerank_out": dbg.get("rerank_stage_rerank_out"),
+        "rerank_stage_final_ranked": dbg.get("rerank_stage_final_ranked"),
         "retrieval_rerank_hits": {
             "input": pre_rerank_hits,
             "output": final_ranked_hits,
         },
         "retrieval_filing_distribution": dbg.get("fused_filing_distribution"),
+        "metadata_filter_policy": dbg.get("metadata_filter_policy") or (dbg.get("finance_route") or {}).get("retrieval_filter_policy"),
+        "retrieval_soft_hints": dbg.get("retrieval_soft_hints"),
+        "section_policy": dbg.get("section_policy"),
+        "answerability": dbg.get("answerability"),
+        "coverage_selection": dbg.get("coverage_selection"),
+        "post_rerank_selector": dbg.get("post_rerank_selector"),
+        "evidence_gate": dbg.get("evidence_gate"),
+        "narrative_pool": dbg.get("narrative_pool"),
         "retrieval_passes": {
             key: _slim_pass(value)
             for key, value in (dbg.get("retrieval_passes") or {}).items()
@@ -1021,11 +1604,132 @@ def _build_pipeline_trace(
             "sql_rag_narrowing：hybrid 且 FINANCE_SQL_NARROW_RAG_ENABLED 时，用 SQL 行的 accn / taxonomy.metric_key 与节点 text（及扁平 metadata）"
             "做子串匹配。FINANCE_SQL_NARROW_RAG_STRICT=true 时池子长度压到 top_k：先尽数命中（按分），不足再用高分未命中回填；"
             "false 时整池命中在前、未命中在后，由后续 [:top_k] 截断。",
+            "section_policy / answerability / evidence_gate / coverage_selection：叙事检索的 question-aware 策略与可回答性统计（来自 retrieval.debug）。",
+            "post_rerank_selector：叙事路径在 rerank 之后对 top 结果的近重复剔除与可引用性硬拦（dropped_hard_blocked_ids / dropped_duplicate）。",
+            "mixed_narrative_first + sql_before_rag：MIXED_NARRATIVE_SQL_ALIGN_TO_RAG_FILINGS=true 时首轮 RAG 后"
+            "用 RAG 顶部 accession 作为 preferred_accns 再拉 SQL（与首轮 SQL accns 取并集），"
+            "trace 见 retrieval.debug.sql_aligned_to_rag_filings；rag_before_sql 路径已在 sql_after_rag 对齐，不重复执行。",
         ],
     }
     if include_full_debug:
         out["retrieval_debug_top_keys"] = list(dbg.keys())
     return out
+
+
+def _build_trace_input_payload(
+    *,
+    question: str,
+    document_ids: list[int],
+    detail_level: str,
+    top_k: int,
+) -> dict[str, Any]:
+    return {
+        "question_preview": (question or "")[:240],
+        "question_len": len(question or ""),
+        "document_count": len(document_ids),
+        "detail_level": detail_level,
+        "top_k": int(top_k),
+    }
+
+
+def _build_trace_metadata_whitelist(
+    *,
+    route: Any,
+    evidence_plan: Any | None,
+    retrieval_debug: dict[str, Any],
+    sql_rows: list[dict[str, Any]],
+    citations: list[dict[str, Any]],
+    sources_used: int,
+    latency_ms: float,
+    token_usage: dict[str, Any] | None,
+    has_evidence: bool,
+    limitations: str | None,
+    report_locale: str,
+    confidence: float,
+    document_count: int,
+    include_pipeline_trace: bool,
+) -> dict[str, Any]:
+    second_pass = retrieval_debug.get("second_pass") or {}
+    evidence_gate = retrieval_debug.get("evidence_gate") or {}
+    coverage = retrieval_debug.get("coverage_selection") or {}
+    answerability = retrieval_debug.get("answerability") or {}
+    prompt_tokens = int((token_usage or {}).get("prompt_tokens") or 0)
+    completion_tokens = int((token_usage or {}).get("completion_tokens") or 0)
+    total_tokens = int((token_usage or {}).get("total_tokens") or (prompt_tokens + completion_tokens))
+    question_mode = str(getattr(evidence_plan, "question_mode", "") or "")
+    return {
+        "document_count": int(document_count),
+        "model": config.default_model,
+        "report_locale": report_locale,
+        "route_source": str(getattr(route, "source", "") or ""),
+        "need_sql": bool(getattr(route, "need_sql", False)),
+        "need_rag": bool(getattr(route, "need_rag", False)),
+        "question_mode": question_mode or None,
+        "sql_row_count": len(sql_rows),
+        "citation_count": len(citations),
+        "sources_used": int(sources_used),
+        "has_evidence": bool(has_evidence),
+        "limitations_present": bool(limitations),
+        "second_pass_applied": bool(second_pass.get("applied")),
+        "second_pass_reasons": list(second_pass.get("reasons") or []),
+        "evidence_gate_passed": bool(evidence_gate.get("passed", True)),
+        "evidence_gate_missing_reason": str(evidence_gate.get("missing_reason") or "") or None,
+        "answerability_passed": int(answerability.get("passed") or 0),
+        "coverage_slots": list(coverage.get("slots") or []),
+        "latency_ms": round(float(latency_ms), 2),
+        "prompt_tokens": prompt_tokens,
+        "completion_tokens": completion_tokens,
+        "total_tokens": total_tokens,
+        "confidence": round(float(confidence), 4),
+        "pipeline_trace_attached": bool(include_pipeline_trace),
+    }
+
+
+def _langfuse_usage_details(token_usage: dict[str, Any] | None) -> dict[str, int] | None:
+    """Map LangChain ``response_metadata['token_usage']`` to Langfuse ``usage_details`` (ints only)."""
+    if not isinstance(token_usage, dict) or not token_usage:
+        return None
+
+    def _as_int(val: Any) -> int | None:
+        if val is None:
+            return None
+        try:
+            return int(val)
+        except (TypeError, ValueError):
+            return None
+
+    prompt = _as_int(token_usage.get("prompt_tokens") or token_usage.get("input_tokens"))
+    completion = _as_int(token_usage.get("completion_tokens") or token_usage.get("output_tokens"))
+    total = _as_int(token_usage.get("total_tokens"))
+    out: dict[str, int] = {}
+    if prompt is not None:
+        out["prompt_tokens"] = max(0, prompt)
+    if completion is not None:
+        out["completion_tokens"] = max(0, completion)
+    if total is not None:
+        out["total_tokens"] = max(0, total)
+    elif "prompt_tokens" in out and "completion_tokens" in out:
+        out["total_tokens"] = out["prompt_tokens"] + out["completion_tokens"]
+    return out if out else None
+
+
+def _limitations_message(
+    locale: str,
+    missing_reason: str | None,
+    *,
+    narrative_targets: tuple[str, ...] | list[str] = (),
+) -> str | None:
+    if not missing_reason:
+        return None
+    loc = "en" if str(locale).lower() == "en" else "zh"
+    target_label = ", ".join(str(t).replace("_", " ").title() for t in narrative_targets[:4]) if narrative_targets else "Narrative"
+    messages: dict[str, dict[str, str]] = {
+        "missing_substantive_narrative": {
+            "en": f"Missing substantive {target_label} evidence; only introductory, disclaimer, or non-explanatory text was retrieved.",
+            "zh": f"缺少可用于回答的实质性 {target_label} 叙述证据；当前仅检索到引言、免责声明或非解释性文本。",
+        }
+    }
+    return messages.get(missing_reason, {}).get(loc)
 
 
 async def answer_question(
@@ -1043,12 +1747,12 @@ async def answer_question(
     request_started_at = time.perf_counter()
     trace_ctx = tracer.start_request(
         trace_name,
-        input_payload={
-            "question": question,
-            "document_ids": document_ids,
-            "detail_level": detail_level,
-            "top_k": top_k,
-        },
+        input_payload=_build_trace_input_payload(
+            question=question,
+            document_ids=document_ids,
+            detail_level=detail_level,
+            top_k=top_k,
+        ),
     )
     log_request_id = trace_ctx.trace_id or f"local-{uuid.uuid4().hex[:12]}"
     with rag_request_scope(log_request_id):
@@ -1069,6 +1773,7 @@ async def answer_question(
                 document_ids=document_ids,
                 detail_level=detail_level,
                 top_k=top_k,
+                trace_name=trace_name,
                 trace_ctx=trace_ctx,
                 request_started_at=request_started_at,
                 include_pipeline_trace=include_pipeline_trace,
@@ -1077,7 +1782,15 @@ async def answer_question(
             )
         except Exception as exc:
             log_rag("ask_error", level="error", error=str(exc)[:500])
-            tracer.end_request(trace_ctx, error=str(exc), metadata={"document_ids": document_ids})
+            tracer.end_request(
+                trace_ctx,
+                error=str(exc),
+                metadata={
+                    "document_count": len(document_ids),
+                    "detail_level": detail_level,
+                    "top_k": int(top_k),
+                },
+            )
             raise
 
 
@@ -1087,6 +1800,7 @@ async def _answer_question_body(
     document_ids: list[int],
     detail_level: str,
     top_k: int,
+    trace_name: str,
     trace_ctx: TraceContext,
     request_started_at: float,
     include_pipeline_trace: bool,
@@ -1101,11 +1815,42 @@ async def _answer_question_body(
         )
         from tools.finance.report_locale import LIMITATIONS_NO_EVIDENCE, resolve_report_locale
 
+        document_ids_requested = list(document_ids)
+        excluded_ids = config.rag_ask_excluded_document_id_set
+        if excluded_ids:
+            document_ids = [int(d) for d in document_ids if int(d) not in excluded_ids]
+
         route, sql_context_text, sql_rows, sql_bundle_meta, evidence_plan = await _finance_sql_bundle(
             question, document_ids
         )
-        retrieve_query = (sql_bundle_meta.get("retrieval_query") or "").strip() or question
-        retrieval_metadata_filters = sql_bundle_meta.get("retrieval_metadata_filters") or None
+        if excluded_ids:
+            sql_bundle_meta = {
+                **sql_bundle_meta,
+                "rag_ask_excluded_document_ids": sorted(excluded_ids),
+                "rag_ask_dropped_document_ids": [d for d in document_ids_requested if int(d) in excluded_ids],
+                "document_ids_requested_count": len(document_ids_requested),
+                "document_ids_effective_count": len(document_ids),
+            }
+        structured_retrieval_query = (sql_bundle_meta.get("retrieval_query") or "").strip() or question
+        retrieve_query = structured_retrieval_query
+        if evidence_plan is not None:
+            req0 = getattr(evidence_plan, "evidence_requirements", None)
+            if req0 is not None and bool(getattr(req0, "need_narrative", False)):
+                nq = str(getattr(evidence_plan, "narrative_retrieval_query", "") or "").strip()
+                if nq:
+                    retrieve_query = nq
+        filter_policy = _build_retrieval_filter_policy(
+            evidence_plan,
+            sql_bundle_meta.get("retrieval_metadata_filters"),
+            sql_rows=sql_rows,
+        )
+        retrieval_metadata_filters = filter_policy.get("hard_filters")
+        retrieval_soft_hints = filter_policy.get("soft_hints") or {}
+        sql_bundle_meta["retrieval_filter_policy"] = filter_policy.get("debug")
+        if retrieval_metadata_filters is not None:
+            sql_bundle_meta["retrieval_metadata_filters"] = retrieval_metadata_filters
+        else:
+            sql_bundle_meta.pop("retrieval_metadata_filters", None)
 
         if config.enable_langgraph_planner and route.need_rag:
             with tracer.span("langgraph-plan-and-retrieve", input_payload={"question": question}) as retrieval_span:
@@ -1116,6 +1861,7 @@ async def _answer_question_body(
                         "question": question,
                         "retrieval_query": retrieve_query,
                         "retrieval_metadata_filters": retrieval_metadata_filters,
+                        "retrieval_soft_hints": retrieval_soft_hints,
                         "document_ids": document_ids,
                         "detail_level": detail_level,
                         "top_k": top_k,
@@ -1136,12 +1882,14 @@ async def _answer_question_body(
                     "question": question,
                     "retrieval_query": retrieve_query,
                     "retrieval_metadata_filters": retrieval_metadata_filters,
+                    "retrieval_soft_hints": retrieval_soft_hints,
                 },
             ) as retrieval_span:
                 retrieval = await retrieval_service.retrieve(
                     query=retrieve_query,
                     document_ids=document_ids,
                     metadata_filters=retrieval_metadata_filters,
+                    retrieval_soft_hints=retrieval_soft_hints,
                     evidence_plan=evidence_plan,
                 )
                 if retrieval_span and hasattr(retrieval_span, "update"):
@@ -1155,6 +1903,69 @@ async def _answer_question_body(
         else:
             retrieval = {"nodes": [], "debug": {}}
 
+        if (
+            sql_bundle_meta.get("sql_execution_deferred")
+            and route.need_sql
+            and evidence_plan is not None
+        ):
+            from tools.finance.question_router import format_sql_observations_for_prompt
+
+            rag_accns = _top_accessions_from_rag_hits(retrieval, limit=8)
+            plan_accns = _top_accessions_from_filing_hypotheses(evidence_plan, limit=6)
+            accns_union = list(dict.fromkeys([*rag_accns, *plan_accns]))[:10]
+            merged_sql, sql_after_meta = await _execute_finance_sql_plan(
+                document_ids=document_ids,
+                evidence_plan=evidence_plan,
+                accns=accns_union or None,
+                preferred_accns=rag_accns or None,
+            )
+            row_cap = _sql_prompt_row_cap(evidence_plan, sql_bundle_meta)
+            prompt_rows = min(len(merged_sql), row_cap)
+            sql_rows = merged_sql
+            sql_context_text = format_sql_observations_for_prompt(merged_sql, max_rows=prompt_rows)
+            sql_bundle_meta["sql_execution_deferred"] = False
+            sql_bundle_meta["sql_after_rag"] = {
+                "preferred_accns_from_rag": rag_accns,
+                "accns_from_plan": plan_accns,
+                "accns_union": accns_union,
+                **sql_after_meta,
+            }
+            retrieval.setdefault("debug", {})["sql_after_rag"] = sql_bundle_meta["sql_after_rag"]
+
+        elif (
+            bool(getattr(config, "mixed_narrative_sql_align_to_rag_filings", True))
+            and route.need_sql
+            and route.need_rag
+            and evidence_plan is not None
+            and str(getattr(evidence_plan, "question_mode", "") or "") == "mixed_narrative_first"
+            and not sql_bundle_meta.get("sql_after_rag")
+            and sql_rows
+        ):
+            from tools.finance.question_router import format_sql_observations_for_prompt
+
+            rag_accns = _top_accessions_from_rag_hits(retrieval, limit=10)
+            if rag_accns:
+                prior_accns = _top_accessions_from_sql_rows(sql_rows, limit=8)
+                accns_union = list(dict.fromkeys([*rag_accns, *prior_accns]))[:12]
+                merged_sql, sql_align_meta = await _execute_finance_sql_plan(
+                    document_ids=document_ids,
+                    evidence_plan=evidence_plan,
+                    accns=accns_union or None,
+                    preferred_accns=rag_accns,
+                )
+                row_cap = _sql_prompt_row_cap(evidence_plan, sql_bundle_meta)
+                prompt_rows = min(len(merged_sql), row_cap)
+                sql_rows = merged_sql
+                sql_context_text = format_sql_observations_for_prompt(merged_sql, max_rows=prompt_rows)
+                bundle_align = {
+                    "rag_accns": rag_accns,
+                    "prior_sql_accns": prior_accns,
+                    "accns_union": accns_union,
+                    **sql_align_meta,
+                }
+                sql_bundle_meta["sql_aligned_to_rag_filings"] = bundle_align
+                retrieval.setdefault("debug", {})["sql_aligned_to_rag_filings"] = bundle_align
+
         dbg = retrieval.get("debug") or {}
         first_pass_debug = dict(dbg)
         controller_meta: dict[str, Any] = {}
@@ -1163,6 +1974,7 @@ async def _answer_question_body(
                 evidence_plan,
                 sql_rows=sql_rows,
                 retrieval=retrieval,
+                question=question,
             )
             evidence_plan = refined_plan
             sql_bundle_meta["evidence_plan"] = evidence_plan.to_debug_dict()
@@ -1171,10 +1983,23 @@ async def _answer_question_body(
             dbg["retrieval_passes"] = {"first": first_pass_debug}
 
             if controller_meta.get("run_second_pass") and not config.enable_langgraph_planner:
-                second_filters = dict(evidence_plan.to_retrieval_filters())
+                second_filter_policy = _build_retrieval_filter_policy(
+                    evidence_plan,
+                    dict(evidence_plan.to_retrieval_filters()),
+                    sql_rows=sql_rows,
+                )
+                second_filters = dict(second_filter_policy.get("hard_filters") or {})
+                second_soft_hints = dict(second_filter_policy.get("soft_hints") or {})
                 if controller_meta.get("target_accns"):
                     second_filters["finance_accns"] = list(controller_meta["target_accns"])
-                second_query = _build_second_pass_query(retrieve_query, evidence_plan, controller_meta)
+                    second_filter_policy["debug"]["hard_filters"] = dict(second_filters)
+                    second_filter_policy["debug"]["finance_accns_source"] = "controller_target_accns"
+                narrative_base_second = str(getattr(evidence_plan, "narrative_retrieval_query", "") or "").strip()
+                second_query = _build_second_pass_query(
+                    narrative_base_second or retrieve_query,
+                    evidence_plan,
+                    controller_meta,
+                )
                 second_sql_meta: dict[str, Any] | None = None
                 if route.need_sql and controller_meta.get("target_accns"):
                     from tools.finance.question_router import format_sql_observations_for_prompt
@@ -1194,11 +2019,14 @@ async def _answer_question_body(
                         int((sql_bundle_meta.get("finance_intent") or {}).get("effective_sql_prompt_max_rows") or len(sql_rows)),
                         int(getattr(evidence_plan.retrieval_budget, "sql_row_budget", len(sql_rows))),
                     )
+                    if bool(getattr(getattr(evidence_plan, "evidence_requirements", None), "need_narrative", False)):
+                        row_cap = min(row_cap, 12)
                     sql_context_text = format_sql_observations_for_prompt(sql_rows, max_rows=row_cap)
                 second_retrieval = await retrieval_service.retrieve(
                     query=second_query,
                     document_ids=document_ids,
                     metadata_filters=second_filters,
+                    retrieval_soft_hints=second_soft_hints,
                     evidence_plan=evidence_plan,
                 )
                 retrieval["nodes"] = _merge_ranked_nodes(retrieval.get("nodes") or [], second_retrieval.get("nodes") or [])
@@ -1208,6 +2036,7 @@ async def _answer_question_body(
                     "reasons": list(controller_meta.get("second_pass_reasons") or []),
                     "query": second_query,
                     "metadata_filters": second_filters,
+                    "metadata_filter_policy": second_filter_policy.get("debug"),
                     "sql_meta": second_sql_meta,
                     "node_count_after_merge": len(retrieval["nodes"]),
                 }
@@ -1261,17 +2090,38 @@ async def _answer_question_body(
         )
 
         resolved_locale = resolve_report_locale(question, report_locale)
-        nodes = retrieval["nodes"][: max(1, top_k)]
-        rag_context = _build_context(nodes, limit=max(1, top_k))
-        context_text = _merge_sql_and_rag_context(sql_context_text, rag_context)
+        all_nodes = retrieval.get("nodes") or []
+        narrative_targets = list(getattr(evidence_plan, "narrative_targets", ()) or ())
+        mandatory_ids = _mandatory_ids_for_targets(all_nodes, narrative_targets)
+        nodes = _take_by_budget(
+            all_nodes,
+            k=max(1, top_k),
+            char_budget=config.context_char_budget,
+            mandatory_ids=mandatory_ids,
+        )
+        rag_context = _build_context(nodes, limit=len(nodes))
+        merge_instruction = _mixed_evidence_merge_instruction(evidence_plan)
+        context_text = _merge_sql_and_rag_context(
+            sql_context_text,
+            rag_context,
+            sql_rows=sql_rows if route.need_sql else None,
+            rag_nodes=nodes if route.need_rag else None,
+            merge_instruction=merge_instruction,
+        )
         sql_context_chars = len(sql_context_text or "")
         rag_context_chars = len(rag_context or "")
         citations = _build_citations(nodes)
         llm = get_llm(model_name=config.default_model, temperature=0.1)
         if resolved_locale == "en":
             system_prompt = (
-                "You are a rigorous document QA assistant. You must answer primarily from the retrieved context, "
-                "never invent facts unsupported by context, and clearly state uncertainty when evidence is insufficient. "
+                "You are a rigorous document QA assistant. "
+                "Answer using only facts that are explicitly stated in the provided context. "
+                "Keep your answer concise and grounded; do not add commentary, inferences, or details absent from the context. "
+                "If evidence is insufficient, say so. "
+                "Quote key figures and conclusions using the original wording from the context as closely as possible; "
+                "paraphrase only when the sentence structure requires it. "
+                "Do not infer or invent filing names, section titles, or identifiers not explicitly present in the context. "
+                "Do not append citation notes such as '(Cited source: Source N)' — state facts directly. "
                 "Output language must be English only."
             )
             if sql_context_text.strip():
@@ -1285,15 +2135,19 @@ async def _answer_question_body(
                 f"Available context:\n{context_text}\n\n"
                 "Output requirements:\n"
                 "1. Start with a direct answer.\n"
-                "2. Add 3-5 key points only when needed.\n"
-                "3. Do not fabricate sources; use only the provided context.\n"
-                "4. Write the full answer in English."
+                "2. Add key points only if they are explicitly supported by the context; skip any point you cannot trace to a specific passage.\n"
+                "3. Use the original wording for key figures and conclusions; do not rephrase numbers or dates.\n"
+                "4. Do not fabricate sources; use only the provided context.\n"
+                "5. Write the full answer in English."
             )
         else:
             system_prompt = (
-                "你是一个严谨的文档问答助手。必须优先依据提供的检索上下文作答，"
-                "不能编造未被上下文支持的事实。若证据不足，明确说明。"
-                " 输出语言必须为中文。"
+                "你是一个严谨的文档问答助手。"
+                "只使用上下文中明确陈述的事实作答，保持简洁，不添加推断或上下文中不存在的细节。"
+                "关键数字与结论尽量使用上下文原文措辞，仅在句式确实需要时才转述。"
+                "不要推断或捏造上下文中未出现的 filing 名称、章节标题或编号。"
+                "不要在答案末尾附加「来源：Source N」之类的引用注释，直接陈述事实即可。"
+                "若证据不足，明确说明。输出语言必须为中文。"
             )
             if sql_context_text.strip():
                 system_prompt += (
@@ -1306,9 +2160,10 @@ async def _answer_question_body(
                 f"可用上下文：\n{context_text}\n\n"
                 "输出要求：\n"
                 "1. 先给出直接回答。\n"
-                "2. 如有必要给出 3-5 条要点。\n"
-                "3. 不要伪造来源；只基于已给上下文。\n"
-                "4. 全文使用中文回答。"
+                "2. 仅在能追溯到上下文具体段落时才补充要点，无法追溯的要点直接省略。\n"
+                "3. 关键数字与结论使用原文措辞，不要改写数字或日期。\n"
+                "4. 不要伪造来源；只基于已给上下文。\n"
+                "5. 全文使用中文回答。"
             )
         with tracer.generation(
             "deepseek-answer",
@@ -1338,7 +2193,16 @@ async def _answer_question_body(
                 token_usage=tok if isinstance(tok, dict) else None,
             )
             if generation_span and hasattr(generation_span, "update"):
-                generation_span.update(output={"answer": answer, "citation_count": len(citations)})
+                lf_usage = _langfuse_usage_details(tok if isinstance(tok, dict) else None)
+                gen_update: dict[str, Any] = {
+                    "output": {
+                        "answer_preview": (answer or "")[:500],
+                        "citation_count": len(citations),
+                    },
+                }
+                if lf_usage:
+                    gen_update["usage_details"] = lf_usage
+                generation_span.update(**gen_update)
 
         if trace_ctx.trace_id:
             await enqueue_evaluation_job(
@@ -1349,15 +2213,6 @@ async def _answer_question_body(
                 context_json=nodes,
                 metadata={"detail_level": detail_level},
             )
-
-        tracer.end_request(
-            trace_ctx,
-            output_payload={
-                "answer_preview": answer[:500],
-                "citation_count": len(citations),
-            },
-            metadata={"document_ids": document_ids},
-        )
 
         pipeline_trace = None
         if include_pipeline_trace:
@@ -1382,7 +2237,14 @@ async def _answer_question_body(
 
         has_evidence = bool(citations) or bool(sql_rows)
         latency_ms = round((time.perf_counter() - request_started_at) * 1000, 2)
-        limitations = None if has_evidence else LIMITATIONS_NO_EVIDENCE.get(resolved_locale, LIMITATIONS_NO_EVIDENCE["zh"])
+        missing_reason = str((retrieval.get("debug") or {}).get("evidence_gate", {}).get("missing_reason") or "") or None
+        limitations = _limitations_message(
+            resolved_locale,
+            missing_reason,
+            narrative_targets=getattr(evidence_plan, "narrative_targets", ()) or (),
+        )
+        if not limitations and not has_evidence:
+            limitations = LIMITATIONS_NO_EVIDENCE.get(resolved_locale, LIMITATIONS_NO_EVIDENCE["zh"])
         vertical_scenario = select_vertical_scenario(question, evidence_plan=evidence_plan, locale=resolved_locale)
         external_evaluation = build_external_evaluation_snapshot(
             citations=citations,
@@ -1413,11 +2275,63 @@ async def _answer_question_body(
             0.95,
             0.35 + len(citations) * 0.08 + (0.06 if sql_rows else 0.0),
         )
+        sources_used = len({item["document_id"] for item in citations if item.get("document_id") is not None})
+        trace_metadata = _build_trace_metadata_whitelist(
+            route=route,
+            evidence_plan=evidence_plan,
+            retrieval_debug=retrieval.get("debug", {}),
+            sql_rows=sql_rows,
+            citations=citations,
+            sources_used=sources_used,
+            latency_ms=latency_ms,
+            token_usage=tok if isinstance(tok, dict) else None,
+            has_evidence=has_evidence,
+            limitations=limitations,
+            report_locale=resolved_locale,
+            confidence=confidence,
+            document_count=len(document_ids),
+            include_pipeline_trace=include_pipeline_trace,
+        )
+        tracer.end_request(
+            trace_ctx,
+            output_payload={
+                "answer_preview": answer[:500],
+                "citation_count": len(citations),
+            },
+            metadata=trace_metadata,
+        )
+        try:
+            save_langfuse_observability_report(
+                trace_id=trace_ctx.trace_id or "",
+                trace_name=trace_name,
+                request_payload=_build_trace_input_payload(
+                    question=question,
+                    document_ids=document_ids,
+                    detail_level=detail_level,
+                    top_k=top_k,
+                ),
+                output_payload={
+                    "answer_preview": answer[:500],
+                    "citation_count": len(citations),
+                },
+                trace_metadata=trace_metadata,
+                generation_payload={
+                    "model": config.default_model,
+                    "latency_ms": llm_ms,
+                    "token_usage": tok if isinstance(tok, dict) else {},
+                    "answer_chars": len(answer or ""),
+                    "prompt_chars": len(user_prompt or ""),
+                    "context_chars": len(context_text or ""),
+                },
+                diagnostics=tracer.diagnostics(),
+            )
+        except Exception as exc:
+            log_rag("langfuse_report_write_error", level="warning", error=str(exc)[:300])
         result = {
             "question": question,
             "answer": answer,
             "confidence": confidence,
-            "sources_used": len({item["document_id"] for item in citations if item.get("document_id") is not None}),
+            "sources_used": sources_used,
             "citation_count": len(citations),
             "limitations": limitations,
             "trace_id": trace_ctx.trace_id,

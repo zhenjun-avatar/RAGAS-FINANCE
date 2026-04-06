@@ -9,13 +9,15 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-from langchain_core.messages import HumanMessage, SystemMessage
+from collections import defaultdict
+
 from loguru import logger
 
 from core.config import config
 from .chunk_segmenter import ChunkPayload, build_retrieval_chunks
 from .document_parser import parse_document_content
 from .finance.financial_facts_repository import replace_sec_observations
+from .finance.companyfacts_accession_period import merge_companyfacts_period_into_metadata
 from .finance.sec_company_facts import (
     batch_lines_for_nodes,
     batch_row_groups_for_nodes,
@@ -23,7 +25,6 @@ from .finance.sec_company_facts import (
     flatten_sec_company_facts,
     is_sec_company_facts_payload,
 )
-from .llm import get_llm
 from .node_repository import (
     NodeRecord,
     ensure_schema,
@@ -39,10 +40,6 @@ from .retrieval_backends.factory import get_dense_backend, get_sparse_backend
 from .vectorizer import generate_embeddings_batch
 
 
-def _has_summary_model_configured() -> bool:
-    return bool(config.deepseek_api_key or config.qwen_api_key or config.openai_api_key)
-
-
 _NODE_METADATA_PASSTHROUGH_KEYS: tuple[str, ...] = (
     # routing / domain
     "domain",
@@ -53,11 +50,15 @@ _NODE_METADATA_PASSTHROUGH_KEYS: tuple[str, ...] = (
     "sec_accession",
     "sec_filing_date",
     "primary_document",
+    "form",
+    "document_fiscal_year",
+    "document_fiscal_period",
     # retrieval filters
     "finance_forms",
     "finance_form_base",
     "finance_accns",
     "finance_metric_exact_keys",
+    "finance_period",
     "finance_period_years",
     "finance_period_end_dates",
     # parser artifacts that are useful for diagnostics/citations
@@ -74,20 +75,6 @@ def _normalize_finance_form(form: str | None) -> str | None:
     if text.endswith("/A"):
         text = text[:-2]
     return text
-
-
-def _detect_summary_language(text: str, metadata: dict[str, Any]) -> str:
-    hinted = str(metadata.get("language") or "").strip().lower()
-    if hinted.startswith("en"):
-        return "en"
-    if hinted.startswith("zh"):
-        return "zh"
-    sample = (text or "")[:4000]
-    if not sample:
-        return "zh"
-    ascii_letters = sum(1 for ch in sample if ("a" <= ch.lower() <= "z"))
-    cjk_chars = sum(1 for ch in sample if "\u4e00" <= ch <= "\u9fff")
-    return "en" if ascii_letters > (cjk_chars * 2 + 40) else "zh"
 
 
 def _copy_metadata_value(value: Any) -> Any:
@@ -121,150 +108,9 @@ def _base_node_metadata(document_metadata: dict[str, Any]) -> dict[str, Any]:
     return base
 
 
-def _build_summary_text(group_index: int, chunks: list[ChunkPayload]) -> str:
-    parts: list[str] = []
-    for chunk in chunks[:3]:
-        label = chunk.metadata.get("section_title") or chunk.title
-        preview = chunk.text[:320].strip()
-        if label:
-            parts.append(f"{label}\n{preview}")
-        else:
-            parts.append(preview)
-    body = "\n\n".join(part for part in parts if part).strip()
-    return f"Summary Group {group_index + 1}\n\n{body[:1200]}"
-
-
-def _build_root_fallback_summary(summary_texts: list[str], full_text: str) -> str:
-    body = "\n\n".join(text.strip() for text in summary_texts[:4] if text.strip())
-    if body:
-        return body[:1800]
-    return full_text[:1800]
-
-
-def _normalize_summary_output(text: str, fallback: str) -> str:
-    cleaned = (text or "").strip()
-    if cleaned.startswith("```"):
-        cleaned = cleaned.strip("`").strip()
-    if cleaned.lower().startswith("summary:"):
-        cleaned = cleaned.split(":", 1)[1].strip()
-    return cleaned or fallback
-
-
-def _format_chunk_context(chunk: ChunkPayload, index: int) -> str:
-    labels: list[str] = [f"Chunk {index}"]
-    if chunk.metadata.get("section_title"):
-        labels.append(f"section={chunk.metadata['section_title']}")
-    if chunk.metadata.get("page_start") is not None:
-        page_start = chunk.metadata["page_start"]
-        page_end = chunk.metadata.get("page_end", page_start)
-        labels.append(f"pages={page_start}-{page_end}")
-    header = " | ".join(labels)
-    return f"{header}\n{chunk.text[:900].strip()}"
-
-
-async def _summarize_chunk_group(group_index: int, chunks: list[ChunkPayload]) -> tuple[str, str]:
-    fallback = _build_summary_text(group_index, chunks)
-    if not _has_summary_model_configured():
-        return fallback, "extractive"
-
-    context = "\n\n".join(_format_chunk_context(chunk, idx) for idx, chunk in enumerate(chunks, start=1))
-    lang = _detect_summary_language(context, chunks[0].metadata if chunks else {})
-    llm = get_llm(model_name=config.default_model, temperature=0.0)
-    try:
-        if lang == "en":
-            system_prompt = (
-                "You are a retrieval summarizer. Summarize adjacent document chunks for vector and BM25 retrieval. "
-                "Preserve key entities, conclusions, terminology, and section intent. No fabrication."
-            )
-            human_prompt = (
-                f"Write a 120-220 word summary for chunk group {group_index + 1}.\n\n"
-                f"{context[:3200]}"
-            )
-        else:
-            system_prompt = (
-                "你是检索层摘要器。请为一组相邻文档片段生成适合向量检索和 BM25 检索的摘要。"
-                "保留主题、关键实体、结论、术语和章节语义。不要编造，不要输出列表或前缀。"
-            )
-            human_prompt = (
-                f"请为第 {group_index + 1} 组片段生成 120 到 220 字摘要。\n\n"
-                f"{context[:3200]}"
-            )
-        response = await llm.ainvoke(
-            [
-                SystemMessage(content=system_prompt),
-                HumanMessage(content=human_prompt),
-            ]
-        )
-        summary_text = _normalize_summary_output(
-            response.content if hasattr(response, "content") else str(response),
-            fallback,
-        )
-        if len(summary_text) < 40:
-            return fallback, "extractive"
-        return summary_text[:800], "llm"
-    except Exception as exc:
-        logger.warning(
-            "[Ingestion] Group summary fallback for document chunk group {}: {}",
-            group_index,
-            exc,
-        )
-        return fallback, "extractive"
-
-
-async def _summarize_document(
-    summary_texts: list[str],
-    full_text: str,
-    document_metadata: dict[str, Any],
-) -> tuple[str, str]:
-    fallback = _build_root_fallback_summary(summary_texts, full_text)
-    if not _has_summary_model_configured():
-        return fallback, "extractive"
-
-    doc_title = document_metadata.get("file_name") or "document"
-    context = "\n\n".join(
-        f"Section {idx}\n{text[:700].strip()}"
-        for idx, text in enumerate(summary_texts[:6], start=1)
-        if text.strip()
-    )
-    lang = _detect_summary_language(f"{doc_title}\n{context}", document_metadata)
-    llm = get_llm(model_name=config.default_model, temperature=0.0)
-    try:
-        if lang == "en":
-            system_prompt = (
-                "You are a document-level retrieval summarizer. Produce a parent-node summary for retrieval, "
-                "covering topic, key entities, major claims, conclusions, and section structure. No fabrication."
-            )
-            human_prompt = (
-                f"Document title: {doc_title}\n"
-                "Write a 180-320 word summary for the top retrieval node.\n\n"
-                f"{context[:3600]}"
-            )
-        else:
-            system_prompt = (
-                "你是检索层文档摘要器。请输出适合父节点召回的文档级摘要，"
-                "覆盖主题、关键实体、主要论点、结论和章节结构线索。不要编造。"
-            )
-            human_prompt = (
-                f"文档标题：{doc_title}\n"
-                "请生成 180 到 320 字摘要，用于上层检索节点。\n\n"
-                f"{context[:3600]}"
-            )
-        response = await llm.ainvoke(
-            [
-                SystemMessage(content=system_prompt),
-                HumanMessage(content=human_prompt),
-            ]
-        )
-        summary_text = _normalize_summary_output(
-            response.content if hasattr(response, "content") else str(response),
-            fallback,
-        )
-        if len(summary_text) < 60:
-            return fallback, "extractive"
-        return summary_text[:1200], "llm"
-    except Exception as exc:
-        logger.warning("[Ingestion] Document summary fallback: {}", exc)
-        return fallback, "extractive"
+# Maximum chars stored in a section node's text field.
+# Prevents index bloat for very large sections while keeping content searchable.
+_SECTION_TEXT_CAP = 6000
 
 
 def _merge_chunk_metadata(document_metadata: dict[str, Any], chunk: ChunkPayload) -> dict[str, Any]:
@@ -273,30 +119,15 @@ def _merge_chunk_metadata(document_metadata: dict[str, Any], chunk: ChunkPayload
     return merged
 
 
-def _merge_group_metadata(document_metadata: dict[str, Any], chunks: list[ChunkPayload]) -> dict[str, Any]:
-    merged = _base_node_metadata(document_metadata)
-    merged["group_size"] = len(chunks)
-
-    page_starts = [int(chunk.metadata["page_start"]) for chunk in chunks if "page_start" in chunk.metadata]
-    page_ends = [int(chunk.metadata["page_end"]) for chunk in chunks if "page_end" in chunk.metadata]
-    section_titles = [
-        str(chunk.metadata["section_title"])
-        for chunk in chunks
-        if chunk.metadata.get("section_title")
-    ]
-    heading_paths = [chunk.metadata.get("heading_path") for chunk in chunks if chunk.metadata.get("heading_path")]
-
-    if page_starts:
-        merged["page_start"] = min(page_starts)
-        merged["page_end"] = max(page_ends or page_starts)
-    if section_titles:
-        merged["section_title"] = section_titles[0]
-        merged["section_titles"] = list(dict.fromkeys(section_titles))[:4]
-    if heading_paths:
-        merged["heading_path"] = heading_paths[0]
-        merged["section_depth"] = len(heading_paths[0])
-
-    return merged
+def _chunk_section_path(chunk: ChunkPayload) -> list[str]:
+    raw = chunk.metadata.get("section_path")
+    if isinstance(raw, list):
+        return [str(item).strip() for item in raw if str(item).strip()][:12]
+    raw = chunk.metadata.get("heading_path")
+    if isinstance(raw, list):
+        return [str(item).strip() for item in raw if str(item).strip()][:12]
+    section_title = str(chunk.metadata.get("section_title") or "").strip()
+    return [section_title] if section_title else []
 
 
 def _attach_retrieval_fields(
@@ -370,101 +201,123 @@ def _node_index_record(node: NodeRecord | dict[str, Any]) -> dict[str, Any]:
     }
 
 
-async def _build_nodes(document_id: int, ingest_run_id: str, text: str, metadata: dict[str, Any]) -> list[NodeRecord]:
-    chunks = build_retrieval_chunks(text)
-    summary_group_size = max(2, config.hierarchical_group_size)
-    nodes: list[NodeRecord] = []
-    grouped_chunks = [
-        chunks[group_index : group_index + summary_group_size]
-        for group_index in range(0, len(chunks), summary_group_size)
-        if chunks[group_index : group_index + summary_group_size]
-    ]
-    group_summaries = await asyncio.gather(
-        *[
-            _summarize_chunk_group(group_index, group_chunks)
-            for group_index, group_chunks in enumerate(grouped_chunks)
-        ]
-    ) if grouped_chunks else []
+def _build_section_tree_nodes(
+    chunks: list[ChunkPayload],
+    *,
+    document_id: int,
+    ingest_run_id: str,
+    metadata: dict[str, Any],
+) -> list[NodeRecord]:
+    """Build a multi-level section tree from chunk section_paths.
 
-    for summary_order, group_chunks in enumerate(grouped_chunks):
-        summary_id = str(uuid.uuid4())
-        summary_text, summary_method = group_summaries[summary_order]
-        summary_metadata = _merge_group_metadata(metadata, group_chunks)
-        summary_metadata["summary_method"] = summary_method
+    Node levels:
+      level = 0          : leaf chunk (verbatim text; primary retrieval and context unit)
+      level = path_depth : section node, where depth = len(section_path)
+                           level=1 is shallowest (e.g. "Part I"),
+                           higher levels are progressively deeper and more specific
+                           (e.g. level=3 for "Liquidity and Capital Resources").
+
+    Section node text = concatenation of all descendant leaf texts, capped at
+    _SECTION_TEXT_CAP chars.  No LLM calls are needed.
+
+    This structure enables:
+      - Inner-to-outer retrieval: search at deeper levels first, fall back to shallower.
+      - Section-bounded context: fetch siblings (same parent_id) instead of ±radius neighbors.
+      - Precise section_role filtering once section nodes are indexed.
+    """
+    # 1. Collect section path per chunk
+    chunk_paths: list[tuple[str, ...]] = [
+        tuple(_chunk_section_path(c)) for c in chunks
+    ]
+
+    # 2. Build ordered map of all unique path prefixes (document order = first-seen)
+    prefix_order: dict[tuple[str, ...], int] = {}
+    for path in chunk_paths:
+        for depth in range(1, len(path) + 1):
+            prefix = path[:depth]
+            if prefix not in prefix_order:
+                prefix_order[prefix] = len(prefix_order)
+
+    # 3. Group leaf texts by full section_path for section node text assembly
+    leaves_by_path: dict[tuple[str, ...], list[str]] = defaultdict(list)
+    for chunk, path in zip(chunks, chunk_paths):
+        if path:
+            leaves_by_path[path].append(chunk.text)
+
+    def _subtree_text(prefix: tuple[str, ...]) -> str:
+        """Concatenated text of all leaves whose path starts with this prefix."""
+        parts: list[str] = []
+        for path, texts in leaves_by_path.items():
+            if path[: len(prefix)] == prefix:
+                parts.extend(texts)
+        return "\n\n".join(parts)[:_SECTION_TEXT_CAP]
+
+    # 4. Create section nodes in document order; parent always created before children
+    section_id_map: dict[tuple[str, ...], str] = {}
+    nodes: list[NodeRecord] = []
+    for prefix, order_idx in sorted(prefix_order.items(), key=lambda kv: kv[1]):
+        node_id = str(uuid.uuid4())
+        section_id_map[prefix] = node_id
+        depth = len(prefix)
+        title = prefix[-1]
+        text = _subtree_text(prefix)
+        sec_meta = _base_node_metadata(metadata)
+        sec_meta["section_path"] = list(prefix)
+        sec_meta["section_depth"] = depth
         nodes.append(
             NodeRecord(
-                node_id=summary_id,
+                node_id=node_id,
                 document_id=document_id,
                 ingest_run_id=ingest_run_id,
-                node_type="summary",
-                level=1,
-                order_index=summary_order,
-                title=group_chunks[0].metadata.get("section_title") or f"Summary {summary_order + 1}",
-                text=summary_text,
+                parent_id=section_id_map.get(prefix[:-1]),
+                node_type="section",
+                level=depth,
+                order_index=order_idx,
+                title=title,
+                text=text or title,
                 metadata=_attach_retrieval_fields(
-                    node_type="summary",
-                    level=1,
-                    title=group_chunks[0].metadata.get("section_title") or f"Summary {summary_order + 1}",
-                    text=summary_text,
-                    metadata=summary_metadata,
+                    node_type="section",
+                    level=depth,
+                    title=title,
+                    text=text or title,
+                    metadata=sec_meta,
                 ),
             )
         )
-        for inner_index, chunk in enumerate(group_chunks):
-            absolute_index = summary_order * summary_group_size + inner_index
-            chunk_title = chunk.title or f"Chunk {absolute_index + 1}"
-            chunk_text = chunk.text
-            nodes.append(
-                NodeRecord(
-                    node_id=str(uuid.uuid4()),
-                    document_id=document_id,
-                    ingest_run_id=ingest_run_id,
-                    parent_id=summary_id,
+
+    # 5. Leaf chunk nodes (level=0); order continues after all section nodes
+    leaf_offset = len(prefix_order)
+    for idx, (chunk, path) in enumerate(zip(chunks, chunk_paths)):
+        parent_id = section_id_map.get(path)
+        title = chunk.title or (path[-1] if path else f"Chunk {idx + 1}")
+        chunk_meta = _merge_chunk_metadata(metadata, chunk)
+        nodes.append(
+            NodeRecord(
+                node_id=str(uuid.uuid4()),
+                document_id=document_id,
+                ingest_run_id=ingest_run_id,
+                parent_id=parent_id,
+                node_type="chunk",
+                level=0,
+                order_index=leaf_offset + idx,
+                title=title,
+                text=chunk.text,
+                metadata=_attach_retrieval_fields(
                     node_type="chunk",
                     level=0,
-                    order_index=absolute_index,
-                    title=chunk_title,
-                    text=chunk_text,
-                    metadata=_attach_retrieval_fields(
-                        node_type="chunk",
-                        level=0,
-                        title=chunk_title,
-                        text=chunk_text,
-                        metadata=_merge_chunk_metadata(metadata, chunk),
-                    ),
-                )
+                    title=title,
+                    text=chunk.text,
+                    metadata=chunk_meta,
+                ),
             )
-
-    if nodes:
-        root_id = str(uuid.uuid4())
-        summary_texts = [item.text for item in nodes if item.level == 1]
-        root_text, root_method = await _summarize_document(summary_texts, text, metadata)
-        root_metadata = _base_node_metadata(metadata)
-        root_metadata["summary_method"] = root_method
-        root = NodeRecord(
-            node_id=root_id,
-            document_id=document_id,
-            ingest_run_id=ingest_run_id,
-            node_type="document_summary",
-            level=2,
-            order_index=0,
-            title="Document Summary",
-            text=root_text or text[:2000],
-            metadata=_attach_retrieval_fields(
-                node_type="document_summary",
-                level=2,
-                title="Document Summary",
-                text=root_text or text[:2000],
-                metadata=root_metadata,
-            ),
         )
-        remapped: list[NodeRecord] = [root]
-        for item in nodes:
-            if item.level == 1:
-                item.parent_id = root_id
-            remapped.append(item)
-        return remapped
+
     return nodes
+
+
+def _build_nodes(document_id: int, ingest_run_id: str, text: str, metadata: dict[str, Any]) -> list[NodeRecord]:
+    chunks = build_retrieval_chunks(text)
+    return _build_section_tree_nodes(chunks, document_id=document_id, ingest_run_id=ingest_run_id, metadata=metadata)
 
 
 async def _write_dense_sparse_for_document(
@@ -499,17 +352,38 @@ async def _write_dense_sparse_for_document(
     return None
 
 
-async def _ingest_parsed_text_pipeline(
+def _elements_to_chunks(
+    elements: list[Any],
+    base_meta: dict[str, Any],
+) -> list[ChunkPayload]:
+    """Convert ParsedElement list → ChunkPayload list (1:1, preserving parser boundaries).
+
+    Each element already has clean text and section metadata from the BS4 enricher;
+    no further splitting is needed.  Element-level metadata (finance_section, footnotes,
+    table_headers_from_narrative …) overrides *base_meta* on a per-key basis.
+    """
+    chunks: list[ChunkPayload] = []
+    for el in elements:
+        meta = dict(base_meta)
+        # Element-level keys win (e.g. finance_section, finance_accns, content_type)
+        meta.update({k: v for k, v in el.metadata.items() if v is not None})
+        meta["section_path"] = el.section_path
+        title = el.table_name or (el.section_path[-1] if el.section_path else None)
+        if title:
+            meta["section_title"] = title
+        chunks.append(ChunkPayload(text=el.text_for_retrieval, title=title, metadata=meta))
+    return chunks
+
+
+async def _store_nodes(
     document_id: int,
     ingest_run_id: str,
-    text: str,
-    metadata: dict[str, Any],
-) -> dict[str, Any]:
-    nodes = await _build_nodes(document_id, ingest_run_id, text, metadata)
+    nodes: list[NodeRecord],
+) -> tuple[int, str | None]:
+    """Persist nodes to Postgres + Qdrant + OpenSearch. Returns (vectorized_count, error)."""
     await replace_document_nodes(document_id, ingest_run_id, nodes)
     index_records = [_node_index_record(item) for item in nodes]
-    node_texts = [item.text for item in nodes]
-    embeddings = await generate_embeddings_batch(node_texts)
+    embeddings = await generate_embeddings_batch([item.text for item in nodes])
     vector_payloads: list[dict[str, Any]] = []
     vectorized_ids: list[str] = []
     for item, embedding, record in zip(nodes, embeddings, index_records):
@@ -517,7 +391,7 @@ async def _ingest_parsed_text_pipeline(
             continue
         vectorized_ids.append(item.node_id)
         vector_payloads.append({**record, "vector": embedding})
-    ingest_err = await _write_dense_sparse_for_document(
+    err = await _write_dense_sparse_for_document(
         document_id,
         node_count=len(nodes),
         index_records=index_records,
@@ -525,14 +399,47 @@ async def _ingest_parsed_text_pipeline(
     )
     if vector_payloads:
         await mark_nodes_vectorized(vectorized_ids)
+    return len(vector_payloads), err
+
+
+async def _ingest_parsed_text_pipeline(
+    document_id: int,
+    ingest_run_id: str,
+    text: str,
+    metadata: dict[str, Any],
+) -> dict[str, Any]:
+    nodes = _build_nodes(document_id, ingest_run_id, text, metadata)
+    vectorized, ingest_err = await _store_nodes(document_id, ingest_run_id, nodes)
     await finish_ingest_run(ingest_run_id, error=ingest_err)
     return {
         "success": ingest_err is None,
         "document_id": document_id,
         "ingest_run_id": ingest_run_id,
         "node_count": len(nodes),
-        "vectorized_count": len(vector_payloads),
+        "vectorized_count": vectorized,
         "word_count": len(text),
+        "metadata": metadata,
+        "error": ingest_err,
+    }
+
+
+async def _ingest_chunks_pipeline(
+    document_id: int,
+    ingest_run_id: str,
+    chunks: list[ChunkPayload],
+    metadata: dict[str, Any],
+) -> dict[str, Any]:
+    """Ingest pre-built chunks (e.g. from edgar_htm_parser) without re-splitting."""
+    nodes = _build_section_tree_nodes(chunks, document_id=document_id, ingest_run_id=ingest_run_id, metadata=metadata)
+    vectorized, ingest_err = await _store_nodes(document_id, ingest_run_id, nodes)
+    await finish_ingest_run(ingest_run_id, error=ingest_err)
+    return {
+        "success": ingest_err is None,
+        "document_id": document_id,
+        "ingest_run_id": ingest_run_id,
+        "node_count": len(nodes),
+        "vectorized_count": vectorized,
+        "word_count": sum(len(c.text) for c in chunks),
         "metadata": metadata,
         "error": ingest_err,
     }
@@ -767,6 +674,11 @@ async def process_edgar_filing_document(
         # Structured label fields for catalog / UI (see tools.document_display)
         "form": form or None,
     }
+    doc_meta = merge_companyfacts_period_into_metadata(doc_meta, cik=cik, accession=accession)
+    if doc_meta.get("form"):
+        nb = _normalize_finance_form(str(doc_meta["form"]))
+        if nb:
+            doc_meta["form"] = nb
     await upsert_document(
         document_id,
         title=title,
@@ -776,6 +688,43 @@ async def process_edgar_filing_document(
     )
     ingest_run_id = await start_ingest_run(document_id, metadata={"source_uri": uri})
     try:
+        # ── BS4 element-aware parser (primary path for .htm/.html) ──────────────
+        if path.suffix.lower() in (".htm", ".html") and config.edgar_html_use_bs4_parser:
+            from .edgar_htm_enricher import EdgarEnricher
+            from .edgar_htm_to_final import parse_htm_to_elements
+
+            form_type = (doc_meta.get("form") or form or "10-q").lower().replace("/a", "")
+            elements = await asyncio.to_thread(
+                parse_htm_to_elements, path, accession=accession, form_type=form_type,
+            )
+            elements = await asyncio.to_thread(EdgarEnricher(use_llm=False).enrich, elements)
+
+            chunk_meta: dict[str, Any] = {
+                "domain": "finance",
+                "source_kind": "sec_edgar_filing",
+                "cik": cik,
+                "entity_name": entity_name,
+                "sec_accession": accession,
+                "finance_accns": [accession],
+                "language": "en",
+                "parser": "edgar_htm_bs4",
+            }
+            eff_form = doc_meta.get("form") or form
+            if eff_form:
+                chunk_meta["finance_forms"] = [eff_form]
+                if nb := _normalize_finance_form(str(eff_form)):
+                    chunk_meta["finance_form_base"] = [nb]
+            if filed:
+                chunk_meta["sec_filing_date"] = filed
+
+            meta = {**doc_meta, **chunk_meta}
+            chunks = _elements_to_chunks(elements, meta)
+            out = await _ingest_chunks_pipeline(document_id, ingest_run_id, chunks, meta)
+            out["ingestion_mode"] = "sec_edgar_htm_bs4"
+            out["element_count"] = len(elements)
+            return out
+
+        # ── Legacy paths: unstructured / generic HTML ───────────────────────────
         body: str
         parse_meta: dict[str, Any] = {}
         if config.edgar_html_use_unstructured:
@@ -847,16 +796,18 @@ async def process_edgar_filing_document(
             "sec_accession": accession,
             "finance_accns": [accession],
         }
-        if form:
-            chunk_meta["finance_forms"] = [form]
-            base_form = _normalize_finance_form(form)
+        eff_form = doc_meta.get("form") or form
+        if eff_form:
+            chunk_meta["finance_forms"] = [eff_form]
+            base_form = _normalize_finance_form(str(eff_form))
             if base_form:
                 chunk_meta["finance_form_base"] = [base_form]
         if filed:
             chunk_meta["sec_filing_date"] = filed
         if uj:
             chunk_meta["unstructured_json"] = uj
-        meta = dict(parse_meta)
+        meta = dict(doc_meta)
+        meta.update(parse_meta)
         meta.update(chunk_meta)
         out = await _ingest_parsed_text_pipeline(document_id, ingest_run_id, text, meta)
         out["ingestion_mode"] = "sec_edgar_html"

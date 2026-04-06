@@ -18,7 +18,7 @@ from tools.ingestion_service import process_document, reindex_document_vectors
 from tools.langfuse_tracing import tracer
 from tools.document_groups import default_document_groups_path, load_document_groups
 from tools.node_repository import ensure_schema, list_available_document_ids, list_document_catalog
-from tools.report_store import get_report, list_reports, save_ask_report
+from tools.report_store import get_report, list_reports, load_evidence_full_text_for_detail, save_ask_report
 
 logging.basicConfig(level=getattr(logging, config.log_level))
 logger = logging.getLogger(__name__)
@@ -55,6 +55,10 @@ app.add_middleware(
 from tools.asks.ask_api import router as ask_router
 
 agent_router.include_router(ask_router)
+
+from tools.leads.leads_api import router as leads_router
+
+agent_router.include_router(leads_router)
 
 
 @app.on_event("startup")
@@ -251,10 +255,16 @@ async def list_document_groups_api():
 @agent_router.post("/api/report/save")
 async def save_report_api(request: ReportSaveRequest):
     try:
+        req_dict = request.request if isinstance(request.request, dict) else {}
+        res_dict = request.response if isinstance(request.response, dict) else {}
+        evidence_full: dict[str, str] | None = None
+        if config.report_detail_full_evidence:
+            evidence_full = await load_evidence_full_text_for_detail(res_dict)
         out = save_ask_report(
-            request_payload=request.request if isinstance(request.request, dict) else {},
-            response_payload=request.response if isinstance(request.response, dict) else {},
+            request_payload=req_dict,
+            response_payload=res_dict,
             source=str(request.source or "frontend"),
+            evidence_full_text=evidence_full,
         )
         return {"ok": True, **out}
     except Exception as exc:

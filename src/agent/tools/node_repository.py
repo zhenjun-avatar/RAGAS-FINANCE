@@ -362,6 +362,91 @@ async def list_document_catalog(*, limit: int = 500) -> list[dict[str, Any]]:
     return out
 
 
+def _catalog_period_years_from_metadata(metadata: dict[str, Any]) -> list[int]:
+    """Derive filing-catalog years from unified ``finance_period`` or legacy keys."""
+    seen: set[int] = set()
+    out: list[int] = []
+    for key in ("finance_period", "finance_period_years", "period_years"):
+        raw = metadata.get(key)
+        if raw is None:
+            continue
+        values = raw if isinstance(raw, list) else [raw]
+        for item in values:
+            s = str(item).strip()
+            if len(s) < 4 or not s[:4].isdigit():
+                continue
+            y = int(s[:4])
+            if 1990 <= y <= 2100 and y not in seen:
+                seen.add(y)
+                out.append(y)
+    return out
+
+
+async def list_sec_filing_catalog(
+    *,
+    document_ids: Iterable[int] | None = None,
+    limit: int = 2000,
+) -> list[dict[str, Any]]:
+    pool = await get_pool()
+    doc_ids = [int(item) for item in document_ids or []]
+    if doc_ids:
+        rows = await pool.fetch(
+            """
+            SELECT
+                d.id AS document_id,
+                d.title,
+                d.source_uri,
+                d.file_type,
+                d.metadata
+            FROM rag_documents d
+            WHERE d.id = ANY($1::bigint[])
+              AND COALESCE(NULLIF(d.metadata->>'sec_accession', ''), NULLIF(d.metadata->>'accn', '')) IS NOT NULL
+            ORDER BY d.id ASC
+            LIMIT $2
+            """,
+            doc_ids,
+            max(1, min(int(limit), 5000)),
+        )
+    else:
+        rows = await pool.fetch(
+            """
+            SELECT
+                d.id AS document_id,
+                d.title,
+                d.source_uri,
+                d.file_type,
+                d.metadata
+            FROM rag_documents d
+            WHERE COALESCE(NULLIF(d.metadata->>'sec_accession', ''), NULLIF(d.metadata->>'accn', '')) IS NOT NULL
+            ORDER BY d.id ASC
+            LIMIT $1
+            """,
+            max(1, min(int(limit), 5000)),
+        )
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        metadata = metadata_as_dict(row.get("metadata"))
+        out.append(
+            {
+                "document_id": int(row["document_id"]),
+                "title": row.get("title"),
+                "source_uri": row.get("source_uri"),
+                "file_type": row.get("file_type"),
+                "accession": metadata.get("sec_accession") or metadata.get("accn"),
+                "form": metadata.get("form"),
+                "filed": metadata.get("sec_filing_date") or metadata.get("filed"),
+                "period_end_dates": metadata.get("finance_period_end_dates") or metadata.get("period_end_dates"),
+                "period_years": _catalog_period_years_from_metadata(metadata)
+                or metadata.get("finance_period_years")
+                or metadata.get("period_years"),
+                "cik": metadata.get("cik"),
+                "entity_name": metadata.get("entity_name"),
+                "metadata": metadata,
+            }
+        )
+    return out
+
+
 async def fetch_children(parent_ids: Iterable[str], limit_per_parent: int = 8) -> list[dict[str, Any]]:
     values = list(dict.fromkeys(parent_ids))
     if not values:
@@ -392,6 +477,112 @@ async def fetch_children(parent_ids: Iterable[str], limit_per_parent: int = 8) -
         limit_per_parent,
     )
     return [dict(row) for row in rows]
+
+
+async def fetch_siblings(node_id: str, *, limit: int = 0) -> list[dict[str, Any]]:
+    """Return level=0 siblings of a leaf node (same parent_id).
+
+    Used for section-bounded context expansion.  If the node has no parent,
+    the node itself is returned as a single-item list.
+
+    Args:
+        limit: Maximum number of siblings to return (0 = no limit).
+    """
+    node = await fetch_node(node_id)
+    if not node:
+        return []
+    parent_id = node.get("parent_id")
+    if not parent_id:
+        return [node]
+    pool = await get_pool()
+    cap = max(1, int(limit)) if limit > 0 else None
+    if cap is not None:
+        rows = await pool.fetch(
+            """
+            SELECT
+                id::text AS node_id,
+                document_id,
+                ingest_run_id::text AS ingest_run_id,
+                parent_id::text AS parent_id,
+                node_type,
+                level,
+                order_index,
+                title,
+                text,
+                metadata
+            FROM rag_nodes
+            WHERE parent_id = $1::uuid AND level = 0
+            ORDER BY order_index ASC
+            LIMIT $2
+            """,
+            parent_id,
+            cap,
+        )
+    else:
+        rows = await pool.fetch(
+            """
+            SELECT
+                id::text AS node_id,
+                document_id,
+                ingest_run_id::text AS ingest_run_id,
+                parent_id::text AS parent_id,
+                node_type,
+                level,
+                order_index,
+                title,
+                text,
+                metadata
+            FROM rag_nodes
+            WHERE parent_id = $1::uuid AND level = 0
+            ORDER BY order_index ASC
+            """,
+            parent_id,
+        )
+    return [dict(r) for r in rows]
+
+
+async def fetch_leaf_descendants(section_ids: Iterable[str]) -> list[dict[str, Any]]:
+    """Return all level=0 leaf descendants of the given section nodes.
+
+    Uses a recursive CTE to traverse the section tree of arbitrary depth, then
+    filters to level=0.  Duplicate node_ids are eliminated by the DISTINCT join.
+    """
+    values = list(dict.fromkeys(str(v) for v in section_ids if str(v).strip()))
+    if not values:
+        return []
+    pool = await get_pool()
+    rows = await pool.fetch(
+        """
+        WITH RECURSIVE tree AS (
+            SELECT id AS node_id, parent_id
+            FROM rag_nodes
+            WHERE id = ANY($1::uuid[])
+
+            UNION ALL
+
+            SELECT n.id, n.parent_id
+            FROM rag_nodes n
+            INNER JOIN tree t ON n.parent_id = t.node_id
+        )
+        SELECT DISTINCT ON (n.id)
+            n.id::text AS node_id,
+            n.document_id,
+            n.ingest_run_id::text AS ingest_run_id,
+            n.parent_id::text AS parent_id,
+            n.node_type,
+            n.level,
+            n.order_index,
+            n.title,
+            n.text,
+            n.metadata
+        FROM rag_nodes n
+        INNER JOIN tree t ON n.id = t.node_id
+        WHERE n.level = 0
+        ORDER BY n.id, n.document_id, n.order_index ASC
+        """,
+        values,
+    )
+    return sorted([dict(r) for r in rows], key=lambda r: (r["document_id"], r["order_index"]))
 
 
 async def fetch_neighbors(node_id: str, radius: int = 1) -> list[dict[str, Any]]:
@@ -432,6 +623,7 @@ async def sparse_search(
     *,
     limit: int,
     levels: Optional[list[int]] = None,
+    parent_ids: Optional[list[str]] = None,
     metadata_filters: Optional[dict[str, list[str]]] = None,
     log_stage: Optional[str] = None,
 ) -> list[dict[str, Any]]:
@@ -448,7 +640,13 @@ async def sparse_search(
     t0 = time.perf_counter()
     filter_clauses: list[str] = []
     filter_args: list[Any] = []
+    parent_filter_sql = ""
+    clean_parent_ids = [str(v).strip() for v in (parent_ids or []) if str(v).strip()]
     base_idx = 4 if levels else 3
+    if clean_parent_ids:
+        filter_args.append(clean_parent_ids)
+        parent_ids_idx = base_idx + len(filter_args) - 1
+        parent_filter_sql = f"\n              AND parent_id = ANY(${parent_ids_idx}::uuid[])"
     for key, values in (metadata_filters or {}).items():
         clean = [str(v) for v in values if str(v).strip()]
         if not clean:
@@ -486,6 +684,7 @@ async def sparse_search(
             WHERE document_id = ANY($1::bigint[])
               AND level = ANY($3::int[])
               AND search_vector @@ query.q
+              {parent_filter_sql}
               {filter_sql}
             ORDER BY sparse_score DESC, level DESC, order_index ASC
             LIMIT $4
@@ -517,6 +716,7 @@ async def sparse_search(
             FROM rag_nodes, query
             WHERE document_id = ANY($1::bigint[])
               AND search_vector @@ query.q
+              {parent_filter_sql}
               {filter_sql}
             ORDER BY sparse_score DESC, level DESC, order_index ASC
             LIMIT $3
@@ -538,6 +738,7 @@ async def sparse_search(
             limit=limit,
             levels=levels,
             document_ids=len(document_ids),
+            parent_ids=len(clean_parent_ids) if clean_parent_ids else None,
             query_len=len(normalized),
             metadata_filter_keys=sorted((metadata_filters or {}).keys()) or None,
             latency_ms=elapsed_ms,
@@ -568,8 +769,8 @@ async def enqueue_evaluation_job(
         document_ids,
         query,
         answer,
-        json.dumps(context_json),
-        json.dumps(metadata or {}),
+        json.dumps(context_json, ensure_ascii=False),
+        json.dumps(metadata or {}, ensure_ascii=False),
     )
     return job_id
 
@@ -589,8 +790,22 @@ async def list_pending_evaluation_jobs(limit: int) -> list[dict[str, Any]]:
     return [dict(row) for row in rows]
 
 
-async def complete_evaluation_job(job_id: str, *, error: Optional[str] = None) -> None:
+async def complete_evaluation_job(
+    job_id: str,
+    *,
+    error: Optional[str] = None,
+    skipped_reason: Optional[str] = None,
+) -> None:
     pool = await get_pool()
+    if skipped_reason:
+        status = "skipped"
+        err = skipped_reason
+    elif error:
+        status = "failed"
+        err = error
+    else:
+        status = "completed"
+        err = None
     await pool.execute(
         """
         UPDATE rag_evaluation_jobs
@@ -598,6 +813,6 @@ async def complete_evaluation_job(job_id: str, *, error: Optional[str] = None) -
         WHERE id = $1::uuid
         """,
         job_id,
-        "failed" if error else "completed",
-        error,
+        status,
+        err,
     )

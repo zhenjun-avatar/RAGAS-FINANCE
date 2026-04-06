@@ -17,6 +17,7 @@ class PostgresSparseBackend:
         *,
         limit: int,
         levels: Optional[list[int]] = None,
+        parent_ids: Optional[list[str]] = None,
         metadata_filters: Optional[dict[str, list[str]]] = None,
         query_plan: Optional[SparseQueryPlan] = None,
         log_stage: Optional[str] = None,
@@ -26,6 +27,7 @@ class PostgresSparseBackend:
             query,
             limit=limit,
             levels=levels,
+            parent_ids=parent_ids,
             metadata_filters=metadata_filters,
             log_stage=log_stage,
         )

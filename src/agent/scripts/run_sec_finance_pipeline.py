@@ -16,11 +16,15 @@ SEC companyfacts（财务）入库 + 可选问答 / 查 SQL 观测。
     # 本地已有 tools\\data\\EDGAR_*.htm：默认与 tools\\data\\CIK0001823776.json 按 accession 对齐 form/filed/公司名
     ..\\venv\\Scripts\\python.exe scripts\\run_sec_finance_pipeline.py ingest-edgar-local --document-id-start 9200
     ..\\venv\\Scripts\\python.exe scripts\\run_sec_finance_pipeline.py ingest-edgar-local --document-id-start 9200 --companyfacts-json tools\\data\\CIK0001823776.json
+    # Apple CIK 320193：tools/data 下共 70 份 EDGAR_320193_*.htm → document_id 9801–9870 需 --document-id-start 9801
+    # 且 --edgar-glob 须匹配全部 70 份（EDGAR_320193_*.htm 或 EDGAR_*.htm）。仅用 0000320193-* 则只有 35 份 → 9801–9835。
+    ..\\venv\\Scripts\\python.exe scripts\\run_sec_finance_pipeline.py ingest-edgar-local --document-id-start 9801 --data-dir tools\\data --edgar-glob "EDGAR_320193_*.htm" --companyfacts-json tools\\data\\CIK0000320193.json
 
     # 问答时传入多个 document_id：facts + 各期 EDGAR
     ..\\venv\\Scripts\\python.exe scripts\\run_sec_finance_pipeline.py ask-multi --document-ids 9002,9100,9101 --question "..."
     # 或使用分组（见 tools/data/document_groups.json 示例格式）
     ..\\venv\\Scripts\\python.exe scripts\\run_sec_finance_pipeline.py ask-multi --group A --question "..."
+    ..\\venv\\Scripts\\python.exe scripts\\run_sec_finance_pipeline.py ask-multi --group F --question "..."
 
 HTTP 子命令需先启动 API::
 
@@ -985,7 +989,11 @@ def main() -> None:
     parser.add_argument(
         "--edgar-glob",
         default="EDGAR_*.htm",
-        help="ingest-edgar-local：相对 data-dir 的 glob",
+        help=(
+            "ingest-edgar-local：相对 data-dir 的 glob（匹配文件数决定 document_id 占用个数）。"
+            "例：Apple tools/data 下 EDGAR_320193_0000320193-*.htm 仅 35 份；"
+            "EDGAR_320193_*.htm 共 70 份，配合 --document-id-start 9801 可得 9801–9870。"
+        ),
     )
     parser.add_argument(
         "--form",

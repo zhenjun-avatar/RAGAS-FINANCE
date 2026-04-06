@@ -240,19 +240,68 @@ def _preview_text(value: str, *, limit: int) -> str:
     return text[: max(1, int(limit)) - 3].rstrip() + "..."
 
 
-def _extract_filings(sql_rows: list[dict[str, Any]], pipeline_trace: dict[str, Any] | None) -> list[str]:
+def _is_boilerplate_narrative_quote(value: str) -> bool:
+    text = _stringify(value).lower()
+    if not text:
+        return False
+    signals = (
+        "table of contents",
+        "references to the",
+        "forward-looking statements",
+        "item 2. management",
+        "blank check company",
+        "formed for the purpose of effecting a merger",
+    )
+    if any(sig in text for sig in signals):
+        return True
+    # Structured XBRL-style lines are not narrative evidence.
+    return text.startswith("us-gaap.") or text.startswith("dei.")
+
+
+def _append_unique_filings(filings: list[str], values: list[str], *, cap: int) -> None:
+    for raw in values:
+        if len(filings) >= cap:
+            return
+        v = _stringify(raw)
+        if v and v not in filings:
+            filings.append(v)
+
+
+def _citation_accessions(citations: list[dict[str, Any]] | None) -> list[str]:
+    out: list[str] = []
+    if not citations:
+        return out
+    for item in citations:
+        accn = _stringify(item.get("accn") or item.get("sec_accession"))
+        if accn and accn not in out:
+            out.append(accn)
+    return out
+
+
+def _extract_filings(
+    sql_rows: list[dict[str, Any]],
+    pipeline_trace: dict[str, Any] | None,
+    *,
+    citations: list[dict[str, Any]] | None = None,
+    cap: int = 6,
+) -> list[str]:
+    """Prefer accessions from narrative citations (matches model context), then SQL, then controller fallbacks."""
     filings: list[str] = []
+    _append_unique_filings(filings, _citation_accessions(citations), cap=cap)
     for row in sql_rows:
+        if len(filings) >= cap:
+            break
         accn = _stringify(row.get("accn"))
         if accn and accn not in filings:
             filings.append(accn)
     trace = pipeline_trace or {}
     controller = trace.get("evidence_controller") or {}
-    for accn in controller.get("target_accns") or []:
-        value = _stringify(accn)
-        if value and value not in filings:
-            filings.append(value)
-    return filings[:6]
+    _append_unique_filings(
+        filings,
+        [_stringify(a) for a in (controller.get("target_accns") or [])],
+        cap=cap,
+    )
+    return filings
 
 
 def _risk_flags(
@@ -307,7 +356,7 @@ def build_external_evaluation_snapshot(
     token_usage: dict[str, Any] | None,
     locale: str = "zh",
 ) -> dict[str, Any]:
-    filings = _extract_filings(sql_rows, pipeline_trace)
+    filings = _extract_filings(sql_rows, pipeline_trace, citations=citations)
     needs_cross_filing = _stringify(question_mode) == "cross_filing_compare"
     evidence_parts = [
         1.0 if citations else 0.0,
@@ -379,9 +428,12 @@ def build_evidence_ui_bundle(
     locale: str = "zh",
 ) -> dict[str, Any]:
     loc = "en" if str(locale).lower() == "en" else "zh"
-    filings = _extract_filings(sql_rows, pipeline_trace)
-    narrative_cards = [
-        {
+    filings = _extract_filings(sql_rows, pipeline_trace, citations=citations)
+    filtered_citations = [item for item in citations if not _is_boilerplate_narrative_quote(item.get("quote") or "")]
+    narrative_cards = []
+    for idx, item in enumerate(filtered_citations[:3], start=1):
+        accn = _stringify(item.get("accn") or item.get("sec_accession"))
+        card: dict[str, Any] = {
             "card_id": f"quote-{idx}",
             "kind": "narrative_quote",
             "title": narrative_evidence_title(idx, loc),
@@ -391,8 +443,9 @@ def build_evidence_ui_bundle(
             "relevance_score": round(float(item.get("relevance_score") or 0.0), 4),
             "relevance_level": item.get("relevance_level"),
         }
-        for idx, item in enumerate(citations[:3], start=1)
-    ]
+        if accn:
+            card["accn"] = accn
+        narrative_cards.append(card)
     structured_cards = [
         {
             "card_id": f"fact-{idx}",

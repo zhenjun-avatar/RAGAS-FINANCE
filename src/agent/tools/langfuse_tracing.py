@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 from contextlib import nullcontext
 from dataclasses import dataclass
+from decimal import ROUND_HALF_UP, Decimal
 from typing import Any, Optional
 
 from loguru import logger
@@ -25,6 +26,26 @@ def _is_enabled() -> bool:
         and config.effective_langfuse_base_url
         and Langfuse is not None
     )
+
+
+def normalize_langfuse_score_value(value: float) -> float:
+    """Clamp to [0,1] and quantize to 4 decimal places (decimal, not binary float).
+
+    Langfuse score summary ``0`` / ``1`` columns use strict bucketing; binary floats
+    from RAGAS often display as ``1.0000`` but do not match the ``1`` bucket.
+    ``Decimal(str(x))`` avoids ``0.1 + 0.2``-style artifacts; quantize matches UI digits.
+    """
+    x = float(value)
+    if x != x:  # NaN
+        return 0.0
+    x = max(0.0, min(1.0, x))
+    q = Decimal(str(x)).quantize(Decimal("0.0001"), rounding=ROUND_HALF_UP)
+    out = float(q)
+    if out == 0.0:
+        return 0.0
+    if out == 1.0:
+        return 1.0
+    return out
 
 
 @dataclass
@@ -175,7 +196,8 @@ class LangfuseTracer:
             self.client.create_score(
                 trace_id=trace_id,
                 name=name,
-                value=value,
+                value=normalize_langfuse_score_value(value),
+                data_type="NUMERIC",
                 comment=comment,
             )
         except Exception as exc:  # pragma: no cover

@@ -5,7 +5,7 @@ Minimal UI for the finance Agentic/RAG workflow:
 - Left sidebar: history only
 - Main area: question, conclusion, key textual evidence, key financial facts, filings
 - Language toggle: `EN` / `中文` / `AUTO`
-- Hidden advanced params (`top_k`, document count) to keep UI concise
+- Hidden advanced params (`top_k`, document count) to keep UI concise; default `top_k` follows `NEXT_PUBLIC_ASK_DEFAULT_TOP_K` (fallback 3), mirroring agent `ASK_DEFAULT_TOP_K`.
 
 ## Run
 

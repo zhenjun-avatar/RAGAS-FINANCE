@@ -18,6 +18,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
+/** Build-time env; align with agent ASK_DEFAULT_TOP_K when omitted in API body. */
+const DEFAULT_ASK_TOP_K = (() => {
+  const raw = process.env.NEXT_PUBLIC_ASK_DEFAULT_TOP_K;
+  if (raw === undefined || raw === "") return 3;
+  const n = Number.parseInt(raw, 10);
+  if (!Number.isFinite(n) || n < 1) return 3;
+  return Math.min(50, n);
+})();
+
 function i18n(locale: ResolvedLocale) {
   if (locale === "en") {
     return {
@@ -245,7 +254,8 @@ export default function HomePage() {
       const requestPayload = {
         question: question.trim(),
         detail_level: "detailed",
-        top_k: 8,
+        top_k: DEFAULT_ASK_TOP_K,
+        include_pipeline_trace: true,
         document_ids: effectiveDocumentIds,
         report_locale: language
       } as const;
@@ -255,6 +265,7 @@ export default function HomePage() {
           question: requestPayload.question,
           detail_level: requestPayload.detail_level,
           top_k: requestPayload.top_k,
+          include_pipeline_trace: requestPayload.include_pipeline_trace,
           document_ids: requestPayload.document_ids,
           report_locale: requestPayload.report_locale
         },

@@ -172,3 +172,9 @@ remove.langgraph_api/
 
 # Local pipeline workdirs
 src/agent/tools/.aiready_work/
+
+# Agent logs, saved reports, parallel batch API outputs
+src/agent/logs/
+src/agent/report/
+src/agent/tools/data/batch_runs/
+src/agent/debug/

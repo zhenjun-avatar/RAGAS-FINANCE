@@ -220,6 +220,7 @@ class OpenSearchSparseBackend:
         *,
         limit: int,
         levels: Optional[list[int]] = None,
+        parent_ids: Optional[list[str]] = None,
         metadata_filters: Optional[dict[str, list[str]]] = None,
         query_plan: Optional[SparseQueryPlan] = None,
         log_stage: Optional[str] = None,
@@ -242,6 +243,9 @@ class OpenSearchSparseBackend:
         filters: list[dict[str, Any]] = [{"terms": {"document_id": document_ids}}]
         if levels:
             filters.append({"terms": {"level": levels}})
+        clean_parent_ids = [str(v).strip() for v in (parent_ids or []) if str(v).strip()]
+        if clean_parent_ids:
+            filters.append(_metadata_terms_filter("parent_id", clean_parent_ids))
         for key, values in (metadata_filters or {}).items():
             clean = [str(v) for v in values if str(v).strip()]
             if clean:
@@ -294,6 +298,7 @@ class OpenSearchSparseBackend:
                 limit=limit,
                 levels=levels,
                 document_ids=len(document_ids),
+                parent_ids=len(clean_parent_ids) if clean_parent_ids else None,
                 query_len=len(normalized),
                 metadata_filter_keys=sorted((metadata_filters or {}).keys()) or None,
                 query_profile=query_plan.profile,

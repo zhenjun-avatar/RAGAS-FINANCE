@@ -15,6 +15,7 @@ class GraphState(TypedDict, total=False):
     question: str
     retrieval_query: str
     retrieval_metadata_filters: dict[str, list[str]]
+    retrieval_soft_hints: dict[str, list[str]]
     document_ids: list[int]
     detail_level: str
     top_k: int
@@ -62,6 +63,7 @@ async def _retrieve(state: GraphState) -> GraphState:
             query=query,
             document_ids=state["document_ids"],
             metadata_filters=state.get("retrieval_metadata_filters"),
+            retrieval_soft_hints=state.get("retrieval_soft_hints"),
         )
         for node in result["nodes"]:
             node_id = node["node_id"]

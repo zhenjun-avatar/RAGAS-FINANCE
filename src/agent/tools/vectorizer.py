@@ -17,6 +17,8 @@ from .rag_stage_log import current_request_id, log_rag
 # DashScope OpenAI-compatible embeddings enforce a small per-request input count for
 # text-embedding-v3 (see provider docs; LangChain uses 6 for v3).
 _QWEN_EMBEDDING_BATCH_CAP = 6
+# Single-input length must be in [1, 8192] (chars/tokens per API); larger payloads 400.
+_QWEN_MAX_INPUT_CHARS = 8192
 
 
 def get_available_api() -> Optional[str]:
@@ -41,6 +43,19 @@ def get_available_api() -> Optional[str]:
         logger.warning("[Vectorizer] DeepSeek does not provide embeddings")
         return None
     return None
+
+
+def _max_embedding_input_chars(api_type: Optional[str]) -> int:
+    if api_type == "qwen":
+        return _QWEN_MAX_INPUT_CHARS
+    return 30000
+
+
+def _normalize_embedding_text(text: str, api_type: Optional[str]) -> str:
+    """Truncate to provider limits; empty text is invalid for Qwen/OpenAI embeddings."""
+    cap = _max_embedding_input_chars(api_type)
+    t = (text or "")[:cap]
+    return t if t.strip() else " "
 
 
 def _embedding_chunk_size(api_type: Optional[str]) -> int:
@@ -97,7 +112,7 @@ async def generate_embeddings_batch(texts: List[str]) -> List[Optional[List[floa
 
     api_type = get_available_api()
     chunk_size = _embedding_chunk_size(api_type)
-    inputs = [(text or "")[:30000] for text in texts]
+    inputs = [_normalize_embedding_text(text, api_type) for text in texts]
     if not inputs:
         return []
 
@@ -147,8 +162,9 @@ async def generate_embeddings_batch(texts: List[str]) -> List[Optional[List[floa
 
         results: List[Optional[List[float]]] = []
         for text in batch:
+            safe = _normalize_embedding_text(text, api_type)
             try:
-                response = await client.embeddings.create(model=model, input=text)
+                response = await client.embeddings.create(model=model, input=safe)
                 results.append(response.data[0].embedding)
             except Exception as exc:
                 logger.warning("[Vectorizer] Per-item embedding failed: {}", exc)

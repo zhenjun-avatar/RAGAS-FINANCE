@@ -1,0 +1,58 @@
+{
+  "schema_version": "1",
+  "question_mode": "mixed_narrative_first",
+  "document_id_range": [9500, 9570],
+  "description": "Sample mixed narrative + structured (XBRL) questions for evaluation; corpus assumed 10-K/10-Q filings mapped to document_ids 9500–9570. Narrative-only subtasks (same ids 1–10, no XBRL/SQL requirement): see mixed_narrative_only_questions.json.",
+  "questions": [
+    {
+      "id": 1,
+      "tags": ["risk_factors", "revenue", "customer_concentration", "xbrl"],
+      "question": "What does the Risk Factors section disclose about concentration of revenue, customer dependence, or single-customer risk, and how do revenue-related XBRL line items in the latest annual and quarterly filings support or qualify those statements? Cite specific narrative language and the relevant facts (metric, period, filing)."
+    },
+    {
+      "id": 2,
+      "tags": ["mda", "operating_results", "cost_structure", "margin", "xbrl"],
+      "question": "How does Management's Discussion and Analysis explain changes in operating results or cost structure (for example cost of revenue, gross margin, or operating margin narrative), and which income-statement XBRL facts (same or adjacent periods, same accession where possible) align with that explanation? Cite both the MD&A wording and the structured numbers."
+    },
+    {
+      "id": 3,
+      "tags": ["mda", "liquidity", "capital_resources", "going_concern", "xbrl"],
+      "question": "What does Management's Discussion and Analysis say about the company's liquidity, capital resources, and ability to continue as a going concern? Cite the filing narrative and XBRL facts."
+    },
+    {
+      "id": 4,
+      "tags": ["mda", "segment_revenue", "xbrl"],
+      "question": "How does MD&A describe segment-level net sales performance (e.g., by reportable segment or product line) for the most recent annual and quarterly periods, and which revenue or segment revenue XBRL facts (with period end and form) match those explanations?"
+    },
+    {
+      "id": 5,
+      "tags": ["risk_factors", "supply_chain", "inventory", "xbrl"],
+      "question": "What does Item 1A Risk Factors say about supply chain concentration, single-source suppliers, or manufacturing outsourcing, and how do related inventory, cost of sales, or purchase obligation disclosures in XBRL (or clearly linked facts in the same filings) relate to those risks?"
+    },
+    {
+      "id": 6,
+      "tags": ["mda", "margin", "operating_income", "xbrl"],
+      "question": "How does MD&A explain changes in gross margin or operating margin year-over-year or quarter-over-quarter, and which gross profit, operating income, or margin-related line items in the latest 10-K and 10-Q filings support the narrative (same or adjacent periods, cite accession)?"
+    },
+    {
+      "id": 7,
+      "tags": ["mda", "liquidity", "debt", "capital_markets", "xbrl"],
+      "question": "What does MD&A disclose about liquidity risk, access to capital markets, or debt covenants, and which cash, debt, or current assets/liabilities XBRL facts from the same or nearest filings align with that discussion?"
+    },
+    {
+      "id": 8,
+      "tags": ["mda", "fx", "tariffs", "trade", "xbrl"],
+      "question": "How does the filing narrative address foreign exchange, tariffs, or international trade restrictions affecting results of operations, and which revenue, operating income, or expense facts (with period labels) are consistent with that discussion?"
+    },
+    {
+      "id": 9,
+      "tags": ["risk_factors", "legal", "contingencies", "xbrl"],
+      "question": "What does Risk Factors say about legal proceedings, regulatory investigations, or contingent liabilities, and which litigation accrual, loss contingency, or legal-related structured facts appear in the same reporting package?"
+    },
+    {
+      "id": 10,
+      "tags": ["mda", "services", "products", "revenue", "xbrl"],
+      "question": "How does MD&A describe trends in Services versus Products revenue and profitability, and which Services- and Products-related revenue or gross margin XBRL facts in the latest annual and quarterly filings support the narrative (cite metric, period, and filing)?"
+    }
+  ]
+}

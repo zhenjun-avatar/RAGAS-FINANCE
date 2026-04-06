@@ -1,0 +1,11 @@
+cd "c:\Users\liuzh\Documents\241201\Backend\rag-testing"
+
+git init
+git branch -M main
+git remote add origin https://github.com/zhenjun-avatar/RAGAS-FINANCE.git
+
+git add .
+git status
+git commit -m "Initial commit: finance RAG pipeline and frontend"
+
+git push -u origin main

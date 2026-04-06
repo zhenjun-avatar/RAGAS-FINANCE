@@ -130,6 +130,7 @@ def dense_search(
     document_ids: list[int],
     limit: int,
     levels: Optional[list[int]] = None,
+    parent_ids: Optional[list[str]] = None,
     metadata_filters: Optional[dict[str, list[str]]] = None,
     log_stage: Optional[str] = None,
 ) -> list[dict[str, Any]]:
@@ -153,6 +154,9 @@ def dense_search(
     ]
     if levels:
         must_conditions.append(FieldCondition(key="level", match=MatchAny(any=levels)))
+    clean_parent_ids = [str(v).strip() for v in (parent_ids or []) if str(v).strip()]
+    if clean_parent_ids:
+        must_conditions.append(FieldCondition(key="parent_id", match=MatchAny(any=clean_parent_ids)))
     for key, values in (metadata_filters or {}).items():
         clean = [str(v) for v in values if str(v).strip()]
         if clean:
@@ -185,6 +189,7 @@ def dense_search(
             limit=limit,
             levels=levels,
             document_ids=len(document_ids),
+            parent_ids=len(clean_parent_ids) if clean_parent_ids else None,
             metadata_filter_keys=sorted((metadata_filters or {}).keys()) or None,
             top_dense_scores=top_scores or None,
             latency_ms=elapsed_ms,
