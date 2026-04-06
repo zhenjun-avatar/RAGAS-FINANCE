@@ -3,6 +3,7 @@
 
 # SEC sample HTML and sidecars (large .htm / JSON)
 src/agent/tools/data/** linguist-vendored
+src/agent/tools/data-bk/** linguist-vendored
 
 # Runtime logs, pipeline traces, exported HTML reports
 src/agent/logs/** linguist-vendored
