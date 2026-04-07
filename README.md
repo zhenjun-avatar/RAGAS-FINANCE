@@ -75,6 +75,47 @@ cd src/agent && venv/Scripts/python -m uvicorn api.server:app --host 0.0.0.0 --p
 cd src/frontend && npm install && npm run dev
 ```
 
+## Document ingest (step-by-step)
+
+All ingest commands run from `**src/agent**` with a virtualenv active and `**src/agent/.env**` configured (`DATABASE_URL`, Qdrant, `EMBEDDING_PROVIDER` + keys, `SPARSE_BACKEND`, OpenSearch fields if applicable). Start Postgres and Qdrant first (`docker compose -f docker-compose.rag.yml up -d` from the repo root).
+
+**What ingest does** — Parses EDGAR-style HTML into a **section tree** (leaves = chunks), writes rows to Postgres, upserts **dense** vectors (Qdrant) and **sparse** index (Postgres full-text or OpenSearch, depending on config). Optional **companyfacts** JSON aligns accession, form, filing date, and entity metadata.
+
+### 1. EDGAR filing HTML (narrative RAG)
+
+Each filing gets its own `**document_id`**, assigned in order from `**--document-id-start`**. Plan ranges so facts + filings do not overlap IDs.
+
+**A. Local `.htm` files** (recommended for repeatable runs) — Files under `--data-dir` matching `--edgar-glob` are ingested one file per `document_id`. Pass `**--companyfacts-json`** so accession-level **form** / **filed** / **entityName** align when filenames embed CIK and accession.
+
+```bash
+# Windows — example: Apple CIK 320193, 70 files → document_id 9801–9870
+venv\Scripts\python scripts\run_sec_finance_pipeline.py ingest-edgar-local --document-id-start 9801 --data-dir tools\data --edgar-glob "EDGAR_320193_*.htm" --companyfacts-json tools\data\CIK0000320193.json
+```
+
+```bash
+# Unix
+venv/bin/python scripts/run_sec_finance_pipeline.py ingest-edgar-local --document-id-start 9801 --data-dir tools/data --edgar-glob 'EDGAR_320193_*.htm' --companyfacts-json tools/data/CIK0000320193.json
+```
+
+Optional overrides: `--form`, `--filed` (YYYY-MM-DD), `--entity-name` when not inferable from JSON.
+
+**B. Download from SEC** — Uses accessions from the companyfacts JSON (or `--accession` filters). Respects `**--edgar-delay`** between requests. `**download-edgar`** saves `.htm` only; `**ingest-edgar**` downloads and ingests (same flags: `--document-id-start`, `--max-filings`, `--download-dir`).
+
+```bash
+venv\Scripts\python scripts\run_sec_finance_pipeline.py list-accessions --json-path tools\data\CIK0000320193.json
+venv\Scripts\python scripts\run_sec_finance_pipeline.py ingest-edgar --document-id-start 9100 --max-filings 5 --json-path tools\data\CIK0000320193.json
+```
+
+### 2. After config or backend changes
+
+If you change `**SPARSE_BACKEND**` (e.g. to OpenSearch) or embedding model / dimension, **re-ingest** affected documents or re-run vector indexing as appropriate. For vector reindex only:
+
+```bash
+venv\Scripts\python scripts\run_sec_finance_pipeline.py reindex-vectors --document-id <id>
+```
+
+Full flag reference: docstring at the top of `[scripts/run_sec_finance_pipeline.py](src/agent/scripts/run_sec_finance_pipeline.py)`.
+
 ## CLI (`src/agent`)
 
 
@@ -87,7 +128,7 @@ cd src/frontend && npm install && npm run dev
 
 
 ```bash
-venv/Scripts/python scripts/run_sec_finance_pipeline.py ask-multi --document-ids 9002,9201 --question "..." --top-k 8
+venv/Scripts/python scripts/run_sec_finance_pipeline.py ask-multi --document-ids 9801 --question "What does the MD&A of Apple's fiscal year 2024 10-K say about liquidity and capital resources? Cite the specific filing narrative and any cash, marketable securities, or debt figures that appear in the retrieved passages." --top-k 8
 ```
 
 More: docstring in `scripts/run_sec_finance_pipeline.py`.
