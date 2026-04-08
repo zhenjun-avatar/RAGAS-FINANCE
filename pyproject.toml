@@ -38,6 +38,18 @@ dev = ["mypy>=1.11", "ruff>=0.6", "pytest>=8.3"]
 requires = ["setuptools>=73", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+where = ["src/agent"]
+
+[tool.mypy]
+python_version = "3.11"
+mypy_path = "src/agent"
+explicit_package_bases = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src/agent"]
+testpaths = ["tests/unit_tests"]
+
 [tool.ruff]
 lint.select = ["E", "F", "I", "UP"]
 lint.ignore = ["E501"]
