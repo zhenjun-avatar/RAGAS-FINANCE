@@ -214,7 +214,8 @@ def _build_detail_snapshot(
     )
     narrative_gates: dict[str, Any] = {}
     sp = pipeline_trace.get("section_policy") if isinstance(pipeline_trace.get("section_policy"), dict) else {}
-    ans = pipeline_trace.get("answerability") if isinstance(pipeline_trace.get("answerability"), dict) else {}
+    _raw_answerability = pipeline_trace.get("answerability")
+    answerability = _raw_answerability if isinstance(_raw_answerability, dict) else {}
     eg = pipeline_trace.get("evidence_gate") if isinstance(pipeline_trace.get("evidence_gate"), dict) else {}
     cov = pipeline_trace.get("coverage_selection") if isinstance(pipeline_trace.get("coverage_selection"), dict) else {}
     prs = (
@@ -222,10 +223,10 @@ def _build_detail_snapshot(
         if isinstance(pipeline_trace.get("post_rerank_selector"), dict)
         else {}
     )
-    if sp or ans or eg or cov or prs:
+    if sp or answerability or eg or cov or prs:
         narrative_gates = {
             "section_policy": sp,
-            "answerability": ans,
+            "answerability": answerability,
             "evidence_gate": eg,
             "coverage_selection": cov,
             "post_rerank_selector": prs,

@@ -501,7 +501,7 @@ def parse_edgar_htm(
 ) -> tuple[list[ParsedElement], Path]:
     """Parse *htm_path* and write a ``*.parsed.json`` sidecar.
 
-    Returns ``(elements, json_path)``.  The JSON is re-used on subsequent
+    Returns ``(elements, json_path)``.  The JSON is reused on subsequent
     calls unless *force* is True.
     """
     json_path = output_path or htm_path.with_name(htm_path.stem + PARSED_JSON_SUFFIX)
