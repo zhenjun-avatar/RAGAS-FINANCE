@@ -52,6 +52,7 @@ jobs:
           path: src/
           # SEC inline-XBRL fixtures: namespace tokens (e.g. xmlns:leas, xmlns:te) and
           # words split across <font> spans are not spelling errors to "fix".
-          skip: "./.git,**/*.htm"
+          # logs/report/debug: runtime artifacts often contain truncated tokens in JSON/JSONL.
+          skip: "./.git,**/*.htm,**/agent/logs/**,**/agent/report/**,**/agent/debug/**"
       - name: Run tests with pytest
         run: uv run pytest tests/unit_tests
