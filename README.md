@@ -23,12 +23,16 @@ Node-centric RAG for **SEC-style filings** (HTML + optional company-facts alignm
 
 **Sample run (n = 100)** — snapshot only; varies by corpus and config.
 
+| Dimension | Example snapshot (n = 100) |
+| --------- | -------------------------- |
+| Quality (RAGAS) | `context_precision`, `faithfulness` (configuration- and corpus-dependent) |
+| Latency | ~10.9 s average end-to-end per question |
+| Cost | ~1.9K average tokens per question |
 
 | Metric              | n   | Avg  | ×0  | ×1  |
 | ------------------- | --- | ---- | --- | --- |
 | `context_precision` | 100 | 0.61 | 15  | 38  |
 | `faithfulness`      | 100 | 0.90 | 4   | 80  |
-
 
 Scores depend on corpus, retrieval, prompts, and `top_k` / context budget.
 
