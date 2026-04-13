@@ -1813,7 +1813,11 @@ async def _answer_question_body(
             build_external_evaluation_snapshot,
             select_vertical_scenario,
         )
-        from tools.finance.report_locale import LIMITATIONS_NO_EVIDENCE, resolve_report_locale
+        from tools.finance.report_locale import (
+            LIMITATIONS_NO_EVIDENCE,
+            narrative_evidence_title,
+            resolve_report_locale,
+        )
 
         document_ids_requested = list(document_ids)
         excluded_ids = config.rag_ask_excluded_document_id_set
@@ -2271,6 +2275,58 @@ async def _answer_question_body(
             vertical_scenario=vertical_scenario,
             locale=resolved_locale,
         )
+        aq_trace: dict[str, Any] = {
+            "enabled": bool(config.ask_evidence_llm_extract_enabled),
+            "refined": False,
+            "quote_count": 0,
+        }
+        if (
+            config.ask_evidence_llm_extract_enabled
+            and route.need_rag
+            and nodes
+            and (answer or "").strip()
+        ):
+            from tools.answer_evidence_quotes import extract_answer_aligned_verified_quotes
+
+            try:
+                with tracer.span(
+                    "answer-evidence-quotes",
+                    input_payload={"question": question[:240], "answer_chars": len(answer or "")},
+                ) as ev_span:
+                    verified_rows = await extract_answer_aligned_verified_quotes(
+                        question=question,
+                        answer=answer or "",
+                        nodes=nodes,
+                        locale=resolved_locale,
+                    )
+                    if ev_span and hasattr(ev_span, "update"):
+                        ev_span.update(output={"verified_quotes": len(verified_rows)})
+                if verified_rows and isinstance(evidence_ui.get("evidence"), dict):
+                    cards: list[dict[str, Any]] = []
+                    for i, row in enumerate(verified_rows, start=1):
+                        card = {
+                            "card_id": f"quote-{i}",
+                            "kind": "narrative_quote",
+                            "title": narrative_evidence_title(i, resolved_locale),
+                            "body": row["body"],
+                            "document_id": row["document_id"],
+                            "node_id": row["node_id"],
+                            "relevance_score": row.get("relevance_score"),
+                            "relevance_level": row.get("relevance_level"),
+                        }
+                        if row.get("accn"):
+                            card["accn"] = row["accn"]
+                        cards.append(card)
+                    evidence_ui["evidence"]["narrative_cards"] = cards
+                    summ = evidence_ui["evidence"].get("summary")
+                    if isinstance(summ, dict):
+                        summ["narrative_card_count"] = len(cards)
+                    aq_trace["refined"] = True
+                    aq_trace["quote_count"] = len(cards)
+            except Exception as exc:
+                log_rag("answer_evidence_quotes_step_error", level="warning", error=str(exc)[:400])
+        if include_pipeline_trace and pipeline_trace is not None:
+            pipeline_trace["answer_evidence_quotes"] = aq_trace
         confidence = min(
             0.95,
             0.35 + len(citations) * 0.08 + (0.06 if sql_rows else 0.0),

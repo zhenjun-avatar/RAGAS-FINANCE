@@ -530,6 +530,65 @@ def list_reports(*, limit: int = 50) -> list[dict[str, Any]]:
     return out
 
 
+def _rewrite_index_excluding(trace_ids: set[str]) -> None:
+    """Drop index lines whose trace_id is in trace_ids (caller must hold _LOCK)."""
+    ids = {str(x).strip() for x in trace_ids if str(x).strip()}
+    if not ids:
+        return
+    if not INDEX_FILE.exists():
+        return
+    try:
+        raw_lines = INDEX_FILE.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return
+    kept: list[str] = []
+    for line in raw_lines:
+        s = line.strip()
+        if not s:
+            continue
+        try:
+            obj = json.loads(s)
+        except json.JSONDecodeError:
+            continue
+        tid = str(obj.get("trace_id") or "").strip()
+        if tid in ids:
+            continue
+        kept.append(line)
+    tmp = INDEX_FILE.with_suffix(".jsonl.rebuild_tmp")
+    tmp.write_text("\n".join(kept) + ("\n" if kept else ""), encoding="utf-8")
+    os.replace(tmp, INDEX_FILE)
+
+
+def delete_reports(*, trace_ids: list[str]) -> dict[str, Any]:
+    """Remove ask_result / detail / langfuse files and purge matching index lines."""
+    want: list[str] = []
+    seen: set[str] = set()
+    for t in trace_ids:
+        s = str(t or "").strip()
+        if s and s not in seen:
+            seen.add(s)
+            want.append(s)
+    deleted: list[str] = []
+    missing: list[str] = []
+    with _LOCK:
+        for tid in want:
+            existed = False
+            for path_fn in (_record_path, _detail_path, _langfuse_path):
+                p = path_fn(tid)
+                if p.exists():
+                    existed = True
+                    try:
+                        p.unlink()
+                    except OSError:
+                        pass
+            if existed:
+                deleted.append(tid)
+            else:
+                missing.append(tid)
+        _rewrite_index_excluding(set(want))
+    return {"deleted": deleted, "missing": missing, "requested": want}
+
+
 def get_report(trace_id: str) -> dict[str, Any] | None:
     safe = str(trace_id or "").strip()
     if not safe:

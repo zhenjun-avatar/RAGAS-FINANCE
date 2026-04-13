@@ -1,7 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { askGenerate, fetchDocumentCatalog, fetchDocumentGroups, fetchReportDetail, fetchReportList, saveAskReport } from "@/lib/api";
+import {
+  askGenerate,
+  deleteReports,
+  fetchDocumentCatalog,
+  fetchDocumentGroups,
+  fetchReportDetail,
+  fetchReportList,
+  saveAskReport
+} from "@/lib/api";
 import { DocumentScope, type DocumentScopeMode } from "@/components/DocumentScope";
 import type {
   AskResponse,
@@ -10,8 +18,7 @@ import type {
   PersistedReportSummary,
   DocumentCatalogItem,
   ReportLocale,
-  ResolvedLocale,
-  StructuredFactCard
+  ResolvedLocale
 } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -37,9 +44,12 @@ function i18n(locale: ResolvedLocale) {
       question: "Question",
       conclusion: "Conclusion",
       narrative: "Key textual evidence",
-      facts: "Key financial facts",
       filings: "Filings referenced",
-      empty: "None"
+      empty: "None",
+      selectAll: "Select all",
+      deselectAll: "Deselect all",
+      deleteSelected: "Delete selected",
+      deleteHistoryConfirm: (n: number) => `Delete ${n} record(s) from history and disk?`
     };
   }
   return {
@@ -50,9 +60,12 @@ function i18n(locale: ResolvedLocale) {
     question: "问题",
     conclusion: "结论",
     narrative: "关键文字证据",
-    facts: "关键财务事实",
-      filings: "涉及披露",
-      empty: "暂无"
+    filings: "涉及披露",
+    empty: "暂无",
+    selectAll: "全选",
+    deselectAll: "取消全选",
+    deleteSelected: "删除所选",
+    deleteHistoryConfirm: (n: number) => `确定删除所选的 ${n} 条记录（含服务端文件）？`
   };
 }
 
@@ -76,10 +89,88 @@ export default function HomePage() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [activeTraceId, setActiveTraceId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [historySelection, setHistorySelection] = useState<Set<string>>(() => new Set());
+  const [historyDeleting, setHistoryDeleting] = useState(false);
 
   const active = useMemo(() => history.find((h) => h.id === activeId) ?? history[0], [activeId, history]);
   const activeLocale = localeFromResult(active?.result);
-  const t = i18n(activeLocale);
+  /** UI chrome follows EN/中文/AUTO; AUTO matches the active answer's report_locale. */
+  const uiLocale: ResolvedLocale = useMemo(() => {
+    if (language === "zh") return "zh";
+    if (language === "en") return "en";
+    return activeLocale;
+  }, [language, activeLocale]);
+  const t = i18n(uiLocale);
+
+  const allHistorySelected = useMemo(
+    () => history.length > 0 && history.every((h) => historySelection.has(h.id)),
+    [history, historySelection]
+  );
+
+  const toggleHistorySelect = useCallback((id: string) => {
+    setHistorySelection((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleSelectAllHistory = useCallback(() => {
+    setHistorySelection((prev) => {
+      if (history.length === 0) return new Set();
+      const allOn = history.every((h) => prev.has(h.id));
+      if (allOn) return new Set();
+      return new Set(history.map((h) => h.id));
+    });
+  }, [history]);
+
+  const deleteSelectedHistory = useCallback(async () => {
+    if (historySelection.size === 0 || historyDeleting) return;
+    const selectedIds = new Set(historySelection);
+    const n = selectedIds.size;
+    const confirmMsg = i18n(uiLocale).deleteHistoryConfirm(n);
+    if (typeof window !== "undefined" && !window.confirm(confirmMsg)) return;
+    const traceIds = Array.from(
+      new Set(
+        history
+          .filter((h) => selectedIds.has(h.id))
+          .map((h) => h.traceId || h.id)
+          .filter((x): x is string => Boolean(x))
+      )
+    );
+    setHistoryDeleting(true);
+    setError(null);
+    try {
+      if (traceIds.length > 0) await deleteReports(traceIds);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Delete failed");
+      setHistoryDeleting(false);
+      return;
+    }
+    const remaining = history.filter((h) => !selectedIds.has(h.id));
+    setHistory(remaining);
+    setHistorySelection(new Set());
+    setActiveId((prev) => {
+      if (prev && selectedIds.has(prev)) return remaining[0]?.id ?? null;
+      if (prev && remaining.some((h) => h.id === prev)) return prev;
+      return remaining[0]?.id ?? null;
+    });
+    setHistoryDeleting(false);
+  }, [history, historySelection, historyDeleting, uiLocale]);
+
+  useEffect(() => {
+    const valid = new Set(history.map((h) => h.id));
+    setHistorySelection((prev) => {
+      const next = new Set<string>();
+      let dirty = false;
+      for (const id of prev) {
+        if (valid.has(id)) next.add(id);
+        else dirty = true;
+      }
+      return dirty ? next : prev;
+    });
+  }, [history]);
 
   useEffect(() => {
     let cancelled = false;
@@ -242,7 +333,7 @@ export default function HomePage() {
     if (!question.trim() || loading) return;
     if (effectiveDocumentIds.length === 0) {
       setError(
-        activeLocale === "en"
+        uiLocale === "en"
           ? "Please select a non-empty document set (group or documents)."
           : "请选择有效的文档范围（分组或文档列表不能为空）。"
       );
@@ -291,72 +382,101 @@ export default function HomePage() {
   };
 
   const narrativeCards: NarrativeCard[] = active?.result.evidence_ui?.evidence?.narrative_cards ?? [];
-  const factCards: StructuredFactCard[] = active?.result.evidence_ui?.evidence?.structured_fact_cards ?? [];
   const filings: string[] = active?.result.external_evaluation?.filings_observed ?? [];
 
   return (
     <main className="h-screen bg-zinc-100">
       <div className="mx-auto flex h-full max-w-[1400px] gap-4 p-4">
-        <aside className="flex w-[280px] flex-col rounded-md border border-zinc-200 bg-white">
-          <div className="px-4 py-3">
+        <aside className="flex h-full min-h-0 w-[280px] shrink-0 flex-col rounded-md border border-zinc-200 bg-white">
+          <div className="shrink-0 px-4 py-3">
             <h2 className="text-sm font-semibold text-zinc-700">{t.history}</h2>
+            {history.length > 0 ? (
+              <div className="mt-2 flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="h-8 text-xs"
+                  disabled={historyDeleting}
+                  onClick={toggleSelectAllHistory}
+                >
+                  {allHistorySelected ? t.deselectAll : t.selectAll}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="h-8 border-red-200 text-xs text-red-700 hover:bg-red-50"
+                  disabled={historySelection.size === 0 || historyDeleting}
+                  onClick={() => void deleteSelectedHistory()}
+                >
+                  {historyDeleting ? "…" : t.deleteSelected}
+                </Button>
+              </div>
+            ) : null}
           </div>
-          <Separator />
+          <Separator className="shrink-0" />
           <div className="min-h-0 flex-1 overflow-y-auto p-2">
             {history.length === 0 ? (
               <p className="px-2 py-3 text-sm text-zinc-500">{t.empty}</p>
             ) : (
               history.map((item) => (
-                <button
+                <div
                   key={item.id}
-                  className={`mb-2 w-full rounded-md border px-3 py-2 text-left ${
-                    active?.id === item.id ? "border-zinc-400 bg-zinc-50" : "border-zinc-200 bg-white hover:bg-zinc-50"
+                  className={`mb-2 flex overflow-hidden rounded-md border ${
+                    active?.id === item.id ? "border-zinc-400 bg-zinc-50" : "border-zinc-200 bg-white"
                   }`}
-                  onClick={() => {
-                    setActiveId(item.id);
-                    if (item.traceId) setActiveTraceId(item.traceId);
-                  }}
                 >
-                  <div className="mb-1 flex items-center justify-between">
-                    <Badge>{item.locale.toUpperCase()}</Badge>
-                    <span className="text-xs text-zinc-500">{new Date(item.createdAt).toLocaleTimeString()}</span>
-                  </div>
-                  <p className="max-h-10 overflow-hidden text-sm text-zinc-700">{item.question}</p>
-                </button>
+                  <label
+                    className="flex shrink-0 cursor-pointer items-start border-r border-zinc-200/80 py-2 pl-2 pr-1"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <input
+                      type="checkbox"
+                      className="mt-1 h-3.5 w-3.5 rounded border-zinc-300 text-zinc-900"
+                      checked={historySelection.has(item.id)}
+                      onChange={() => toggleHistorySelect(item.id)}
+                      aria-label={uiLocale === "en" ? "Select record" : "选择记录"}
+                      disabled={historyDeleting}
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    className="min-w-0 flex-1 px-3 py-2 text-left hover:bg-zinc-50/90"
+                    onClick={() => {
+                      setActiveId(item.id);
+                      if (item.traceId) setActiveTraceId(item.traceId);
+                    }}
+                  >
+                    <div className="mb-1 flex items-center justify-between gap-1">
+                      <Badge>{item.locale.toUpperCase()}</Badge>
+                      <span className="shrink-0 text-xs text-zinc-500">{new Date(item.createdAt).toLocaleTimeString()}</span>
+                    </div>
+                    <p className="max-h-10 overflow-hidden text-sm text-zinc-700">{item.question}</p>
+                  </button>
+                </div>
               ))
             )}
           </div>
         </aside>
 
-        <section className="flex min-w-0 flex-1 flex-col gap-4">
-          <Card>
-            <CardContent className="pt-5">
-              <div className="mb-3 flex items-center justify-between">
+        <section className="flex min-h-0 min-w-0 flex-1 flex-col gap-4">
+          <Card className="shrink-0">
+            <CardContent className="py-4">
+              <div className="flex items-center justify-between">
                 <h1 className="text-base font-semibold text-zinc-900">{t.title}</h1>
                 <div className="flex items-center gap-2">
                   <Button variant={language === "en" ? "default" : "outline"} size="sm" onClick={() => setLanguage("en")}>
-                    EN
+                    英文
                   </Button>
                   <Button variant={language === "zh" ? "default" : "outline"} size="sm" onClick={() => setLanguage("zh")}>
                     中文
                   </Button>
                   <Button variant={language === "auto" ? "default" : "outline"} size="sm" onClick={() => setLanguage("auto")}>
-                    AUTO
+                    自动
                   </Button>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <input
-                  value={question}
-                  onChange={(e) => setQuestion(e.target.value)}
-                  placeholder={t.placeholder}
-                  className="h-10 flex-1 rounded-md border border-zinc-300 bg-white px-3 text-sm outline-none focus:border-zinc-500"
-                />
-                <Button onClick={submit} disabled={loading}>
-                  {loading ? "..." : t.send}
-                </Button>
-              </div>
-              {error ? <p className="mt-2 text-sm text-red-600">{error}</p> : null}
             </CardContent>
           </Card>
 
@@ -401,38 +521,6 @@ export default function HomePage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>{t.facts}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {factCards.length === 0 ? (
-                  <p className="text-sm text-zinc-500">{t.empty}</p>
-                ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse text-sm">
-                      <thead>
-                        <tr className="bg-zinc-50">
-                          <th className="border border-zinc-200 px-3 py-2 text-left font-medium">Metric</th>
-                          <th className="border border-zinc-200 px-3 py-2 text-left font-medium">Value</th>
-                          <th className="border border-zinc-200 px-3 py-2 text-left font-medium">Filing / Context</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {factCards.map((row, i) => (
-                          <tr key={row.card_id || i}>
-                            <td className="border border-zinc-200 px-3 py-2">{row.title || "-"}</td>
-                            <td className="border border-zinc-200 px-3 py-2">{row.body || "-"}</td>
-                            <td className="border border-zinc-200 px-3 py-2">{row.subtitle || "-"}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
                 <CardTitle>{t.filings}</CardTitle>
               </CardHeader>
               <CardContent>
@@ -461,10 +549,33 @@ export default function HomePage() {
               </CardContent>
             </Card>
           </div>
+
+          <Card className="shrink-0">
+            <CardContent className="py-4">
+              <div className="flex gap-2">
+                <input
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      void submit();
+                    }
+                  }}
+                  placeholder={t.placeholder}
+                  className="h-10 flex-1 rounded-md border border-zinc-300 bg-white px-3 text-sm outline-none focus:border-zinc-500"
+                />
+                <Button onClick={() => void submit()} disabled={loading}>
+                  {loading ? "..." : t.send}
+                </Button>
+              </div>
+              {error ? <p className="mt-2 text-sm text-red-600">{error}</p> : null}
+            </CardContent>
+          </Card>
         </section>
 
         <DocumentScope
-          locale={activeLocale}
+          locale={uiLocale}
           mode={scopeMode}
           onModeChange={handleScopeModeChange}
           groups={groupsMap}

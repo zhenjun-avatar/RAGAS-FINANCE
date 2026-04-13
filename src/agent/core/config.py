@@ -112,6 +112,17 @@ class Config(BaseSettings):
     # POST /api/ask/generate (and vector search) when request body omits top_k; batch script default if --top-k not passed.
     ask_default_top_k: int = Field(default=3, ge=1, le=50, env="ASK_DEFAULT_TOP_K")
     ask_vector_search_default_top_k: int = Field(default=3, ge=1, le=20, env="ASK_VECTOR_SEARCH_DEFAULT_TOP_K")
+    # After the answer is generated, optionally call an LLM to pick verbatim excerpts for evidence_ui narrative_cards.
+    ask_evidence_llm_extract_enabled: bool = Field(default=True, env="ASK_EVIDENCE_LLM_EXTRACT_ENABLED")
+    ask_evidence_llm_max_sources: int = Field(default=12, ge=1, le=24, env="ASK_EVIDENCE_LLM_MAX_SOURCES")
+    ask_evidence_llm_chars_per_source: int = Field(
+        default=7000, ge=800, le=50000, env="ASK_EVIDENCE_LLM_CHARS_PER_SOURCE"
+    )
+    ask_evidence_llm_max_quotes: int = Field(default=3, ge=1, le=5, env="ASK_EVIDENCE_LLM_MAX_QUOTES")
+    ask_evidence_llm_min_quote_chars: int = Field(default=40, ge=10, le=500, env="ASK_EVIDENCE_LLM_MIN_QUOTE_CHARS")
+    ask_evidence_llm_max_quote_chars: int = Field(
+        default=1200, ge=200, le=8000, env="ASK_EVIDENCE_LLM_MAX_QUOTE_CHARS"
+    )
     retrieve_top_k: int = Field(default=12, env="RETRIEVE_TOP_K")
     retrieve_candidate_k: int = Field(default=40, env="RETRIEVE_CANDIDATE_K")
     sparse_top_k: int = Field(default=30, env="SPARSE_TOP_K")

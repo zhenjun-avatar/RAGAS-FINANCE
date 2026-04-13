@@ -74,13 +74,13 @@ export function DocumentScope(props: DocumentScopeProps) {
   }, [props.documentCatalog]);
 
   return (
-    <aside className="flex w-[260px] flex-col rounded-md border border-zinc-200 bg-white">
-      <div className="px-4 py-3">
+    <aside className="flex h-full min-h-0 w-[260px] shrink-0 flex-col rounded-md border border-zinc-200 bg-white">
+      <div className="shrink-0 px-4 py-3">
         <h2 className="text-sm font-semibold text-zinc-700">{t.title}</h2>
       </div>
-      <Separator />
-      <div className="space-y-3 p-3">
-        <div className="flex gap-1 rounded-md border border-zinc-200 p-0.5">
+      <Separator className="shrink-0" />
+      <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden p-3">
+        <div className="flex shrink-0 gap-1 rounded-md border border-zinc-200 p-0.5">
           <Button
             type="button"
             variant={props.mode === "group" ? "default" : "ghost"}
@@ -102,21 +102,21 @@ export function DocumentScope(props: DocumentScopeProps) {
         </div>
 
         {props.mode === "group" ? (
-          <div className="space-y-2">
+          <div className="flex min-h-0 flex-1 flex-col gap-2">
             {props.groupsLoading ? (
               <p className="text-xs text-zinc-500">{t.loading}</p>
             ) : props.groupsMissing || keys.length === 0 ? (
               <p className="text-xs text-zinc-500">{t.noGroups}</p>
             ) : (
               <>
-                <label className="block text-xs text-zinc-500" htmlFor="doc-group-select">
+                <label className="block shrink-0 text-xs text-zinc-500" htmlFor="doc-group-select">
                   {t.selectGroup}
                 </label>
                 <select
                   id="doc-group-select"
                   value={props.selectedGroupKey}
                   onChange={(e) => props.onGroupKeyChange(e.target.value)}
-                  className="h-9 w-full rounded-md border border-zinc-300 bg-white px-2 text-sm outline-none focus:border-zinc-500"
+                  className="h-9 w-full shrink-0 rounded-md border border-zinc-300 bg-white px-2 text-sm outline-none focus:border-zinc-500"
                 >
                   {keys.map((k) => (
                     <option key={k} value={k}>
@@ -124,12 +124,12 @@ export function DocumentScope(props: DocumentScopeProps) {
                     </option>
                   ))}
                 </select>
-                <div className="space-y-1 text-xs text-zinc-500">
-                  <p>{t.groupIdsHint}</p>
+                <div className="flex min-h-0 flex-1 flex-col gap-1 text-xs text-zinc-500">
+                  <p className="shrink-0">{t.groupIdsHint}</p>
                   {ids.length === 0 ? (
-                    <p className="font-mono text-zinc-700">—</p>
+                    <p className="shrink-0 font-mono text-zinc-700">—</p>
                   ) : (
-                    <ul className="max-h-40 space-y-1 overflow-y-auto rounded border border-zinc-100 bg-zinc-50/80 p-2">
+                    <ul className="min-h-0 flex-1 space-y-1 overflow-y-auto rounded border border-zinc-100 bg-zinc-50/80 p-2">
                       {ids.map((id) => {
                         const row = catalogById.get(id);
                         const label = row?.display_name ?? `Document ${id}`;
@@ -147,15 +147,15 @@ export function DocumentScope(props: DocumentScopeProps) {
             )}
           </div>
         ) : (
-          <>
-            <p className="text-xs text-zinc-500">{t.selectedDocuments}</p>
+          <div className="flex min-h-0 flex-1 flex-col gap-2">
+            <p className="shrink-0 text-xs text-zinc-500">{t.selectedDocuments}</p>
             <input
               value={props.docInput}
               onChange={(e) => props.onDocInputChange(e.target.value)}
               placeholder="9002,9100"
-              className="h-9 w-full rounded-md border border-zinc-300 px-2 text-sm outline-none focus:border-zinc-500"
+              className="h-9 w-full shrink-0 rounded-md border border-zinc-300 px-2 text-sm outline-none focus:border-zinc-500"
             />
-            <div className="max-h-[70vh] space-y-2 overflow-y-auto">
+            <div className="min-h-0 flex-1 space-y-2 overflow-y-auto">
               {(props.documentCatalog.length > 0
                 ? props.documentCatalog
                 : props.selectedDocIds.map((id) => ({
@@ -184,7 +184,7 @@ export function DocumentScope(props: DocumentScopeProps) {
                 );
               })}
             </div>
-          </>
+          </div>
         )}
       </div>
     </aside>

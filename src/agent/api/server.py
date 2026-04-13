@@ -18,7 +18,7 @@ from tools.ingestion_service import process_document, reindex_document_vectors
 from tools.langfuse_tracing import tracer
 from tools.document_groups import default_document_groups_path, load_document_groups
 from tools.node_repository import ensure_schema, list_available_document_ids, list_document_catalog
-from tools.report_store import get_report, list_reports, load_evidence_full_text_for_detail, save_ask_report
+from tools.report_store import delete_reports, get_report, list_reports, load_evidence_full_text_for_detail, save_ask_report
 
 logging.basicConfig(level=getattr(logging, config.log_level))
 logger = logging.getLogger(__name__)
@@ -108,6 +108,10 @@ class ReportSaveRequest(BaseModel):
     request: dict
     response: dict
     source: str = "frontend"
+
+
+class ReportDeleteRequest(BaseModel):
+    trace_ids: list[str]
 
 
 @agent_router.get("/")
@@ -293,6 +297,15 @@ async def get_report_api(trace_id: str):
         raise
     except Exception as exc:
         logger.exception("[API] get report failed")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@agent_router.post("/api/report/delete")
+async def delete_reports_api(request: ReportDeleteRequest):
+    try:
+        return delete_reports(trace_ids=list(request.trace_ids or []))
+    except Exception as exc:
+        logger.exception("[API] delete reports failed")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
